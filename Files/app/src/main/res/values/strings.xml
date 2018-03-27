@@ -4,6 +4,14 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="signup">SIGNUP</string>
+    <string name="email">Email:</string>
+    <string name="name">Name</string>
+    <string name="mobile">Mobile</string>
+    <string name="address">Address</string>
+    <string name="pin_code">Pin Code</string>
+    <string name="current_city">Current City</string>
+    <string name="gerder">Gerder</string>
+    <string name="date_of_birth">Date of Birth</string>
     <string name="current_education">Current Education</string>
     <string name="college">College</string>
     <string name="year_of_completion">Year of Completion</string>
@@ -13,4 +21,5 @@
     <string name="school">School</string>
     <string name="_12th_education">12th Education</string>
     <string name="_10th_education">10th Education</string>
+
 </resources>

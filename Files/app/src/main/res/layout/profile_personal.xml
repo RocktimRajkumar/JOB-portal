@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/RL_main"
+    android:layout_marginTop="20dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/TV_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textSize="@dimen/pofileTV" />
+
+            <EditText
+                android:id="@+id/ET_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TV_email"
+                android:textSize="@dimen/pofileET"
+                android:inputType="textEmailAddress"/>
+
+            <TextView
+                android:id="@+id/TV_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ET_email"
+                android:layout_marginTop="15dp"
+                android:text="@string/name"
+                android:textSize="@dimen/pofileTV"/>
+            <EditText
+                android:id="@+id/ET_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TV_name"
+                android:textSize="@dimen/pofileET"
+                android:inputType="textCapWords"/>
+
+            <TextView
+                android:id="@+id/TV_mobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ET_name"
+                android:layout_marginTop="15dp"
+                android:text="@string/mobile"
+                android:textSize="@dimen/pofileTV"/>
+            <EditText
+                    android:id="@+id/ET_mobie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/TV_mobile"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="number"
+                    android:maxLength="13"/>
+
+            <TextView
+                android:id="@+id/TV_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ET_mobie"
+                android:layout_marginTop="15dp"
+                android:text="@string/address"
+                android:textSize="@dimen/pofileTV"/>
+            <EditText
+                android:id="@+id/ET_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TV_address"
+                android:textSize="@dimen/pofileET"
+                android:inputType="textCapWords"/>
+
+            <TextView
+                android:id="@+id/TV_pincode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ET_address"
+                android:layout_marginTop="15dp"
+                android:text="@string/pin_code"
+                android:textSize="@dimen/pofileTV"/>
+            <EditText
+                android:id="@+id/ET_pincode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TV_pincode"
+                android:textSize="@dimen/pofileET"
+                android:inputType="number"
+                android:maxLength="6"/>
+
+            <TextView
+                android:id="@+id/TV_currentcity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ET_pincode"
+                android:layout_marginTop="15dp"
+                android:text="@string/current_city"
+                android:textSize="@dimen/pofileTV"/>
+            <EditText
+                android:id="@+id/ET_currentcity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TV_currentcity"
+                android:textSize="@dimen/pofileET"
+                android:inputType="textCapWords"/>
+
+            <TextView
+                android:id="@+id/TV_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ET_currentcity"
+                android:text="@string/gerder"
+                android:layout_marginTop="15dp"/>
+            <RadioGroup
+                android:id="@+id/Radio_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/TV_gender"
+                android:layout_marginTop="5dp">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/TV_dob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Radio_gender"
+                android:layout_marginTop="15dp"
+                android:text="@string/date_of_birth"/>
+            <EditText
+                android:id="@+id/ET_dob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TV_dob"
+                android:hint="dd/mm/yyyy"
+                android:paddingRight="7dp"
+                android:paddingLeft="7dp"
+                android:inputType="date"
+                android:maxLength="10"/>
+            <ImageView
+                android:id="@+id/IV_dob"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/TV_dob"
+                android:layout_toRightOf="@id/ET_dob"
+                android:src="@drawable/ic_calendar"/>
+            <TextView
+                android:id="@+id/TV_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TV_dob"
+                android:layout_toRightOf="@id/IV_dob"
+                android:layout_alignBaseline="@id/ET_dob"
+                android:text="Age : "
+                android:paddingLeft="30dp"
+                android:textSize="@dimen/pofileTV"/>
+
+           <TextView
+               android:id="@+id/TV_degree"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/ET_dob"
+               android:text="Degree"
+               android:textSize="@dimen/pofileTV"
+               android:layout_marginTop="15dp"/>
+            <Spinner
+                android:id="@+id/Spinner_degree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TV_degree">
+
+            </Spinner>
+
+            <TextView
+                android:id="@+id/TV_fos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Spinner_degree"
+                android:text="Field of Study"
+                android:textSize="@dimen/pofileTV"
+                android:layout_marginTop="15dp"/>
+            <Spinner
+                android:id="@+id/Spinner_fos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TV_fos">
+            </Spinner>
+
+                <TextView
+                    android:id="@+id/TV_btnnext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Spinner_fos"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="30dp"
+                    android:text="NEXT"
+                    android:drawableRight="@drawable/ic_nexta"
+                    android:textSize="@dimen/label"
+                    android:textColor="#005ECE"
+                    android:background="#FFE477"
+                    android:padding="3dp"
+                    android:layout_marginBottom="20dp"
+                    android:elevation="5dp" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
