@@ -281,6 +281,22 @@
 
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/TV_btnnext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RL_10thedu"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="30dp"
+                android:text="GET STARTED"
+                android:drawableRight="@drawable/ic_nexta"
+                android:textSize="@dimen/label"
+                android:textColor="#005ECE"
+                android:background="@drawable/profile_btn_bg"
+                android:padding="3dp"
+                android:layout_marginBottom="20dp"
+                android:elevation="5dp" />
+
 
         </RelativeLayout>
 
