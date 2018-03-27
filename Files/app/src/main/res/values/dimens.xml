@@ -1,6 +1,9 @@
 <resources>
 
     <dimen name="label">20dp</dimen>
+    <dimen name="pofileTV">12dp</dimen>
+    <dimen name="pofileET">14dp</dimen>
+    <dimen name="headlabel">16dp</dimen>
 
 </resources>
 

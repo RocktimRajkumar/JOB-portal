@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:layout_marginTop="20dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:id="@+id/RL_curedu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/TV_curedu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/current_education"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/headlabel"
+                    android:textColor="#2b78e4"/>
+
+                <TextView
+                    android:id="@+id/TV_university"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/TV_curedu"
+                    android:text="University/Board"
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/pofileTV"/>
+                <EditText
+                    android:id="@+id/ET_university"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_university"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="textCapWords"/>
+
+                <TextView
+                    android:id="@+id/TV_college"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ET_university"
+                    android:text="@string/college"
+                    android:textSize="@dimen/pofileTV"
+                    android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/ET_college"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_college"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="textCapWords"/>
+
+                <TextView
+                    android:id="@+id/TV_cyoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ET_college"
+                    android:text="@string/year_of_completion"
+                    android:textSize="@dimen/pofileTV"
+                    android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/ET_cyoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_cyoc"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="number"
+                    android:maxLength="4"/>
+
+                <TextView
+                    android:id="@+id/TV_cper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ET_cyoc"
+                    android:text="@string/percentage"
+                    android:textSize="@dimen/pofileTV"
+                    android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/ET_cper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_cper"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="numberDecimal"/>
+
+
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

@@ -4,4 +4,8 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="signup">SIGNUP</string>
+    <string name="current_education">Current Education</string>
+    <string name="college">College</string>
+    <string name="year_of_completion">Year of Completion</string>
+    <string name="percentage">Percentage</string>
 </resources>
