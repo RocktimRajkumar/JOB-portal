@@ -118,7 +118,8 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="@dimen/label"
-        android:gravity="center" />
+        android:gravity="center"
+        android:onClick="openProfile"/>
 
 
 </RelativeLayout>

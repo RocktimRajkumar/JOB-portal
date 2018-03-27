@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="brdevelopers.com.jobvibe.Profile">
+
+    <RelativeLayout
+        android:id="@+id/RL_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/TV_personal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Personal Details"
+            android:textSize="@dimen/headlabel"
+            android:padding="4dp"
+            android:onClick="loadProfile"/>
+
+        <TextView
+            android:id="@+id/TV_education"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Educational Details"
+            android:textSize="@dimen/headlabel"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/TV_personal"
+            android:padding="4dp"
+            android:onClick="loadProfile"/>
+
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/FL_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RL_profile">
+
+
+    </FrameLayout>
+
+</RelativeLayout>
