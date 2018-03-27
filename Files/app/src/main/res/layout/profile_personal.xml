@@ -3,23 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/RL_main"
-    android:layout_marginTop="20dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:layout_marginTop="20dp">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
             <TextView
                 android:id="@+id/TV_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/email"
-                android:textSize="@dimen/pofileTV"/>
+                android:textSize="@dimen/pofileTV" />
 
             <EditText
                 android:id="@+id/ET_email"
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TV_email"
                 android:textSize="@dimen/pofileET"
-                android:singleLine="true"/>
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/TV_name"
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TV_name"
                 android:textSize="@dimen/pofileET"
-                android:singleLine="true"/>
+                android:inputType="textCapWords"/>
 
             <TextView
                 android:id="@+id/TV_mobile"
@@ -59,7 +59,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/TV_mobile"
                     android:textSize="@dimen/pofileET"
-                    android:singleLine="true"/>
+                    android:inputType="number"
+                    android:maxLength="13"/>
 
             <TextView
                 android:id="@+id/TV_address"
@@ -75,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TV_address"
                 android:textSize="@dimen/pofileET"
-                android:singleLine="true"/>
+                android:inputType="textCapWords"/>
 
             <TextView
                 android:id="@+id/TV_pincode"
@@ -91,7 +92,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TV_pincode"
                 android:textSize="@dimen/pofileET"
-                android:singleLine="true"/>
+                android:inputType="number"
+                android:maxLength="6"/>
 
             <TextView
                 android:id="@+id/TV_currentcity"
@@ -107,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TV_currentcity"
                 android:textSize="@dimen/pofileET"
-                android:singleLine="true"/>
+                android:inputType="textCapWords"/>
 
             <TextView
                 android:id="@+id/TV_gender"
@@ -148,7 +150,9 @@
                 android:layout_below="@+id/TV_dob"
                 android:hint="dd/mm/yyyy"
                 android:paddingRight="7dp"
-                android:paddingLeft="7dp"/>
+                android:paddingLeft="7dp"
+                android:inputType="date"
+                android:maxLength="10"/>
             <ImageView
                 android:id="@+id/IV_dob"
                 android:layout_width="35dp"
@@ -198,15 +202,24 @@
                 android:layout_below="@+id/TV_fos">
             </Spinner>
 
-            <TextView
-                android:id="@+id/Button_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/Spinner_fos"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="40dp"
-                android:text="NEXT U+25B6"/>
+                <TextView
+                    android:id="@+id/TV_btnnext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Spinner_fos"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="30dp"
+                    android:text="NEXT"
+                    android:drawableRight="@drawable/ic_nexta"
+                    android:textSize="@dimen/label"
+                    android:textColor="#005ECE"
+                    android:background="#FFE477"
+                    android:padding="3dp"
+                    android:layout_marginBottom="20dp"
+                    android:elevation="5dp" />
+
         </RelativeLayout>
+
     </ScrollView>
+
 </RelativeLayout>
