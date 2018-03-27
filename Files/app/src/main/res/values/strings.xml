@@ -8,4 +8,9 @@
     <string name="college">College</string>
     <string name="year_of_completion">Year of Completion</string>
     <string name="percentage">Percentage</string>
+    <string name="university_board">University/Board</string>
+    <string name="board">Board</string>
+    <string name="school">School</string>
+    <string name="_12th_education">12th Education</string>
+    <string name="_10th_education">10th Education</string>
 </resources>
