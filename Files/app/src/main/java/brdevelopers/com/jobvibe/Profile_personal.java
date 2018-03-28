@@ -69,7 +69,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
         et_dob.setOnClickListener(this);        //Edit Text dob click
         iv_dob.setOnClickListener(this);        //Image View dob click
         et_dob.setOnFocusChangeListener(this);  //Edit Text dob on focus
-
+        et_mobile.addTextChangedListener(this);  //Edit Text mobile on textchange
        //Fetching data for degree from web service
         getDegree();
 
@@ -239,6 +239,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+
     }
 
     @Override
@@ -248,6 +249,16 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
     @Override
     public void afterTextChanged(Editable s) {
+
+        String phoneno=et_mobile.getText().toString();
+
+       if(phoneno.length()==1) {
+            s.replace(0, phoneno.length(),"+91"+phoneno);
+        }
+        else if(phoneno.length()==3)
+       {
+           s.replace(0,phoneno.length(),"");
+       }
 
     }
 }

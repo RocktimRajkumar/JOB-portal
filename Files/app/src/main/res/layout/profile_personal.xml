@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/TV_mobile"
                     android:textSize="@dimen/pofileET"
-                    android:inputType="number"
+                    android:inputType="phone"
                     android:maxLength="13"/>
 
             <TextView
