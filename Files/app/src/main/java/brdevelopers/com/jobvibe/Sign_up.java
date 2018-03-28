@@ -29,6 +29,8 @@ public class Sign_up extends AppCompatActivity implements TextWatcher{
         til_cpassword=findViewById(R.id.TIL_cpassword);
         et_password=findViewById(R.id.ET_password);
         et_cpassword=findViewById(R.id.ET_cpassword);
+        et_password.addTextChangedListener(this);
+        et_cpassword.addTextChangedListener(this);
     }
 
     public void openProfile(View view)
@@ -51,10 +53,14 @@ public class Sign_up extends AppCompatActivity implements TextWatcher{
     public void afterTextChanged(Editable s) {
 
         if(et_password.getText().length()>0){
-
+            til_password.setPasswordVisibilityToggleEnabled(true);
         }
-        else{
-
+        if(et_cpassword.getText().length()>0){
+            til_cpassword.setPasswordVisibilityToggleEnabled(true);
         }
+        if(et_password.getText().length()==0)
+            til_password.setPasswordVisibilityToggleEnabled(false);
+        if(et_cpassword.getText().length()==0)
+            til_cpassword.setPasswordVisibilityToggleEnabled(false);
     }
 }

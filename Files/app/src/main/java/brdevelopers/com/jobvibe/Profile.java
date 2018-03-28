@@ -28,7 +28,7 @@ public class Profile extends AppCompatActivity {
         }
         else if(view.getId()==R.id.TV_education)
         {
-
+            loadFragmentProfile(new Profile_Educaion());
         }
     }
 

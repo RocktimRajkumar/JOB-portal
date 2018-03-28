@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             app:hintTextAppearance="@style/TextLabel">
 
-            <android.support.design.widget.TextInputEditText
+            <EditText
+                android:id="@+id/ET_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email_id"
@@ -41,7 +42,7 @@
                 android:paddingBottom="10dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="6dp"
-                android:singleLine="true"
+                android:inputType="textEmailAddress"
                 android:textSize="@dimen/label"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -53,11 +54,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/TIL_email"
-            app:passwordToggleEnabled="true"
             android:layout_marginTop="15dp"
             app:hintTextAppearance="@style/TextLabel">
 
             <EditText
+                android:id="@+id/ET_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
@@ -90,7 +91,8 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="@dimen/label"
-        android:gravity="center" />
+        android:gravity="center"
+        android:onClick="openSignup"/>
 
     <TextView
         android:id="@+id/crete_new"
