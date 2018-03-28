@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +29,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -37,9 +38,9 @@ import java.util.Map;
  * Created by End User on 27-03-2018.
  */
 
-public class Profile_personal extends Fragment implements View.OnClickListener, View.OnFocusChangeListener,AdapterView.OnItemSelectedListener{
+public class Profile_personal extends Fragment implements View.OnClickListener, View.OnFocusChangeListener,AdapterView.OnItemSelectedListener,TextWatcher{
 
-    private EditText et_dob;
+    private EditText et_dob,et_mobile;
     private ImageView iv_dob;
     private TextView tv_btnnext;
     private Spinner degree,fos;
@@ -62,6 +63,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
         tv_btnnext=view.findViewById(R.id.TV_btnnext);
         degree=view.findViewById(R.id.Spinner_degree);
         fos=view.findViewById(R.id.Spinner_fos);
+        et_mobile=view.findViewById(R.id.ET_mobie);
 
         tv_btnnext.setOnClickListener(this);    //button next
         et_dob.setOnClickListener(this);        //Edit Text dob click
@@ -71,47 +73,12 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
        //Fetching data for degree from web service
         getDegree();
 
-
+        //On degree Spinner click
         degree.setOnItemSelectedListener(this);
 
         return view;
     }
 
-    private void getDegree() {
-
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, degreeUrl, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    JSONArray jsonArray=jsonObject.getJSONArray("courseList");
-                    for(int i=0;i<jsonArray.length();i++)
-                    {
-                        JSONObject course=jsonArray.getJSONObject(i);
-                        String courseid=course.getString("cid");
-                        String coursename=course.getString("cname");
-                        clist.put(courseid,coursename);
-                    }
-
-                    String[] clistString = clist.values().toArray(new String[0]);
-                    ArrayAdapter<String> arrayAdapterCourse=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,clistString);
-                    degree.setAdapter(arrayAdapterCourse);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("LogCheck",error.toString());
-            }
-        });
-
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
-    }
 
     @Override
     public void onClick(View v) {
@@ -122,10 +89,12 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
         }
         else if(v.getId()==R.id.ET_dob)
         {
+            //Calling dateOfBirth on click on edittext
             dateOfBirth();
         }
         else if(v.getId()==R.id.IV_dob)
         {
+            //Calling dateOfBirth on click on calendar ImageView
             dateOfBirth();
         }
 
@@ -148,6 +117,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
         dpd.show();
     }
 
+    //On focus on edittext
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
 
@@ -158,17 +128,57 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
     }
 
+    //Getting degree data from webservices
+    private void getDegree() {
+
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, degreeUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    JSONArray jsonArray=jsonObject.getJSONArray("courseList");
+                    for(int i=0;i<jsonArray.length();i++)
+                    {
+                        JSONObject course=jsonArray.getJSONObject(i);
+                        String courseid=course.getString("cid");
+                        String coursename=course.getString("cname");
+                        clist.put(courseid,coursename);
+                    }
+
+                    //Converting hashmap to string array
+                    String[] clistString = clist.values().toArray(new String[0]);
+                    ArrayAdapter<String> arrayAdapterCourse=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,clistString);
+                    degree.setAdapter(arrayAdapterCourse);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("LogCheck",error.toString());
+            }
+        });
+
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
+    }
+
+    //On Spinner Item selected
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String hashvalue = parent.getItemAtPosition(position).toString();
+        String hashvalue = parent.getItemAtPosition(position).toString(); //Getting value of the spinner item by position
         String hashkey = null;
         for (Object o : clist.keySet()) {
             if (clist.get(o).equals(hashvalue)) {
-                hashkey = o.toString();
+                hashkey = o.toString();   //Getting the haskey from the hashvalue
                 break;
             }
         }
 
+        //Calling fieldOfStudey and passing hashkey of degreeId
         fieldOfStudy(hashkey);
     }
 
@@ -177,6 +187,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
     }
 
+    //Retrieving data from webservice according the degreeid
     private void fieldOfStudy(final String hashkey) {
 
         StringRequest stringRequest=new StringRequest(Request.Method.POST, fosUrl, new Response.Listener<String>() {
@@ -225,4 +236,18 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
 }
