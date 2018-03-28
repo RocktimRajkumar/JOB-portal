@@ -53,11 +53,11 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@+id/TIL_email"
-          app:passwordToggleEnabled="true"
           android:layout_marginTop="15dp"
           app:hintTextAppearance="@style/TextLabel">
 
           <EditText
+              android:id="@+id/ET_password"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:hint="@string/password"
@@ -82,6 +82,7 @@
             app:hintTextAppearance="@style/TextLabel">
 
             <EditText
+                android:id="@+id/ET_cpassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/confirm_password"
