@@ -23,6 +23,8 @@
 
         <activity android:name=".Sign_up"></activity>
 
+        <activity android:name=".Login"></activity>
+
     </application>
 
 </manifest>

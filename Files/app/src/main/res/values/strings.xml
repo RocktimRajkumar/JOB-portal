@@ -21,5 +21,6 @@
     <string name="school">School</string>
     <string name="_12th_education">12th Education</string>
     <string name="_10th_education">10th Education</string>
+    <string name="login">LOGIN</string>
 
 </resources>
