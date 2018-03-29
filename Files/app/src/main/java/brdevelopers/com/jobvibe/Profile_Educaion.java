@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+
 /**
  * Created by Uchiha Itachi on 27-03-2018.
  */
@@ -65,6 +68,7 @@ public class Profile_Educaion extends Fragment {
     private void eduDetailEntry(final String university, final String college, final String cyoc, final String cper,
                                 final String tboard, final String tschool, final String tyoc, final String tper,
                                 final String mboard, final String mschool, final String myoc, final String mper){
+
 
     }
 }

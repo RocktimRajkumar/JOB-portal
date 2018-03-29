@@ -19,7 +19,8 @@ import android.widget.TextView;
 public class Sign_up extends AppCompatActivity implements TextWatcher{
 
     TextInputLayout til_password,til_cpassword;
-    EditText et_password,et_cpassword;
+    EditText et_password,et_cpassword,et_email;
+    TextView tv_signupbtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +30,18 @@ public class Sign_up extends AppCompatActivity implements TextWatcher{
         til_cpassword=findViewById(R.id.TIL_cpassword);
         et_password=findViewById(R.id.ET_password);
         et_cpassword=findViewById(R.id.ET_cpassword);
+        tv_signupbtn=findViewById(R.id.TV_signbutton);
+        et_email=findViewById(R.id.ET_email);
+
     }
 
     public void openProfile(View view)
     {
         Intent profile=new Intent(Sign_up.this,Profile.class);
+        String email=et_email.getText().toString();
+        String password=et_password.getText().toString();
+        profile.putExtra("email",email);
+        profile.putExtra("password",password);
         startActivity(profile);
     }
 

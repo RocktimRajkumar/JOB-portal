@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,7 +18,14 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.profile);
         tv_personal=findViewById(R.id.TV_personal);
         tv_education=findViewById(R.id.TV_education);
+
+        String email=getIntent().getStringExtra("email");
+        String password=getIntent().getStringExtra("password");
+        Log.d("checklog",email);
+        Log.d("checklog",password);
+
         loadFragmentProfile(new Profile_personal());
+
     }
 
     public void loadProfile(View view)

@@ -47,6 +47,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
     String degreeUrl="http://103.230.103.142/jobportalapp/job.asmx/GetCourse";
     String fosUrl="http://103.230.103.142/jobportalapp/job.asmx/GetBranch";
+    String saveCanditate="http://103.230.103.142/jobportalapp/job.asmx/SaveCandidate";
 
     final Map<String,String> clist=new LinkedHashMap<>();
     final Map<String,String> fosmap=new LinkedHashMap<>();
@@ -85,7 +86,12 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
         if(v.getId()==R.id.TV_btnnext)
         {
+            tv_btnnext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                }
+            });
         }
         else if(v.getId()==R.id.ET_dob)
         {
@@ -261,4 +267,6 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
        }
 
     }
+
+
 }
