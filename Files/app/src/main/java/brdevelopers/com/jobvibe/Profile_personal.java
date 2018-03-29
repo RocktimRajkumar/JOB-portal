@@ -42,7 +42,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
     private EditText et_dob,et_mobile;
     private ImageView iv_dob;
-    private TextView tv_btnnext;
+    private TextView tv_btnnext,tv_age;
     private Spinner degree,fos;
 
     String degreeUrl="http://103.230.103.142/jobportalapp/job.asmx/GetCourse";
@@ -64,6 +64,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
         degree=view.findViewById(R.id.Spinner_degree);
         fos=view.findViewById(R.id.Spinner_fos);
         et_mobile=view.findViewById(R.id.ET_mobie);
+        tv_age=view.findViewById(R.id.TV_age);
 
         tv_btnnext.setOnClickListener(this);    //button next
         et_dob.setOnClickListener(this);        //Edit Text dob click
@@ -103,7 +104,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
     private void dateOfBirth() {
 
         Calendar c=Calendar.getInstance();
-        int dd,mm,yy;
+        final int dd,mm,yy;
         dd=c.get(Calendar.DAY_OF_MONTH);
         mm=c.get(Calendar.MONTH);
         yy=c.get(Calendar.YEAR);
@@ -111,9 +112,13 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
         DatePickerDialog dpd=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month++;
                 et_dob.setText(dayOfMonth+"/"+month+"/"+year);
+                calculateAge(dd,mm,yy,dayOfMonth,month,year); //calling calculateage to show it on textview age
             }
         },dd,mm,yy);
+
+        dpd.updateDate(1980,0,1);
         dpd.show();
     }
 
@@ -125,6 +130,24 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
         {
             dateOfBirth();
         }
+
+    }
+
+// calculating age from datetimepicker and show it on textview age
+
+    public void calculateAge(int cdd,int cmm,int cyy,int bdd,int bmm,int byy)
+    {
+        cmm++;
+        bmm++;
+        if(cdd<bdd)
+            cmm=cmm-1;
+        if(cmm<bmm)
+            cyy=cyy-1;
+
+        int age=cyy-byy;
+
+        tv_age.setText("Age : "+age);
+        tv_age.setVisibility(View.VISIBLE);
 
     }
 

@@ -170,6 +170,7 @@
                 android:layout_alignBaseline="@id/ET_dob"
                 android:text="Age : "
                 android:paddingLeft="30dp"
+                android:visibility="invisible"
                 android:textSize="@dimen/pofileTV"/>
 
            <TextView
