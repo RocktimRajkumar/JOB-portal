@@ -42,7 +42,7 @@
                 android:paddingBottom="10dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="6dp"
-                android:singleLine="true"
+                android:inputType="textEmailAddress"
                 android:textSize="@dimen/label"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -78,7 +78,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/TIL_password"
-            app:passwordToggleEnabled="true"
             android:layout_marginTop="15dp"
             app:hintTextAppearance="@style/TextLabel">
 
