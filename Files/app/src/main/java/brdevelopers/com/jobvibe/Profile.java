@@ -19,14 +19,10 @@ public class Profile extends AppCompatActivity {
         tv_personal=findViewById(R.id.TV_personal);
         tv_education=findViewById(R.id.TV_education);
 
-        String email=getIntent().getStringExtra("email");
-        String password=getIntent().getStringExtra("password");
-        Log.d("checklog",email);
-        Log.d("checklog",password);
-
         loadFragmentProfile(new Profile_personal());
 
     }
+
 
     public void loadProfile(View view)
     {
@@ -42,6 +38,14 @@ public class Profile extends AppCompatActivity {
 
     private void loadFragmentProfile(Fragment fragment) {
 
+        String email=getIntent().getStringExtra("email");
+        String password=getIntent().getStringExtra("password");
+
+        //Sending email and password to Fragments
+        Bundle bundle=new Bundle();
+        bundle.putString("email",email);
+        bundle.putString("password",password);
+        fragment.setArguments(bundle);
         FragmentManager fm=getFragmentManager();
         FragmentTransaction ft=fm.beginTransaction();
         ft.replace(R.id.FL_profile,fragment);

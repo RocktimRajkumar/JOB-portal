@@ -33,7 +33,7 @@ public class Sign_up extends AppCompatActivity implements TextWatcher{
 
         tv_signupbtn=findViewById(R.id.TV_signbutton);
         et_email=findViewById(R.id.ET_email);
-        
+
         et_password.addTextChangedListener(this);
         et_cpassword.addTextChangedListener(this);
 

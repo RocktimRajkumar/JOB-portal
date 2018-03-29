@@ -40,6 +40,7 @@ import java.util.Map;
 
 public class Profile_personal extends Fragment implements View.OnClickListener, View.OnFocusChangeListener,AdapterView.OnItemSelectedListener,TextWatcher{
 
+    private EditText et_email;
     private EditText et_dob,et_mobile;
     private ImageView iv_dob;
     private TextView tv_btnnext;
@@ -65,6 +66,13 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
         degree=view.findViewById(R.id.Spinner_degree);
         fos=view.findViewById(R.id.Spinner_fos);
         et_mobile=view.findViewById(R.id.ET_mobie);
+        et_email= view.findViewById(R.id.ET_email);
+
+        //Receiving email and password from Profile activity
+        Bundle bundle=getArguments();
+        final String email=bundle.getString("email");
+        final String password=bundle.getString("password");
+        et_email.setText(email); //Setting email id to email EditText
 
         tv_btnnext.setOnClickListener(this);    //button next
         et_dob.setOnClickListener(this);        //Edit Text dob click

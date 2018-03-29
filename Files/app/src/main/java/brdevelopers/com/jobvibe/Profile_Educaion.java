@@ -29,6 +29,11 @@ public class Profile_Educaion extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.profile_education,container,false);
+
+        Bundle bundle=getArguments();
+        final String email=bundle.getString("email");
+        Log.d("checklog",email);
+
         et_university=view.findViewById(R.id.ET_university);
         et_college=view.findViewById(R.id.ET_college);
         et_cyoc=view.findViewById(R.id.ET_cyoc);
