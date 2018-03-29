@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/IV_logoText"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
         android:layout_centerHorizontal="true">
@@ -30,18 +30,16 @@
             android:id="@+id/TIL_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintTextAppearance="@style/TextLabel">
+            app:hintTextAppearance="@style/TextLabel"
+            app:errorEnabled="true">
 
             <EditText
                 android:id="@+id/ET_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email_id"
-                android:background="@color/gray"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="6dp"
                 android:inputType="textEmailAddress"
                 android:textSize="@dimen/label"/>
 
@@ -54,8 +52,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/TIL_email"
-            android:layout_marginTop="15dp"
-            app:hintTextAppearance="@style/TextLabel">
+            app:hintTextAppearance="@style/TextLabel"
+            app:errorEnabled="true">
 
             <EditText
                 android:id="@+id/ET_password"
@@ -63,12 +61,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:background="@color/gray"
                 android:paddingTop="9dp"
                 android:paddingBottom="9dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="6dp"
-                android:singleLine="true"
                 android:textSize="@dimen/label"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -80,7 +74,7 @@
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:layout_below="@+id/RL_login"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginRight="50dp"
         android:layout_marginLeft="50dp"
@@ -91,8 +85,7 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="@dimen/label"
-        android:gravity="center"
-        android:onClick="openSignup"/>
+        android:gravity="center"/>
 
     <TextView
         android:id="@+id/crete_new"

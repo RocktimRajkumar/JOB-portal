@@ -22,5 +22,9 @@
     <string name="_12th_education">12th Education</string>
     <string name="_10th_education">10th Education</string>
     <string name="login">LOGIN</string>
+    <string name="error_email">Enter a valid email address!</string>
+    <string name="error_password">Minimum 8 character required!</string>
+    <string name="error_cpassword">Confirm Password doesn\'t match!</string>
+    <string name="error_empty_field">Field can\'t be empty!</string>
 
 </resources>
