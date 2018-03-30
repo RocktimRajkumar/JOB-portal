@@ -51,7 +51,6 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
     private Spinner degree,fos;
 
     private String getdegree,getfos,password;
-
     private int saveresponse=0;
 
     private String degreeUrl="http://103.230.103.142/jobportalapp/job.asmx/GetCourse";
@@ -114,9 +113,6 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
         if(v.getId()==R.id.TV_btnnext)
         {
-            tv_btnnext.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
                     String email=et_email.getText().toString();
                     String name=et_name.getText().toString();
@@ -140,6 +136,12 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
                         Bundle bundle=new Bundle();
                         bundle.putString("email",email);
                         bundle.putString("mobile",mobile);
+                        bundle.putString("name",name);
+                        bundle.putString("currentcity",city);
+                        bundle.putString("address",address);
+                        bundle.putString("pincode",pincode);
+                        bundle.putString("gender",gender);
+                        bundle.putString("dob",dob);
 
                         FragmentManager fragmentManager=getActivity().getFragmentManager();
                         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
@@ -149,10 +151,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
                         fragmentTransaction.commit();
                     }
 
-                }
 
-
-            });
         }
         else if(v.getId()==R.id.ET_dob)
         {
