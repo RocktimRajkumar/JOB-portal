@@ -6,10 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlActivated">#009688</item>
+        <item name="android:colorControlNormal">#FF5722</item>
     </style>
 
     <style name="TextLabel" parent="TextAppearance.Design.Hint">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>

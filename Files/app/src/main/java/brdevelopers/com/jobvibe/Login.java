@@ -1,20 +1,26 @@
 package brdevelopers.com.jobvibe;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class Login extends AppCompatActivity implements TextWatcher{
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-   TextInputLayout til_password;
-   EditText et_email, et_password;
-   TextView tv_btnlogin;
+public class Login extends AppCompatActivity implements TextWatcher,View.OnClickListener{
+
+   private TextInputLayout til_password,til_email;
+   private EditText et_email, et_password;
+   private TextView tv_btnlogin;
+   private int i_email=0,i_password=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,15 +29,13 @@ public class Login extends AppCompatActivity implements TextWatcher{
 
         et_email=findViewById(R.id.ET_email);
         et_password=findViewById(R.id.ET_password);
-        tv_btnlogin=findViewById(R.id.TV_btnnext);
+        tv_btnlogin=findViewById(R.id.TV_loginbutton);
         til_password=findViewById(R.id.TIL_password);
-        et_password.addTextChangedListener(this);
-    }
+        til_email=findViewById(R.id.TIL_email);
 
-    public void openSignup(View view)
-    {
-        Intent signup=new Intent(Login.this,Sign_up.class);
-        startActivity(signup);
+        et_email.addTextChangedListener(this);
+        et_password.addTextChangedListener(this);
+        tv_btnlogin.setOnClickListener(this);
     }
 
     @Override
@@ -47,11 +51,92 @@ public class Login extends AppCompatActivity implements TextWatcher{
     @Override
     public void afterTextChanged(Editable s) {
 
+        String email = et_email.getText().toString().trim();
+        String pattern = "^[a-zA-Z0-9]{1,20}@[a-zA-Z]{1,10}.(com|org)$";
+        Matcher matcherObj = Pattern.compile(pattern).matcher(email);
+
+        if(et_email.getText().length()>0 && !matcherObj.matches()) {
+            til_email.setError(getString(R.string.error_email));
+            i_email=0;
+
+        }
+        if(et_email.getText().length()>0 && matcherObj.matches()) {
+            til_email.setError(null);
+            i_email=1;
+        }
+        if(et_email.getText().length()==0)
+        {
+            til_email.setError(null);
+            i_email=0;
+        }
+
         if(et_password.getText().length()>0){
             til_password.setPasswordVisibilityToggleEnabled(true);
+            if(et_password.getText().length()<8) {
+                til_password.setError(getString(R.string.error_password));
+                i_password = 0;
+            }
+
+            else {
+                i_password = 1;
+                til_password.setError(null);
+            }
         }
-        else{
+
+        if(et_password.getText().length()==0) {
             til_password.setPasswordVisibilityToggleEnabled(false);
+            i_password = 0;
+            til_password.setError(null);
         }
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        final Float elevation=tv_btnlogin.getElevation();
+        tv_btnlogin.setElevation(-elevation);
+
+        int TIMMER=200;
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                if(i_email==0 && et_email.getText().toString().length()==0) {
+                    et_email.requestFocus();
+                    til_email.setError(getString(R.string.error_empty_field));
+                    tv_btnlogin.setElevation(elevation);
+                }
+                else if(i_email==0) {
+                    et_email.requestFocus();
+                    tv_btnlogin.setElevation(elevation);
+                }
+
+                if(i_password==0 && et_password.getText().toString().length()==0){
+                    if(i_email==0)
+                        et_email.requestFocus();
+                    else
+                        et_password.requestFocus();
+                    til_password.setError(getString(R.string.error_empty_field));
+                    tv_btnlogin.setElevation(elevation);
+                }
+                else if(i_password==0){
+                    if(i_email==0)
+                        et_email.requestFocus();
+                    else
+                    et_password.requestFocus();
+                    tv_btnlogin.setElevation(elevation);
+                }
+
+                if(i_password==1 && i_email==1)
+                {
+                    Intent profile = new Intent(Login.this, Sign_up.class);
+                    startActivity(profile);
+                }
+
+            }
+        },TIMMER);
+
     }
 }

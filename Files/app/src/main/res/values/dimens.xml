@@ -1,6 +1,6 @@
 <resources>
 
-    <dimen name="label">20sp</dimen>
+    <dimen name="label">18sp</dimen>
     <dimen name="pofileTV">12sp</dimen>
     <dimen name="pofileET">14sp</dimen>
     <dimen name="headlabel">16sp</dimen>
