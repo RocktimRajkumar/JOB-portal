@@ -27,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TV_email"
                 android:textSize="@dimen/pofileET"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress"
+                android:focusable="false"/>
 
             <TextView
                 android:id="@+id/TV_name"
