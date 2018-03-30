@@ -2,6 +2,8 @@ package brdevelopers.com.jobvibe;
 
 import android.app.DatePickerDialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -50,9 +52,11 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
     private String getdegree,getfos,password;
 
-    String degreeUrl="http://103.230.103.142/jobportalapp/job.asmx/GetCourse";
-    String fosUrl="http://103.230.103.142/jobportalapp/job.asmx/GetBranch";
-    String saveCanditate="http://103.230.103.142/jobportalapp/job.asmx/SaveCandidate";
+    private int saveresponse=0;
+
+    private String degreeUrl="http://103.230.103.142/jobportalapp/job.asmx/GetCourse";
+    private String fosUrl="http://103.230.103.142/jobportalapp/job.asmx/GetBranch";
+    private String saveCanditate="http://103.230.103.142/jobportalapp/job.asmx/SaveCandidate";
 
     final Map<String,String> clist=new LinkedHashMap<>();
     final Map<String,String> fosmap=new LinkedHashMap<>();
@@ -131,6 +135,20 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
                     personalDetailsEntry(email,name,mobile,address,pincode,city,dob,gender);
 
+                    if(saveresponse==1)   //SaveCandidate response POST success
+                    {
+                        Bundle bundle=new Bundle();
+                        bundle.putString("email",email);
+                        bundle.putString("mobile",mobile);
+
+                        FragmentManager fragmentManager=getActivity().getFragmentManager();
+                        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                        Profile_Educaion profile_educaion=new Profile_Educaion();
+                        profile_educaion.setArguments(bundle);
+                        fragmentTransaction.replace(R.id.FL_profile,profile_educaion);
+                        fragmentTransaction.commit();
+                    }
+
                 }
 
 
@@ -155,6 +173,15 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
             @Override
             public void onResponse(String response) {
                 Log.d("checklog",response);
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    saveresponse=1;
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    saveresponse=0;
+                }
+
 
             }
         }, new Response.ErrorListener() {
@@ -162,6 +189,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
             public void onErrorResponse(VolleyError error) {
                 Log.d("checklog"," "+error);
                 Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
+                saveresponse=0;
             }
         }){
             @Override

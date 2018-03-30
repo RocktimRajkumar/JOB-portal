@@ -14,6 +14,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,6 +40,8 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
     private EditText et_password,et_cpassword,et_email;
     TextView tv_signup;
     private int i_password=0,i_cpassword=0,i_email=0;
+
+    private String getCandidateDetails="http://103.230.103.142/jobportalapp/job.asmx/GetCandidateDetails";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +89,7 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
         }
         if(et_email.getText().length()>0 && matcherObj.matches()) {
             til_email.setError(null);
+            checkEmail(et_email.getText().toString());
             i_email=1;
         }
         if(et_email.getText().length()==0)
@@ -117,6 +132,49 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
             til_cpassword.setError(null);
             i_cpassword = 0;
         }
+
+    }
+
+    private void checkEmail(final String s) {
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, getCandidateDetails, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    String responsemessage=jsonObject.getString("Sucess");
+                    Log.d("LogCheck",responsemessage);
+                    if(responsemessage.equals("1")) {
+                        til_email.setError("Email Id already used.");
+                        i_email = 0;
+                    }
+                    else {
+                        til_email.setError(null);
+                        i_email = 1;
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
+            new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("LogCheck",""+error);
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> emailexists=new HashMap<>();
+                emailexists.put("email",s);
+                return emailexists;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(stringRequest);
 
     }
 
