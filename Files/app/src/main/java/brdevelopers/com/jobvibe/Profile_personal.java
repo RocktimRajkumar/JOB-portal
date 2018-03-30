@@ -15,8 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -40,11 +42,13 @@ import java.util.Map;
 
 public class Profile_personal extends Fragment implements View.OnClickListener, View.OnFocusChangeListener,AdapterView.OnItemSelectedListener,TextWatcher{
 
-    private EditText et_email;
-    private EditText et_dob,et_mobile;
+    private EditText et_email, et_dob,et_mobile,et_name,et_address,et_pincode,et_city;
+    RadioButton radio_male,radio_female;
     private ImageView iv_dob;
     private TextView tv_btnnext;
     private Spinner degree,fos;
+
+    private String getdegree,getfos,password;
 
     String degreeUrl="http://103.230.103.142/jobportalapp/job.asmx/GetCourse";
     String fosUrl="http://103.230.103.142/jobportalapp/job.asmx/GetBranch";
@@ -60,18 +64,25 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
         View view=inflater.inflate(R.layout.profile_personal,container,false);
 
         //Binding view to references
+        et_email= view.findViewById(R.id.ET_email);
+        et_name= view.findViewById(R.id.ET_name);
+        et_mobile=view.findViewById(R.id.ET_mobie);
+        et_address=view.findViewById(R.id.ET_address);
+        et_pincode= view.findViewById(R.id.ET_pincode);
+        et_city=view.findViewById(R.id.ET_currentcity);
         et_dob=view.findViewById(R.id.ET_dob);
-        iv_dob=view.findViewById(R.id.IV_dob);
-        tv_btnnext=view.findViewById(R.id.TV_btnnext);
+        radio_male=view.findViewById(R.id.Radio_male);
+        radio_female=view.findViewById(R.id.Radio_female);
         degree=view.findViewById(R.id.Spinner_degree);
         fos=view.findViewById(R.id.Spinner_fos);
-        et_mobile=view.findViewById(R.id.ET_mobie);
-        et_email= view.findViewById(R.id.ET_email);
+        iv_dob=view.findViewById(R.id.IV_dob);
+        tv_btnnext=view.findViewById(R.id.TV_btnnext);
+
 
         //Receiving email and password from Profile activity
         Bundle bundle=getArguments();
         final String email=bundle.getString("email");
-        final String password=bundle.getString("password");
+        password=bundle.getString("password");
         et_email.setText(email); //Setting email id to email EditText
 
         tv_btnnext.setOnClickListener(this);    //button next
@@ -84,6 +95,9 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
         //On degree Spinner click
         degree.setOnItemSelectedListener(this);
+
+        //On fos spinner click
+        fos.setOnItemSelectedListener(this);
 
         return view;
     }
@@ -98,7 +112,26 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
                 @Override
                 public void onClick(View v) {
 
+                    String email=et_email.getText().toString();
+                    String name=et_name.getText().toString();
+                    String mobile=et_mobile.getText().toString();
+                    String address=et_address.getText().toString();
+                    String pincode=et_pincode.getText().toString();
+                    String city=et_city.getText().toString();
+                    String dob=et_dob.getText().toString();
+                    String gender=null;
+                    boolean bol=radio_male.isChecked();
+                    if(bol)
+                        gender="Male";
+                    else
+                        gender="Female";
+
+
+                    personalDetailsEntry(email,name,mobile,address,pincode,city,dob,gender);
+
                 }
+
+
             });
         }
         else if(v.getId()==R.id.ET_dob)
@@ -112,6 +145,47 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
             dateOfBirth();
         }
 
+    }
+
+    private void personalDetailsEntry(final String email, final String name, final String mobile, final String address, final String pincode, final String city, final String dob, final String gender) {
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, saveCanditate, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("checklog",response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("checklog"," "+error);
+                Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                HashMap<String,String> hashMap=new HashMap<>();
+                hashMap.put("email",email);
+                hashMap.put("name",name);
+                hashMap.put("pwd",password);
+                hashMap.put("currentcity",city);
+                hashMap.put("address",address);
+                hashMap.put("pincode",pincode);
+                hashMap.put("gender",gender);
+                hashMap.put("dob",dob);
+                hashMap.put("course",getdegree);
+                hashMap.put("branch",getfos);
+                hashMap.put("poy"," ");
+                hashMap.put("percentage"," ");
+                hashMap.put("il"," ");
+                hashMap.put("iname"," ");
+                hashMap.put("uname"," ");
+
+                return hashMap;
+            }
+        };
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
     }
 
     private void dateOfBirth() {
@@ -174,26 +248,35 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("LogCheck",error.toString());
+                Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
             }
         });
 
         Volley.newRequestQueue(getActivity()).add(stringRequest);
     }
 
-    //On Spinner Item selected
+    //On Degree Spinner Item selected
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String hashvalue = parent.getItemAtPosition(position).toString(); //Getting value of the spinner item by position
-        String hashkey = null;
-        for (Object o : clist.keySet()) {
-            if (clist.get(o).equals(hashvalue)) {
-                hashkey = o.toString();   //Getting the haskey from the hashvalue
-                break;
-            }
-        }
 
-        //Calling fieldOfStudey and passing hashkey of degreeId
-        fieldOfStudy(hashkey);
+        if(parent.getId()==R.id.Spinner_degree) {
+            String hashvalue = parent.getItemAtPosition(position).toString(); //Getting value of the spinner item by position
+            String hashkey = null;
+            getdegree=hashvalue;
+            for (Object o : clist.keySet()) {
+                if (clist.get(o).equals(hashvalue)) {
+                    hashkey = o.toString();   //Getting the haskey from the hashvalue
+                    break;
+                }
+            }
+
+            //Calling fieldOfStudey and passing hashkey of degreeId
+            fieldOfStudy(hashkey);
+        }
+        else if(parent.getId()==R.id.Spinner_fos)
+        {
+            getfos=parent.getItemAtPosition(position).toString();
+        }
     }
 
     @Override
@@ -234,6 +317,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("LogCheck",""+error);
+                Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
             }
         })
         {

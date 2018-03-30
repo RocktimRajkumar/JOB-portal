@@ -126,10 +126,13 @@
                 android:layout_below="@+id/TV_gender"
                 android:layout_marginTop="5dp">
                 <RadioButton
+                    android:id="@+id/Radio_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Male" />
+                    android:text="Male"
+                    android:checked="true"/>
                 <RadioButton
+                    android:id="@+id/Radio_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Female"/>
