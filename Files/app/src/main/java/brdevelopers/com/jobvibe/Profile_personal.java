@@ -2,6 +2,8 @@ package brdevelopers.com.jobvibe;
 
 import android.app.DatePickerDialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -50,9 +52,9 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
     private String getdegree,getfos,password;
 
-    String degreeUrl="http://103.230.103.142/jobportalapp/job.asmx/GetCourse";
-    String fosUrl="http://103.230.103.142/jobportalapp/job.asmx/GetBranch";
-    String saveCanditate="http://103.230.103.142/jobportalapp/job.asmx/SaveCandidate";
+    private String degreeUrl="http://103.230.103.142/jobportalapp/job.asmx/GetCourse";
+    private String fosUrl="http://103.230.103.142/jobportalapp/job.asmx/GetBranch";
+    private String saveCanditate="http://103.230.103.142/jobportalapp/job.asmx/SaveCandidate";
 
     final Map<String,String> clist=new LinkedHashMap<>();
     final Map<String,String> fosmap=new LinkedHashMap<>();
@@ -110,9 +112,6 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
         if(v.getId()==R.id.TV_btnnext)
         {
-            tv_btnnext.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
                     String email=et_email.getText().toString();
                     String name=et_name.getText().toString();
@@ -131,10 +130,23 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
                     personalDetailsEntry(email,name,mobile,address,pincode,city,dob,gender);
 
-                }
+                    Bundle bundle=new Bundle();
+                    bundle.putString("email",email);
+                    bundle.putString("mobile",mobile);
+                    bundle.putString("name",name);
+                    bundle.putString("currentcity",city);
+                    bundle.putString("address",address);
+                    bundle.putString("pincode",pincode);
+                    bundle.putString("gender",gender);
+                    bundle.putString("dob",dob);
 
+                    FragmentManager fragmentManager=getActivity().getFragmentManager();
+                    FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                    Profile_Educaion profile_educaion=new Profile_Educaion();
+                    profile_educaion.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.FL_profile,profile_educaion);
+                    fragmentTransaction.commit();
 
-            });
         }
         else if(v.getId()==R.id.ET_dob)
         {
