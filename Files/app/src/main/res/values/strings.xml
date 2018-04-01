@@ -26,5 +26,12 @@
     <string name="error_password">Minimum 8 character required!</string>
     <string name="error_cpassword">Confirm Password doesn\'t match!</string>
     <string name="error_empty_field">Field can\'t be empty!</string>
+    <string name="title_activity_home">Home</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

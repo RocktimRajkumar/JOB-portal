@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/RL_main"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/TV_jobtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/label"
+        android:textColor="@color/bluehead"
+        android:textStyle="bold"
+        android:text="Android Developer"/>
+
+    <TextView
+        android:id="@+id/TV_companyname"
+        android:layout_below="@+id/TV_jobtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/pofileTV"
+        android:textStyle="bold"
+        android:text="Tata Consultancy Services"/>
+
+    <TextView
+        android:id="@+id/TV_location"
+        android:layout_below="@+id/TV_companyname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/pofileTV"
+        android:textStyle="bold"
+        android:text="Kolkata,India"/>
+
+
+
+
+</RelativeLayout>
