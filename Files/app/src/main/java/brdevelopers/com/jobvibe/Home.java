@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,6 +26,7 @@ public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     TextView matched,recommended;
+    CandidateDetails candidateDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,10 @@ public class Home extends AppCompatActivity
         setSupportActionBar(toolbar);
         matched.setOnClickListener(this);
         recommended.setOnClickListener(this);
+
+        candidateDetails=(CandidateDetails)getIntent().getSerializableExtra("candidate");
+
+        Log.d("logcheck",candidateDetails.getEmail());
 
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
