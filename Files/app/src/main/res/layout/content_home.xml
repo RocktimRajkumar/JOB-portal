@@ -18,7 +18,9 @@
             android:text="Matched"
             android:layout_weight="1"
             android:gravity="center"
-            android:id="@+id/TV_matched"/>
+            android:textSize="@dimen/label"
+            android:id="@+id/TV_matched"
+            android:padding="5dp"/>
 
         <TextView
             android:layout_width="0dp"
@@ -26,7 +28,9 @@
             android:text="Recommended"
             android:layout_weight="1"
             android:gravity="center"
-            android:id="@+id/TV_recommended"/>
+            android:textSize="@dimen/label"
+            android:id="@+id/TV_recommended"
+            android:padding="5dp"/>
     </LinearLayout>
 
     <FrameLayout
@@ -41,7 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/bluehead">
+        android:background="@color/bluehead"
+        android:padding="5dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

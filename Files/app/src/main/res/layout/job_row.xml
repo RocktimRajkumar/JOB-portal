@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/RL_main"
-    android:padding="10dp">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginTop="8dp">
 
-    <TextView
-        android:id="@+id/TV_jobtitle"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/label"
-        android:textColor="@color/bluehead"
-        android:textStyle="bold"
-        android:text="Android Developer"/>
+        android:padding="8dp"
+        android:background="@color/gray">
 
-    <TextView
-        android:id="@+id/TV_companyname"
-        android:layout_below="@+id/TV_jobtitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/pofileTV"
-        android:textStyle="bold"
-        android:text="Tata Consultancy Services"/>
+        <TextView
+            android:id="@+id/TV_jobtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/jobtitle"
+            android:textColor="@color/bluehead"
+            android:textStyle="bold"
+            android:text="Android Developer"
+            android:paddingBottom="2dp"/>
 
-    <TextView
-        android:id="@+id/TV_location"
-        android:layout_below="@+id/TV_companyname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/pofileTV"
-        android:textStyle="bold"
-        android:text="Kolkata,India"/>
+        <TextView
+            android:id="@+id/TV_companyname"
+            android:layout_below="@+id/TV_jobtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/label"
+            android:textStyle="bold"
+            android:text="Tata Consultancy Services"
+            android:paddingBottom="2dp"/>
 
+        <TextView
+            android:id="@+id/TV_location"
+            android:layout_below="@+id/TV_companyname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/pofileTV"
+            android:textStyle="bold"
+            android:text="Kolkata,India"
+            android:paddingBottom="2dp"/>
 
+    </RelativeLayout>
 
-
-</RelativeLayout>
+</android.support.v7.widget.CardView>

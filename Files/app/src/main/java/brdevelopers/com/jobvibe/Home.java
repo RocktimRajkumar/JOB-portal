@@ -22,7 +22,7 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 public class Home extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     TextView matched,recommended;
 
@@ -34,27 +34,14 @@ public class Home extends AppCompatActivity
         recommended=findViewById(R.id.TV_recommended);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        matched.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadFragment(new MatchedFragment());
-            }
-
-            private void loadFragment(MatchedFragment matchedFragment) {
-                FragmentManager fm=getFragmentManager();
-                FragmentTransaction ft=fm.beginTransaction();
-                ft.replace(R.id.FL_content,matchedFragment);
-                ft.commit();
-            }
-        });
+        matched.setOnClickListener(this);
+        recommended.setOnClickListener(this);
 
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
 
                 ImageView location = new ImageView(Home.this); // Create an icon
                 location.setImageDrawable(getResources().getDrawable(R.drawable.ic_location));
@@ -149,5 +136,25 @@ public class Home extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if(v.getId()==R.id.TV_matched)
+        {
+            loadFragment(new MatchedFragment());
+        }
+        else if(v.getId()==R.id.TV_recommended)
+        {
+           loadFragment(new Recommended());
+        }
+    }
+
+    public void loadFragment(Fragment fragment) {
+        FragmentManager fm=getFragmentManager();
+        FragmentTransaction ft=fm.beginTransaction();
+        ft.replace(R.id.FL_content,fragment);
+        ft.commit();
     }
 }
