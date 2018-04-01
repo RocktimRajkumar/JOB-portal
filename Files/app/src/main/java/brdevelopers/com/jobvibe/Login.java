@@ -11,7 +11,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,6 +34,8 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
    private EditText et_email, et_password;
    private TextView tv_btnlogin,tv_createnew;
    private int i_email=0,i_password=0;
+
+   String saveLogin="http://103.230.103.142/jobportalapp/job.asmx/CandidateLogin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,13 +146,20 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                     }
 
                     if (i_password == 1 && i_email == 1) {
-                        Intent profile = new Intent(Login.this, Home.class);
-                        startActivity(profile);
+
+                        String email=et_email.getText().toString();
+                        String password=et_password.getText().toString();
+
+                        Log.d("logcheck",email+" "+password);
+                        saveCredential(email,password);
                     }
                 }
 
 
             }, TIMMER);
+
+
+
         }
          else if(v.getId()==R.id.crete_new)
         {
@@ -145,5 +167,51 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
             startActivity(profile);
         }
 
+
+
+
+    }
+
+    private void saveCredential(final String email, final String password) {
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, saveLogin, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("logcheck",response);
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    String success=jsonObject.getString("Sucess");
+                    if(success.equals("1"))
+                    {
+                        Intent profile = new Intent(Login.this, Home.class);
+                        startActivity(profile);
+                    }
+                    else{
+                        i_password=0;
+                        i_email=0;
+                        til_password.setError("Invalid login Credential!");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("logcheck",""+error);
+                Toast.makeText(Login.this, ""+error, Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> hashMap=new HashMap<>();
+                hashMap.put("email",email);
+                hashMap.put("pwd",password);
+                return hashMap;
+            }
+        };
+
+        Volley.newRequestQueue(Login.this).add(stringRequest);
     }
 }
