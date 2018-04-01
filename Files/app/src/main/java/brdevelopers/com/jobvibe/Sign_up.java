@@ -248,16 +248,22 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
                     tv_signup.setElevation(elevation);
                 }
 
-                if(i_password==1 && i_email==1 &&i_cpassword==1)
-                {
+                int TIMMER=1000;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(i_password==1 && i_email==1 &&i_cpassword==1)
+                        {
 
-                    Intent profile=new Intent(Sign_up.this,Profile.class);
-                    String email=et_email.getText().toString();
-                    String password=et_password.getText().toString();
-                    profile.putExtra("email",email);
-                    profile.putExtra("password",password);
-                    startActivity(profile);
-                }
+                            Intent profile=new Intent(Sign_up.this,Profile.class);
+                            String email=et_email.getText().toString();
+                            String password=et_password.getText().toString();
+                            profile.putExtra("email",email);
+                            profile.putExtra("password",password);
+                            startActivity(profile);
+                        }
+                    }
+                },TIMMER);
 
             }
         },TIMMER);

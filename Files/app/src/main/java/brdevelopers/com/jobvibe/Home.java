@@ -34,6 +34,7 @@ public class Home extends AppCompatActivity
         recommended=findViewById(R.id.TV_recommended);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        loadFragment(new MatchedFragment());
         matched.setOnClickListener(this);
         recommended.setOnClickListener(this);
 
