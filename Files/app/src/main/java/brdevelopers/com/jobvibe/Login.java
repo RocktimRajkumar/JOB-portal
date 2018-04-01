@@ -131,7 +131,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                     }
 
                     if (i_password == 1 && i_email == 1) {
-                        Intent profile = new Intent(Login.this, Sign_up.class);
+                        Intent profile = new Intent(Login.this, Home.class);
                         startActivity(profile);
                     }
                 }
