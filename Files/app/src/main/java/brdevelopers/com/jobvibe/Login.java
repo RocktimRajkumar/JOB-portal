@@ -150,7 +150,6 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                         String email=et_email.getText().toString();
                         String password=et_password.getText().toString();
 
-                        Log.d("logcheck",email+" "+password);
                         saveCredential(email,password);
                     }
                 }
@@ -208,7 +207,6 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                         String tenpercentage=jsonObject2.getString("mpercentage");
                         String mobile=jsonObject2.getString("mob");
 
-                        Log.d("logcheck",email);
 
                         CandidateDetails candidateDetails=new CandidateDetails();
 
@@ -236,8 +234,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                         candidateDetails.setTenpercentage(tenpercentage);
                         candidateDetails.setMobile(mobile);
 
-
-                        Intent profile = new Intent(Login.this, Home.class);
+                        Intent profile = new Intent(getApplicationContext(),Home.class);
                         profile.putExtra("candidate",candidateDetails);
                         startActivity(profile);
                     }
@@ -248,6 +245,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Log.d("logcheck",""+e);
                 }
             }
         }, new Response.ErrorListener() {

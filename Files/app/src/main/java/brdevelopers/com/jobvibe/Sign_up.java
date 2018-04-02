@@ -187,10 +187,6 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
             et_password.requestFocus();
         else if (i_cpassword == 0)
             et_cpassword.requestFocus();
-        else {
-            Intent profile = new Intent(Sign_up.this, Profile.class);
-            startActivity(profile);
-        }
 
 
         final Float elevation = tv_signup.getElevation();
@@ -246,7 +242,7 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
                 }
 
 
-                int TIMMER=1000;
+                int TIMMES=300;
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -261,7 +257,7 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
                             startActivity(profile);
                         }
                     }
-                },TIMMER);
+                },TIMMES);
 
 
             }

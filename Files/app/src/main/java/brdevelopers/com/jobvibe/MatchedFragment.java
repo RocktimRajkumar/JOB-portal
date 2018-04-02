@@ -46,6 +46,19 @@ public class MatchedFragment extends Fragment {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        //Receiving Degree and FOS from Home activity
+        Bundle bundle=getArguments();
+        String degree=bundle.getString("degree");
+        String FOS=bundle.getString("FOS");
+
+        if(degree.equals("B.TECH"))
+        {
+            degree=degree+"("+FOS+")";
+        }
+
+        final String course=degree;
+
+        Log.d("logcheck",course);
         loadcoursejob("","");
 
         int TIMMER=500;
@@ -58,7 +71,7 @@ public class MatchedFragment extends Fragment {
 
                 for(Job_details city:list)
                 {
-                    location.add(city.getJblocation().toString());
+                    location.add(city.getJblocation().toString().toLowerCase());
                 }
 
 
@@ -66,7 +79,7 @@ public class MatchedFragment extends Fragment {
 
                 for(String loc: location)
                 {
-                    loadcoursejob(loc,"BCA");
+                    loadcoursejob(loc,course);
                 }
 
                 int TIMMING=500;
