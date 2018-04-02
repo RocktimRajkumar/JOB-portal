@@ -11,7 +11,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,6 +34,8 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
    private EditText et_email, et_password;
    private TextView tv_btnlogin,tv_createnew;
    private int i_email=0,i_password=0;
+
+   String saveLogin="http://103.230.103.142/jobportalapp/job.asmx/CandidateLogin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,13 +146,20 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                     }
 
                     if (i_password == 1 && i_email == 1) {
-                        Intent profile = new Intent(Login.this, Home.class);
-                        startActivity(profile);
+
+                        String email=et_email.getText().toString();
+                        String password=et_password.getText().toString();
+
+                        Log.d("logcheck",email+" "+password);
+                        saveCredential(email,password);
                     }
                 }
 
 
             }, TIMMER);
+
+
+
         }
          else if(v.getId()==R.id.crete_new)
         {
@@ -145,5 +167,106 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
             startActivity(profile);
         }
 
+
+
+
+    }
+
+    private void saveCredential(final String email, final String password) {
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, saveLogin, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("logcheck",response);
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    String success=jsonObject.getString("Sucess");
+                    if(success.equals("1"))
+                    {
+                        JSONObject jsonObject2=jsonObject.getJSONObject("CandidateDetails");
+                        String email=jsonObject2.getString("email");
+                        String name=jsonObject2.getString("name");
+                        String password=jsonObject2.getString("pwd");
+                        String currentcity=jsonObject2.getString("currentcity");
+                        String address=jsonObject2.getString("address");
+                        String pincode=jsonObject2.getString("pincode");
+                        String gender=jsonObject2.getString("gender");
+                        String dob=jsonObject2.getString("dob");
+                        String degree=jsonObject2.getString("course");
+                        String fieldofstudy=jsonObject2.getString("branch");
+                        String YOC=jsonObject2.getString("poy");
+                        String percentage=jsonObject2.getString("percentage");
+                        String instituteName=jsonObject2.getString("iname");
+                        String universityName=jsonObject2.getString("uname");
+                        String higherBoard=jsonObject2.getString("tboard");
+                        String higherSchool=jsonObject2.getString("tschool");
+                        String higherYOC=jsonObject2.getString("tpoy");
+                        String higherpercentage=jsonObject2.getString("tpercentage");
+                        String tenBoard=jsonObject2.getString("mboard");
+                        String tenSchool=jsonObject2.getString("mschool");
+                        String tenYOC=jsonObject2.getString("mpoy");
+                        String tenpercentage=jsonObject2.getString("mpercentage");
+                        String mobile=jsonObject2.getString("mob");
+
+                        Log.d("logcheck",email);
+
+                        CandidateDetails candidateDetails=new CandidateDetails();
+
+                        candidateDetails.setEmail(email);
+                        candidateDetails.setName(name);
+                        candidateDetails.setPwd(password);
+                        candidateDetails.setCurrentcity(currentcity);
+                        candidateDetails.setAddress(address);
+                        candidateDetails.setPincode(pincode);
+                        candidateDetails.setGender(gender);
+                        candidateDetails.setDob(dob);
+                        candidateDetails.setDegree(degree);
+                        candidateDetails.setFieldOfStudy(fieldofstudy);
+                        candidateDetails.setYOC(YOC);
+                        candidateDetails.setPercentage(percentage);
+                        candidateDetails.setInstituteName(instituteName);
+                        candidateDetails.setUniversityName(universityName);
+                        candidateDetails.setHigherBoard(higherBoard);
+                        candidateDetails.setHigherSchool(higherSchool);
+                        candidateDetails.setHigherYOC(higherYOC);
+                        candidateDetails.setHigherpercentage(higherpercentage);
+                        candidateDetails.setTenboard(tenBoard);
+                        candidateDetails.setTenschool(tenSchool);
+                        candidateDetails.setTenYOC(tenYOC);
+                        candidateDetails.setTenpercentage(tenpercentage);
+                        candidateDetails.setMobile(mobile);
+
+
+                        Intent profile = new Intent(Login.this, Home.class);
+                        profile.putExtra("candidate",candidateDetails);
+                        startActivity(profile);
+                    }
+                    else{
+                        i_password=0;
+                        i_email=0;
+                        til_password.setError("Invalid login Credential!");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("logcheck",""+error);
+                Toast.makeText(Login.this, ""+error, Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> hashMap=new HashMap<>();
+                hashMap.put("email",email);
+                hashMap.put("pwd",password);
+                return hashMap;
+            }
+        };
+
+        Volley.newRequestQueue(Login.this).add(stringRequest);
     }
 }

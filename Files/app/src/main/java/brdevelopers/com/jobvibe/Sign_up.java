@@ -181,11 +181,11 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
     @Override
     public void onClick(View v) {
 
-        if(i_email==0)
+        if (i_email == 0)
             et_email.requestFocus();
-        else if(i_password==0)
+        else if (i_password == 0)
             et_password.requestFocus();
-        else if(i_cpassword==0)
+        else if (i_cpassword == 0)
             et_cpassword.requestFocus();
         else {
             Intent profile = new Intent(Sign_up.this, Profile.class);
@@ -193,60 +193,58 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
         }
 
 
-        final Float elevation=tv_signup.getElevation();
+        final Float elevation = tv_signup.getElevation();
         tv_signup.setElevation(-elevation);
 
-        int TIMMER=200;
+        int TIMMER = 200;
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
-                if(i_email==0 && et_email.getText().toString().length()==0) {
+                if (i_email == 0 && et_email.getText().toString().length() == 0) {
                     et_email.requestFocus();
                     til_email.setError(getString(R.string.error_empty_field));
                     tv_signup.setElevation(elevation);
-                }
-                else if(i_email==0) {
+                } else if (i_email == 0) {
                     et_email.requestFocus();
                     tv_signup.setElevation(elevation);
                 }
 
-                if(i_password==0 && et_password.getText().toString().length()==0){
-                    if(i_email==0)
+                if (i_password == 0 && et_password.getText().toString().length() == 0) {
+                    if (i_email == 0)
                         et_email.requestFocus();
                     else
                         et_password.requestFocus();
                     til_password.setError(getString(R.string.error_empty_field));
                     tv_signup.setElevation(elevation);
-                }
-                else if(i_password==0){
-                    if(i_email==0)
+                } else if (i_password == 0) {
+                    if (i_email == 0)
                         et_email.requestFocus();
                     else
                         et_password.requestFocus();
                     tv_signup.setElevation(elevation);
                 }
 
-                if(i_cpassword==0 && et_cpassword.getText().toString().length()==0){
-                    if(i_email==0)
+                if (i_cpassword == 0 && et_cpassword.getText().toString().length() == 0) {
+                    if (i_email == 0)
                         et_email.requestFocus();
-                    else if(i_password==0)
+                    else if (i_password == 0)
                         et_password.requestFocus();
                     else
                         et_cpassword.requestFocus();
                     til_cpassword.setError(getString(R.string.error_empty_field));
                     tv_signup.setElevation(elevation);
-                }
-                else if(i_cpassword==0){
-                    if(i_email==0)
+                } else if (i_cpassword == 0) {
+                    if (i_email == 0)
                         et_email.requestFocus();
-                    else if(i_password==0)
+                    else if (i_password == 0)
                         et_password.requestFocus();
                     else
                         et_cpassword.requestFocus();
                     tv_signup.setElevation(elevation);
                 }
+
 
                 int TIMMER=1000;
                 new Handler().postDelayed(new Runnable() {
@@ -265,8 +263,11 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
                     }
                 },TIMMER);
 
+
             }
-        },TIMMER);
+        }, TIMMER);
 
     }
+
 }
+

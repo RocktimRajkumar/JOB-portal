@@ -1,6 +1,9 @@
 package brdevelopers.com.jobvibe;
 
-public class CandidateDetails {
+import java.io.Serializable;
+
+public class CandidateDetails implements Serializable{
+
 
     private String email=null;
     private String name=null;
