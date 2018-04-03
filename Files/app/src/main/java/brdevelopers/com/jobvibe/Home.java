@@ -1,8 +1,10 @@
 package brdevelopers.com.jobvibe;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,7 +29,7 @@ public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
 
-   private TextView matched,recommended;
+   private TextView matched,recommended,tv_home,tv_activity,tv_notification;
    private CandidateDetails candidateDetails;
    private ImageView iv_home,iv_activity,iv_notification;
 
@@ -41,6 +43,10 @@ public class Home extends AppCompatActivity
         iv_home=findViewById(R.id.IV_home);
         iv_activity=findViewById(R.id.IV_activity);
         iv_notification=findViewById(R.id.IV_notification);
+        tv_home=findViewById(R.id.TV_home);
+        tv_activity=findViewById(R.id.TV_activity);
+        tv_notification=findViewById(R.id.TV_notification);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -49,7 +55,9 @@ public class Home extends AppCompatActivity
         iv_home.setOnClickListener(this);
         iv_activity.setOnClickListener(this);
         iv_notification.setOnClickListener(this);
-
+        tv_home.setOnClickListener(this);
+        tv_activity.setOnClickListener(this);
+        tv_notification.setOnClickListener(this);
         candidateDetails=(CandidateDetails)getIntent().getSerializableExtra("candidate");
         loadFragment(new MatchedFragment());
 
@@ -135,17 +143,19 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_setting) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_faq) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_terms) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_report) {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_about) {
+
+        }else if(id==R.id.nav_logout){
 
         }
 
@@ -154,6 +164,7 @@ public class Home extends AppCompatActivity
         return true;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onClick(View v) {
 
@@ -165,23 +176,32 @@ public class Home extends AppCompatActivity
         {
            loadFragment(new Recommended());
         }
-        else if(v.getId()==R.id.IV_home)
+        else if(v.getId()==R.id.IV_home || v.getId()==R.id.TV_home)
         {
             iv_home.setImageResource(R.drawable.ic_onhome);
+            tv_home.setTextColor(Color.rgb(199, 26, 66));
             iv_activity.setImageResource(R.drawable.ic_activity);
+            tv_activity.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
+            tv_notification.setTextColor(Color.rgb(0, 150, 136));
         }
-        else if(v.getId()==R.id.IV_activity)
+        else if(v.getId()==R.id.IV_activity || v.getId()==R.id.TV_activity)
         {
             iv_activity.setImageResource(R.drawable.ic_onactivity);
+            tv_activity.setTextColor(Color.rgb(199, 26, 66));
             iv_home.setImageResource(R.drawable.ic_home);
+            tv_home.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
+            tv_notification.setTextColor(Color.rgb(0, 150, 136));
         }
-        else if(v.getId()==R.id.IV_notification)
+        else if(v.getId()==R.id.IV_notification || v.getId()==R.id.TV_notification)
         {
             iv_notification.setImageResource(R.drawable.ic_onnotification);
+            tv_notification.setTextColor(Color.rgb(199, 26, 66));
             iv_home.setImageResource(R.drawable.ic_home);
+            tv_home.setTextColor(Color.rgb(0, 150, 136));
             iv_activity.setImageResource(R.drawable.ic_activity);
+            tv_activity.setTextColor(Color.rgb(0, 150, 136));
         }
     }
 

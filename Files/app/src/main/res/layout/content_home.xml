@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/LL_listby">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -48,29 +49,72 @@
         android:background="@color/white"
         android:padding="10dp">
 
-        <ImageView
-            android:id="@+id/IV_home"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_home"/>
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <ImageView
-            android:id="@+id/IV_activity"
-            android:layout_toRightOf="@+id/IV_home"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/IV_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_home" />
+
+            <TextView
+                android:id="@+id/TV_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textColor="@color/button"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_activity"/>
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <ImageView
-            android:id="@+id/IV_notification"
-            android:layout_toRightOf="@+id/IV_Activity"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/IV_activity"
+                android:layout_toRightOf="@+id/IV_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_activity"/>
+
+            <TextView
+                android:id="@+id/TV_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Activity"
+                android:textColor="@color/button"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_notification"/>
+            android:orientation="vertical"
+            android:gravity="center">
 
+            <ImageView
+                android:id="@+id/IV_notification"
+                android:layout_toRightOf="@+id/IV_Activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_notification"/>
+
+            <TextView
+                android:id="@+id/TV_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notification"
+                android:textColor="@color/button"/>
+        </LinearLayout>
 
     </LinearLayout>
 
