@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,9 +26,11 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    TextView matched,recommended;
-    CandidateDetails candidateDetails;
-    ImageView iv_home,iv_activity,iv_notification;
+
+   private TextView matched,recommended;
+   private CandidateDetails candidateDetails;
+   private ImageView iv_home,iv_activity,iv_notification;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +187,7 @@ public class Home extends AppCompatActivity
 
     public void loadFragment(Fragment fragment) {
         //Sending Degree and FOS to Fragments
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         Bundle bundle=new Bundle();
         bundle.putString("degree",candidateDetails.getDegree());
         bundle.putString("FOS",candidateDetails.getFieldOfStudy());
