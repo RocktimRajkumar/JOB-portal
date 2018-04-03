@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -34,14 +36,19 @@ public class MatchedFragment extends Fragment {
 
     private String allJob="http://103.230.103.142/jobportalapp/job.asmx/JobSearch";
     private RecyclerView recyclerView;
-    List<Job_details> list=new ArrayList<>();
-    RecyclerAdapter recyclerAdapter;
+    private RecyclerAdapter recyclerAdapter;
+    private ProgressBar progressBar;
+
+    private static String course;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.matched_fragment,container,false);
         recyclerView=view.findViewById(R.id.RV_job);
+        progressBar=view.findViewById(R.id.progressbar);
+
+        progressBar.setVisibility(View.VISIBLE);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -56,48 +63,83 @@ public class MatchedFragment extends Fragment {
             degree=degree+"("+FOS+")";
         }
 
-        final String course=degree;
+            course=degree;
 
         Log.d("logcheck",course);
-        loadcoursejob("","");
 
-        int TIMMER=500;
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                HashSet<String> location=new HashSet<>();
-
-                for(Job_details city:list)
-                {
-                    location.add(city.getJblocation().toString().toLowerCase());
-                }
-
-
-                list=new ArrayList<>();
-
-                for(String loc: location)
-                {
-                    loadcoursejob(loc,course);
-                }
-
-                int TIMMING=500;
-               new Handler().postDelayed(new Runnable() {
-                   @Override
-                   public void run() {
-                       recyclerAdapter=new RecyclerAdapter(getActivity(),list);
-                       recyclerView.setAdapter(recyclerAdapter);
-                   }
-               },TIMMING);
-
-            }
-        },TIMMER);
+        loadAlljob();
 
         return view;
     }
 
-    private void loadcoursejob(final String place,final String course) {
+    private void loadAlljob() {
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, allJob, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Log.d("LogCheck",response);
+
+                HashSet<String> jblocation=new HashSet<>();
+
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    JSONArray jsonArray=jsonObject.getJSONArray("JobList");
+
+                    for(int i=0;i<jsonArray.length();i++)
+                    {
+
+                        JSONObject jobobject=jsonArray.getJSONObject(i);
+
+                        String jlocation=jobobject.getString("location");
+
+                        jblocation.add(jlocation.toLowerCase());
+
+                    }
+
+
+                    List<Job_details> list=new ArrayList<>();
+
+                    for(String loc:jblocation)
+                    {
+                        loadCourseJob(list,loc);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.d("LogCheck",""+e);
+                    progressBar.setVisibility(View.GONE);
+                }
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("LogCheck",""+error);
+                        Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                HashMap<String,String> jobHash=new HashMap<>();
+                jobHash.put("location","");
+                jobHash.put("skill","");
+                jobHash.put("course","");
+
+                return jobHash;
+            }
+
+        };
+
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
+    }
+
+    private void loadCourseJob(final List<Job_details> list, final String loc) {
 
         StringRequest stringRequest=new StringRequest(Request.Method.POST, allJob, new Response.Listener<String>() {
             @Override
@@ -176,10 +218,16 @@ public class MatchedFragment extends Fragment {
 
                     }
 
+                    recyclerAdapter=new RecyclerAdapter(getActivity(),list);
+                    recyclerView.setAdapter(recyclerAdapter);
+                    progressBar.setVisibility(View.GONE);
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("LogCheck",""+e);
+                    progressBar.setVisibility(View.GONE);
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
             }
@@ -189,6 +237,8 @@ public class MatchedFragment extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         Log.d("LogCheck",""+error);
                         Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 }){
 
@@ -196,7 +246,7 @@ public class MatchedFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 HashMap<String,String> jobHash=new HashMap<>();
-                jobHash.put("location",place);
+                jobHash.put("location",loc);
                 jobHash.put("skill","");
                 jobHash.put("course",course);
 
@@ -206,5 +256,6 @@ public class MatchedFragment extends Fragment {
         };
 
         Volley.newRequestQueue(getActivity()).add(stringRequest);
+
     }
 }

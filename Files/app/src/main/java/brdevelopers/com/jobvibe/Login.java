@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,9 +34,11 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
    private TextInputLayout til_password,til_email;
    private EditText et_email, et_password;
    private TextView tv_btnlogin,tv_createnew;
+   private ProgressBar progressBar;
+
    private int i_email=0,i_password=0;
 
-   String saveLogin="http://103.230.103.142/jobportalapp/job.asmx/CandidateLogin";
+   private String saveLogin="http://103.230.103.142/jobportalapp/job.asmx/CandidateLogin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
         til_password=findViewById(R.id.TIL_password);
         til_email=findViewById(R.id.TIL_email);
         tv_createnew=findViewById(R.id.crete_new);
+        progressBar=findViewById(R.id.progressbar);
 
         et_email.addTextChangedListener(this);
         et_password.addTextChangedListener(this);
@@ -147,6 +151,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
 
                     if (i_password == 1 && i_email == 1) {
 
+                        progressBar.setVisibility(View.VISIBLE);
                         String email=et_email.getText().toString();
                         String password=et_password.getText().toString();
 
@@ -234,6 +239,8 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                         candidateDetails.setTenpercentage(tenpercentage);
                         candidateDetails.setMobile(mobile);
 
+                        progressBar.setVisibility(View.GONE);
+
                         Intent profile = new Intent(getApplicationContext(),Home.class);
                         profile.putExtra("candidate",candidateDetails);
                         startActivity(profile);
@@ -242,10 +249,12 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                         i_password=0;
                         i_email=0;
                         til_password.setError("Invalid login Credential!");
+                        progressBar.setVisibility(View.GONE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("logcheck",""+e);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         }, new Response.ErrorListener() {
@@ -253,6 +262,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
             public void onErrorResponse(VolleyError error) {
                 Log.d("logcheck",""+error);
                 Toast.makeText(Login.this, ""+error, Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
 
             }
         }){

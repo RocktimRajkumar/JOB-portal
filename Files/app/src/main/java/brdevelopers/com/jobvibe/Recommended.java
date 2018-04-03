@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -31,14 +33,16 @@ public class Recommended extends Fragment {
 
     private String allJob="http://103.230.103.142/jobportalapp/job.asmx/JobSearch";
     private RecyclerView recyclerView;
-    List<Job_details> list=new ArrayList<>();
-    RecyclerAdapter recyclerAdapter;
+    private List<Job_details> list=new ArrayList<>();
+    private RecyclerAdapter recyclerAdapter;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         View view=inflater.inflate(R.layout.recommended,container,false);
+        progressBar=view.findViewById(R.id.progressbar);
         recyclerView=view.findViewById(R.id.RV_job);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
@@ -129,10 +133,14 @@ public class Recommended extends Fragment {
 
                     recyclerAdapter=new RecyclerAdapter(getActivity(),list);
                     recyclerView.setAdapter(recyclerAdapter);
+                    progressBar.setVisibility(View.GONE);
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("LogCheck",""+e);
+                    progressBar.setVisibility(View.GONE);
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
             }
@@ -141,7 +149,9 @@ public class Recommended extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("LogCheck",""+error);
-                        Toast.makeText(getContext(), ""+error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 }){
 
