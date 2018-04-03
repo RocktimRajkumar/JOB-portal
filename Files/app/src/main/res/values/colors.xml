@@ -8,4 +8,5 @@
     <color name="white">#ffffff</color>
     <color name="bluehead">#2b78e4</color>
     <color name="accent_material_light">#FF009688</color>
+    <color name="black">#272822</color>
 </resources>

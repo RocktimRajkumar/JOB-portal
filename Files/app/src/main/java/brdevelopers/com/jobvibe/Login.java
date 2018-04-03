@@ -6,9 +6,13 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -151,11 +155,26 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
 
                     if (i_password == 1 && i_email == 1) {
 
-                        progressBar.setVisibility(View.VISIBLE);
-                        String email=et_email.getText().toString();
-                        String password=et_password.getText().toString();
+                        if(Util.isNetworkConnected(Login.this)) {
+                            progressBar.setVisibility(View.VISIBLE);
+                            String email = et_email.getText().toString();
+                            String password = et_password.getText().toString();
 
-                        saveCredential(email,password);
+                            saveCredential(email, password);
+                        }
+                        else{
+                            Toast toast=new Toast(Login.this);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
+
+                            LayoutInflater inf=getLayoutInflater();
+
+                            View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)findViewById(R.id.CustomToast_Parent));
+                            TextView tf=layoutview.findViewById(R.id.CustomToast);
+                            tf.setText("No Internet Connection "+ Html.fromHtml("&#9995;"));
+                            toast.setView(layoutview);
+                            toast.show();
+                        }
                     }
                 }
 
