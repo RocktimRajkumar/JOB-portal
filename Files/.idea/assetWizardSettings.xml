@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_terms" />
-                            <entry key="sourceFile" value="E:\Homepage\Buttons\terms.svg" />
+                            <entry key="outputName" value="ic_filter" />
+                            <entry key="sourceFile" value="E:\Homepage\Buttons\filter.svg" />
                           </map>
                         </option>
                       </PersistentState>

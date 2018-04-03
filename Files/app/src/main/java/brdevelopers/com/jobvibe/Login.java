@@ -1,6 +1,7 @@
 package brdevelopers.com.jobvibe;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -57,7 +59,10 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
         et_password.addTextChangedListener(this);
         tv_btnlogin.setOnClickListener(this);
         tv_createnew.setOnClickListener(this);
+
+        loadLoginDetails();
     }
+
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -151,11 +156,17 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
 
                     if (i_password == 1 && i_email == 1) {
 
+                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         progressBar.setVisibility(View.VISIBLE);
                         String email=et_email.getText().toString();
                         String password=et_password.getText().toString();
 
+                        //Saving user name and password to Shared preferences
+                        saveLoginDetails("email",email);
+                        saveLoginDetails("password",password);
+
                         saveCredential(email,password);
+
                     }
                 }
 
@@ -172,8 +183,31 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
         }
 
 
+    }
 
-
+    //Saving Login Details
+    private  void saveLoginDetails(String key,String value){
+        SharedPreferences sharedPreferences=getSharedPreferences("Data",MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString(key,value);
+        editor.commit();
+    }
+    //Loading Login Details
+    private void loadLoginDetails(){
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        progressBar.setVisibility(View.VISIBLE);
+        SharedPreferences sharedPreferences=getSharedPreferences("Data",MODE_PRIVATE);
+        String email=sharedPreferences.getString("email"," ");
+        String password=sharedPreferences.getString("password"," ");
+        et_email.setText(email);
+        et_password.setText(password);
+        if(!email.equals("")) {
+            saveCredential(email, password);
+        }
+        else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     private void saveCredential(final String email, final String password) {
@@ -239,7 +273,9 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                         candidateDetails.setTenpercentage(tenpercentage);
                         candidateDetails.setMobile(mobile);
 
+
                         progressBar.setVisibility(View.GONE);
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                         Intent profile = new Intent(getApplicationContext(),Home.class);
                         profile.putExtra("candidate",candidateDetails);
@@ -250,11 +286,13 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                         i_email=0;
                         til_password.setError("Invalid login Credential!");
                         progressBar.setVisibility(View.GONE);
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("logcheck",""+e);
                     progressBar.setVisibility(View.GONE);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
             }
         }, new Response.ErrorListener() {
@@ -263,6 +301,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                 Log.d("logcheck",""+error);
                 Toast.makeText(Login.this, ""+error, Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
             }
         }){

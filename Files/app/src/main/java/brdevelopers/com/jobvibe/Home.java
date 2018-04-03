@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -156,6 +158,15 @@ public class Home extends AppCompatActivity
         } else if (id == R.id.nav_about) {
 
         }else if(id==R.id.nav_logout){
+
+            SharedPreferences sharedPreferences=getSharedPreferences("Data",MODE_PRIVATE);
+            SharedPreferences.Editor editor=sharedPreferences.edit();
+            editor.putString("email","");
+            editor.putString("password","");
+            editor.commit();
+
+            Intent login=new Intent(Home.this,Login.class);
+            startActivity(login);
 
         }
 
