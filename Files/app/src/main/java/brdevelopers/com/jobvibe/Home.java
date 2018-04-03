@@ -27,6 +27,7 @@ public class Home extends AppCompatActivity
 
     TextView matched,recommended;
     CandidateDetails candidateDetails;
+    ImageView iv_home,iv_activity,iv_notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +35,16 @@ public class Home extends AppCompatActivity
         setContentView(R.layout.activity_home);
         matched=findViewById(R.id.TV_matched);
         recommended=findViewById(R.id.TV_recommended);
+        iv_home=findViewById(R.id.IV_home);
+        iv_activity=findViewById(R.id.IV_activity);
+        iv_notification=findViewById(R.id.IV_notification);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         matched.setOnClickListener(this);
         recommended.setOnClickListener(this);
+        iv_home.setOnClickListener(this);
+        iv_activity.setOnClickListener(this);
+        iv_notification.setOnClickListener(this);
 
         candidateDetails=(CandidateDetails)getIntent().getSerializableExtra("candidate");
 
@@ -154,6 +161,24 @@ public class Home extends AppCompatActivity
         else if(v.getId()==R.id.TV_recommended)
         {
            loadFragment(new Recommended());
+        }
+        else if(v.getId()==R.id.IV_home)
+        {
+            iv_home.setImageResource(R.drawable.ic_onhome);
+            iv_activity.setImageResource(R.drawable.ic_activity);
+            iv_notification.setImageResource(R.drawable.ic_notification);
+        }
+        else if(v.getId()==R.id.IV_activity)
+        {
+            iv_activity.setImageResource(R.drawable.ic_onactivity);
+            iv_home.setImageResource(R.drawable.ic_home);
+            iv_notification.setImageResource(R.drawable.ic_notification);
+        }
+        else if(v.getId()==R.id.IV_notification)
+        {
+            iv_notification.setImageResource(R.drawable.ic_onnotification);
+            iv_home.setImageResource(R.drawable.ic_home);
+            iv_activity.setImageResource(R.drawable.ic_activity);
         }
     }
 

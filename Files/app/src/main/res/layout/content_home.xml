@@ -40,19 +40,38 @@
         android:layout_below="@+id/LL_listby">
     </FrameLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/RL_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/bluehead"
-        android:padding="5dp">
-        <TextView
-            android:layout_width="match_parent"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/IV_home"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Buttons Area"
-            android:gravity="center"
-            android:textSize="30dp"/>
-    </RelativeLayout>
+            android:layout_weight="1"
+            android:src="@drawable/ic_home"/>
+
+        <ImageView
+            android:id="@+id/IV_activity"
+            android:layout_toRightOf="@+id/IV_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_activity"/>
+
+        <ImageView
+            android:id="@+id/IV_notification"
+            android:layout_toRightOf="@+id/IV_Activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_notification"/>
+
+
+    </LinearLayout>
 
 </RelativeLayout>
