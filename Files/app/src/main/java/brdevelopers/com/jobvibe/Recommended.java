@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -43,7 +44,6 @@ public class Recommended extends Fragment {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        Log.d("LogCheck","hi");
         loadalljob();
 
         return view;
@@ -63,7 +63,6 @@ public class Recommended extends Fragment {
 
                     for(int i=0;i<jsonArray.length();i++)
                     {
-                        Log.d("LogCheck","inside forloop");
                         JSONObject jobobject=jsonArray.getJSONObject(i);
 
                         String jid=jobobject.getString("jid");
@@ -94,7 +93,6 @@ public class Recommended extends Fragment {
 //                        String jcompanyprofile=jsonObject.getString("companyprofile");
 //                        String jemail=jsonObject.getString("email");
 
-                        Log.d("LogCheck",jtitle);
 
                         Job_details job_details=new Job_details();
                         job_details.setJbid(jid);
@@ -143,6 +141,7 @@ public class Recommended extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("LogCheck",""+error);
+                        Toast.makeText(getContext(), ""+error, Toast.LENGTH_SHORT).show();
                     }
                 }){
 

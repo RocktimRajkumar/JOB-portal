@@ -40,6 +40,7 @@ public class Home extends AppCompatActivity
         iv_notification=findViewById(R.id.IV_notification);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         matched.setOnClickListener(this);
         recommended.setOnClickListener(this);
         iv_home.setOnClickListener(this);
@@ -47,8 +48,7 @@ public class Home extends AppCompatActivity
         iv_notification.setOnClickListener(this);
 
         candidateDetails=(CandidateDetails)getIntent().getSerializableExtra("candidate");
-
-        Log.d("logcheck",candidateDetails.getEmail());
+        loadFragment(new MatchedFragment());
 
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -183,6 +183,11 @@ public class Home extends AppCompatActivity
     }
 
     public void loadFragment(Fragment fragment) {
+        //Sending Degree and FOS to Fragments
+        Bundle bundle=new Bundle();
+        bundle.putString("degree",candidateDetails.getDegree());
+        bundle.putString("FOS",candidateDetails.getFieldOfStudy());
+        fragment.setArguments(bundle);
         FragmentManager fm=getFragmentManager();
         FragmentTransaction ft=fm.beginTransaction();
         ft.replace(R.id.FL_content,fragment);

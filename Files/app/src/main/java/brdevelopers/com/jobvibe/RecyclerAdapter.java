@@ -57,7 +57,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             jobtitle=itemView.findViewById(R.id.TV_jobtitle);
             jobcompany=itemView.findViewById(R.id.TV_companyname);
             joblocation=itemView.findViewById(R.id.TV_location);
-
         }
     }
 }

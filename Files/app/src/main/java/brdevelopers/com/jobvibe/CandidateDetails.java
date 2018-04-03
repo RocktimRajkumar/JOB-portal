@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class CandidateDetails implements Serializable{
 
+
     private String email=null;
     private String name=null;
     private String pwd=null;
@@ -211,5 +212,4 @@ public class CandidateDetails implements Serializable{
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
-
 }
