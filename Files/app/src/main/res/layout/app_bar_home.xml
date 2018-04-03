@@ -29,8 +29,8 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="70dp"
         android:layout_marginRight="20dp"
-        app:srcCompat="@drawable/ic_filter"
-        tools:ignore="VectorDrawableCompat"
-        android:backgroundTint="@color/white"/>
+        android:src="@drawable/ic_filter"
+        android:backgroundTint="@color/bluehead"
+        app:borderWidth="0dp"/>
 
 </android.support.design.widget.CoordinatorLayout>
