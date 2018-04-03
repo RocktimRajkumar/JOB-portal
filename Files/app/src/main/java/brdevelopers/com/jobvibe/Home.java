@@ -31,7 +31,7 @@ public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
 
-   private TextView matched,recommended,tv_home,tv_activity,tv_notification;
+   private TextView matched,recommended,tv_home,tv_activity,tv_notification,tv_empname,tv_empemail;
    private CandidateDetails candidateDetails;
    private ImageView iv_home,iv_activity,iv_notification;
 
@@ -61,7 +61,6 @@ public class Home extends AppCompatActivity
         tv_activity.setOnClickListener(this);
         tv_notification.setOnClickListener(this);
         candidateDetails=(CandidateDetails)getIntent().getSerializableExtra("candidate");
-        loadFragment(new MatchedFragment());
 
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -104,7 +103,17 @@ public class Home extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        View headerView = navigationView.getHeaderView(0);
+        tv_empname = (TextView) headerView.findViewById(R.id.TV_empName);
+        tv_empemail=(TextView)headerView.findViewById(R.id.TV_empEmail);
+
+        tv_empname.setText(candidateDetails.getName());
+        tv_empemail.setText(candidateDetails.getEmail());
+
         navigationView.setNavigationItemSelectedListener(this);
+
+        loadFragment(new MatchedFragment());
     }
 
     @Override
