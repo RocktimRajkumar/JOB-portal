@@ -1,13 +1,17 @@
 package brdevelopers.com.jobvibe;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,14 +31,15 @@ import java.util.Map;
 
 public class Profile_Educaion extends Fragment {
 
-    EditText et_university,et_college,et_cyoc,et_cper;
-    EditText et_12board,et_12school,et_12yoc,et_12per;
-    EditText et_10board,et_10school,et_10yoc,et_10per;
-    TextView tv_btnnext;
+    private EditText et_university,et_college,et_cyoc,et_cper;
+    private EditText et_12board,et_12school,et_12yoc,et_12per;
+    private EditText et_10board,et_10school,et_10yoc,et_10per;
+    private TextView tv_btnnext;
+    private ProgressBar progressBar;
 
-    final String editEducation="http://103.230.103.142/jobportalapp/job.asmx/EditCandidateEducationalDetails";
-    final String editPersonal="http://103.230.103.142/jobportalapp/job.asmx/EditCandidatePersonalDetails";
-    private String email,mobile,name,curcity,addr,pincode,gender,dob;
+    private final String editEducation="http://103.230.103.142/jobportalapp/job.asmx/EditCandidateEducationalDetails";
+    private final String editPersonal="http://103.230.103.142/jobportalapp/job.asmx/EditCandidatePersonalDetails";
+    private CandidateDetails candidateDetails;
 
     @Nullable
     @Override
@@ -42,14 +47,7 @@ public class Profile_Educaion extends Fragment {
         View view=inflater.inflate(R.layout.profile_education,container,false);
 
         Bundle bundle=getArguments();
-        email=bundle.getString("email");
-        mobile=bundle.getString("mobile");
-        name=bundle.getString("name");
-        curcity=bundle.getString("currentcity");
-        addr=bundle.getString("address");
-        pincode=bundle.getString("pincode");
-        gender=bundle.getString("gender");
-        dob=bundle.getString("dob");
+        candidateDetails= (CandidateDetails) bundle.getSerializable("candidate");
 
         et_university=view.findViewById(R.id.ET_university);
         et_college=view.findViewById(R.id.ET_college);
@@ -64,11 +62,13 @@ public class Profile_Educaion extends Fragment {
         et_10yoc=view.findViewById(R.id.ET_10yoc);
         et_10per=view.findViewById(R.id.ET_10per);
         tv_btnnext=view.findViewById(R.id.TV_btnnext);
+        progressBar=view.findViewById(R.id.progressbar);
 
         tv_btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                progressBar.setVisibility(View.VISIBLE);
                 String university=et_university.getText().toString();
                 String college=et_college.getText().toString();
                 String cyoc=et_cyoc.getText().toString();
@@ -82,7 +82,23 @@ public class Profile_Educaion extends Fragment {
                 String myoc=et_10yoc.getText().toString();
                 String mper=et_10per.getText().toString();
 
-                eduDetailEntry(university,college,cyoc,cper,tboard,tschool,tyoc,tper,mboard,mschool,myoc,mper);
+                if(Util.isNetworkConnected(getActivity())) {
+                    eduDetailEntry(university, college, cyoc, cper, tboard, tschool, tyoc, tper, mboard, mschool, myoc, mper);
+                }
+                else{
+                    Toast toast=new Toast(getActivity());
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM| Gravity.FILL_HORIZONTAL,0,0);
+
+                    LayoutInflater inf=getActivity().getLayoutInflater();
+
+                    View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)getActivity().findViewById(R.id.CustomToast_Parent));
+                    TextView tf=layoutview.findViewById(R.id.CustomToast);
+                    tf.setText("No Internet Connection "+ Html.fromHtml("&#9995;"));
+                    toast.setView(layoutview);
+                    toast.show();
+                    progressBar.setVisibility(View.GONE);
+                }
 
             }
         });
@@ -97,6 +113,20 @@ public class Profile_Educaion extends Fragment {
             @Override
             public void onResponse(String response) {
                 Log.d("checklog",""+response);
+
+                candidateDetails.setYOC(cyoc);
+                candidateDetails.setPercentage(cper);
+                candidateDetails.setInstituteName(college);
+                candidateDetails.setUniversityName(university);
+                candidateDetails.setHigherBoard(tboard);
+                candidateDetails.setHigherSchool(tschool);
+                candidateDetails.setHigherYOC(tyoc);
+                candidateDetails.setHigherpercentage(tper);
+                candidateDetails.setTenboard(mboard);
+                candidateDetails.setTenschool(mschool);
+                candidateDetails.setTenYOC(myoc);
+                candidateDetails.setTenpercentage(mper);
+
                 saveEduDetails(university,college,cyoc,cper);
 
 
@@ -107,13 +137,14 @@ public class Profile_Educaion extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Log.d("checklog"," "+error);
                 Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
 
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> hashMap=new HashMap<>();
-                hashMap.put("email",email);
+                hashMap.put("email",candidateDetails.getEmail());
                 hashMap.put("mschool",mschool);
                 hashMap.put("mboard",mboard);
                 hashMap.put("mpercentage",mper);
@@ -138,26 +169,34 @@ public class Profile_Educaion extends Fragment {
 
         StringRequest stringRequest=new StringRequest(Request.Method.POST, editPersonal, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {Log.d("checklog",response);
+            public void onResponse(String response) {
+                Log.d("checklog",response);
+
+                progressBar.setVisibility(View.GONE);
+
+                Intent profile = new Intent(getActivity(),Home.class);
+                profile.putExtra("candidate",candidateDetails);
+                startActivity(profile);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("checklog",""+error);
+                progressBar.setVisibility(View.GONE);
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 HashMap<String,String> hashMap=new HashMap<>();
-                hashMap.put("email",email);
-                hashMap.put("name",name);
-                hashMap.put("mobile",mobile);
-                hashMap.put("currentcity",curcity);
-                hashMap.put("address",addr);
-                hashMap.put("pincode",pincode);
-                hashMap.put("gender",gender);
-                hashMap.put("dob",dob);
+                hashMap.put("email",candidateDetails.getEmail());
+                hashMap.put("name",candidateDetails.getName());
+                hashMap.put("mobile",candidateDetails.getMobile());
+                hashMap.put("currentcity",candidateDetails.getCurrentcity());
+                hashMap.put("address",candidateDetails.getAddress());
+                hashMap.put("pincode",candidateDetails.getPincode());
+                hashMap.put("gender",candidateDetails.getGender());
+                hashMap.put("dob",candidateDetails.getDob());
                 hashMap.put("poy",cyoc);
                 hashMap.put("percentage",cper);
                 hashMap.put("il"," ");

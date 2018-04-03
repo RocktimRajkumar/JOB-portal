@@ -7,12 +7,15 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -65,9 +68,24 @@ public class MatchedFragment extends Fragment {
 
             course=degree;
 
-        Log.d("logcheck",course);
+        if(Util.isNetworkConnected(getActivity())) {
+            loadAlljob();
+        }
+        else{
+            Toast toast=new Toast(getActivity());
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
 
-        loadAlljob();
+            LayoutInflater inf=getActivity().getLayoutInflater();
+
+            View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)getActivity().findViewById(R.id.CustomToast_Parent));
+            TextView tf=layoutview.findViewById(R.id.CustomToast);
+            tf.setText("No Internet Connection "+ Html.fromHtml("&#9995;"));
+            toast.setView(layoutview);
+            toast.show();
+            progressBar.setVisibility(View.GONE);
+            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
 
         return view;
     }

@@ -7,8 +7,10 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,6 +52,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
     private ImageView iv_dob;
     private TextView tv_btnnext,tv_age;
     private Spinner degree,fos;
+    private ProgressBar progressBar;
 
     private String getdegree,getfos,password;
 
@@ -80,6 +84,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
         iv_dob=view.findViewById(R.id.IV_dob);
         tv_btnnext=view.findViewById(R.id.TV_btnnext);
         tv_age=view.findViewById(R.id.TV_age);
+        progressBar=view.findViewById(R.id.progressbar);
 
 
         //Receiving email and password from Profile activity
@@ -95,7 +100,22 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
         et_dob.setOnFocusChangeListener(this);  //Edit Text dob on focus
         et_mobile.addTextChangedListener(this);  //Edit Text mobile on textchange
        //Fetching data for degree from web service
-        getDegree();
+        if (Util.isNetworkConnected(getActivity())) {
+            getDegree();
+        }
+        else{
+            Toast toast=new Toast(getActivity());
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
+
+            LayoutInflater inf=getActivity().getLayoutInflater();
+
+            View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)getActivity().findViewById(R.id.CustomToast_Parent));
+            TextView tf=layoutview.findViewById(R.id.CustomToast);
+            tf.setText("No Internet Connection "+ Html.fromHtml("&#9995;"));
+            toast.setView(layoutview);
+            toast.show();
+        }
 
         //On degree Spinner click
         degree.setOnItemSelectedListener(this);
@@ -112,6 +132,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
         if(v.getId()==R.id.TV_btnnext)
         {
+                    progressBar.setVisibility(View.VISIBLE);
 
                     String email=et_email.getText().toString();
                     String name=et_name.getText().toString();
@@ -128,7 +149,23 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
                         gender="Female";
 
 
-                    personalDetailsEntry(email,name,mobile,address,pincode,city,dob,gender);
+                    if(Util.isNetworkConnected(getActivity())) {
+                        personalDetailsEntry(email, name, mobile, address, pincode, city, dob, gender);
+                    }
+                    else{
+                        Toast toast=new Toast(getActivity());
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
+
+                        LayoutInflater inf=getActivity().getLayoutInflater();
+
+                        View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)getActivity().findViewById(R.id.CustomToast_Parent));
+                        TextView tf=layoutview.findViewById(R.id.CustomToast);
+                        tf.setText("No Internet Connection "+ Html.fromHtml("&#9995;"));
+                        toast.setView(layoutview);
+                        toast.show();
+                        progressBar.setVisibility(View.GONE);
+                    }
 
 
 
@@ -155,15 +192,22 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
                 try {
                     JSONObject jsonObject=new JSONObject(response);
 
+                    CandidateDetails candidateDetails=new CandidateDetails();
+                    candidateDetails.setEmail(email);
+                    candidateDetails.setName(name);
+                    candidateDetails.setPwd(password);
+                    candidateDetails.setCurrentcity(city);
+                    candidateDetails.setAddress(address);
+                    candidateDetails.setPincode(pincode);
+                    candidateDetails.setGender(gender);
+                    candidateDetails.setDob(dob);
+                    candidateDetails.setDegree(getdegree);
+                    candidateDetails.setFieldOfStudy(getfos);
+                    candidateDetails.setMobile(mobile);
+
                     Bundle bundle=new Bundle();
-                    bundle.putString("email",email);
-                    bundle.putString("mobile",mobile);
-                    bundle.putString("name",name);
-                    bundle.putString("currentcity",city);
-                    bundle.putString("address",address);
-                    bundle.putString("pincode",pincode);
-                    bundle.putString("gender",gender);
-                    bundle.putString("dob",dob);
+                    bundle.putSerializable("candidate",candidateDetails);
+
 
                     FragmentManager fragmentManager=getActivity().getFragmentManager();
                     FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
@@ -175,6 +219,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    progressBar.setVisibility(View.GONE);
                 }
 
 
@@ -184,6 +229,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
             public void onErrorResponse(VolleyError error) {
                 Log.d("checklog"," "+error);
                 Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
             }
         }){
             @Override
@@ -316,8 +362,23 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
                 }
             }
 
-            //Calling fieldOfStudey and passing hashkey of degreeId
-            fieldOfStudy(hashkey);
+            if(Util.isNetworkConnected(getActivity())) {
+                //Calling fieldOfStudey and passing hashkey of degreeId
+                fieldOfStudy(hashkey);
+            }
+            else{
+                Toast toast=new Toast(getActivity());
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
+
+                LayoutInflater inf=getActivity().getLayoutInflater();
+
+                View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)getActivity().findViewById(R.id.CustomToast_Parent));
+                TextView tf=layoutview.findViewById(R.id.CustomToast);
+                tf.setText("No Internet Connection "+ Html.fromHtml("&#9995;"));
+                toast.setView(layoutview);
+                toast.show();
+            }
         }
         else if(parent.getId()==R.id.Spinner_fos)
         {

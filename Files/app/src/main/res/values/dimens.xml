@@ -4,7 +4,7 @@
     <dimen name="pofileTV">12sp</dimen>
     <dimen name="pofileET">14sp</dimen>
     <dimen name="headlabel">16sp</dimen>
-    <dimen name="toast">14sp</dimen>
+    <dimen name="toast">16sp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>

@@ -8,11 +8,16 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -89,8 +94,22 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
         }
         if(et_email.getText().length()>0 && matcherObj.matches()) {
             til_email.setError(null);
-            checkEmail(et_email.getText().toString());
-            i_email=1;
+            if(Util.isNetworkConnected(this)) {
+                checkEmail(et_email.getText().toString());
+            }
+            else{
+                Toast toast=new Toast(this);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
+
+                LayoutInflater inf=getLayoutInflater();
+
+                View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)findViewById(R.id.CustomToast_Parent));
+                TextView tf=layoutview.findViewById(R.id.CustomToast);
+                tf.setText("No Internet Connection "+ Html.fromHtml("&#9995;"));
+                toast.setView(layoutview);
+                toast.show();
+            }
         }
         if(et_email.getText().length()==0)
         {
@@ -144,7 +163,7 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
                 try {
                     JSONObject jsonObject=new JSONObject(response);
                     String responsemessage=jsonObject.getString("Sucess");
-                    Log.d("LogCheck",responsemessage);
+                    Log.d("LogCheck",response);
                     if(responsemessage.equals("1")) {
                         til_email.setError("Email Id already used.");
                         i_email = 0;
@@ -248,13 +267,27 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
                     public void run() {
                         if(i_password==1 && i_email==1 &&i_cpassword==1)
                         {
+                            if(Util.isNetworkConnected(Sign_up.this)) {
+                                Intent profile = new Intent(Sign_up.this, Profile.class);
+                                String email = et_email.getText().toString();
+                                String password = et_password.getText().toString();
+                                profile.putExtra("email", email);
+                                profile.putExtra("password", password);
+                                startActivity(profile);
+                            }
+                            else{
+                                Toast toast=new Toast(Sign_up.this);
+                                toast.setDuration(Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
 
-                            Intent profile=new Intent(Sign_up.this,Profile.class);
-                            String email=et_email.getText().toString();
-                            String password=et_password.getText().toString();
-                            profile.putExtra("email",email);
-                            profile.putExtra("password",password);
-                            startActivity(profile);
+                                LayoutInflater inf=getLayoutInflater();
+
+                                View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)findViewById(R.id.CustomToast_Parent));
+                                TextView tf=layoutview.findViewById(R.id.CustomToast);
+                                tf.setText("No Internet Connection "+ Html.fromHtml("&#9995;"));
+                                toast.setView(layoutview);
+                                toast.show();
+                            }
                         }
                     }
                 },TIMMES);
