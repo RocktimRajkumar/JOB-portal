@@ -46,6 +46,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         return joblist.size();
     }
 
+    public void filter(List<Job_details> newlist){
+        joblist=new ArrayList<>();
+        joblist.addAll(newlist);
+        notifyDataSetChanged();
+    }
+
     class MyViewHolder extends RecyclerView.ViewHolder
     {
         TextView jobtitle;
