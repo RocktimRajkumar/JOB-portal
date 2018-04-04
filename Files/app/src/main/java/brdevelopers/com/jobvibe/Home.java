@@ -7,7 +7,9 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -26,6 +28,10 @@ import android.widget.TextView;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -63,38 +69,6 @@ public class Home extends AppCompatActivity
         candidateDetails=(CandidateDetails)getIntent().getSerializableExtra("candidate");
 
 
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                ImageView location = new ImageView(Home.this); // Create an icon
-                location.setImageDrawable(getResources().getDrawable(R.drawable.ic_location));
-
-                ImageView company = new ImageView(Home.this); // Create an icon
-                company.setImageDrawable(getResources().getDrawable(R.drawable.ic_office));
-
-                ImageView skill = new ImageView(Home.this); // Create an icon
-                skill.setImageDrawable(getResources().getDrawable(R.drawable.ic_thought));
-
-                SubActionButton.Builder itemBuilder = new SubActionButton.Builder(Home.this);
-
-                SubActionButton actionButton1 = itemBuilder.setContentView(location).build();
-                SubActionButton actionButton2 = itemBuilder.setContentView(company).build();
-                SubActionButton actionButton3 = itemBuilder.setContentView(skill).build();
-
-                FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(Home.this)
-                        .addSubActionView(actionButton1)
-                        .addSubActionView(actionButton2)
-                        .addSubActionView(actionButton3)
-                        .attachTo(fab)
-                        .build();
-
-
-
-
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

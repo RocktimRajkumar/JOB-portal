@@ -61,6 +61,8 @@ public class MatchedFragment extends Fragment {
         String degree=bundle.getString("degree");
         String FOS=bundle.getString("FOS");
 
+
+
         if(degree.equals("B.TECH"))
         {
             degree=degree+"("+FOS+")";
@@ -199,8 +201,8 @@ public class MatchedFragment extends Fragment {
                         String jwalkin=jobobject.getString("walkin");
                         String jonline=jobobject.getString("online");
                         String jdescription=jobobject.getString("jobdescription");
-//                        String jcompanyprofile=jsonObject.getString("companyprofile");
-//                        String jemail=jsonObject.getString("email");
+                        String jcompanyprofile=jobobject.getString("companyprofile");
+                        String jemail=jobobject.getString("email");
 
 
                         Job_details job_details=new Job_details();
@@ -229,8 +231,8 @@ public class MatchedFragment extends Fragment {
                         job_details.setJbwalking(jwalkin);
                         job_details.setJbonline(jonline);
                         job_details.setJbdescription(jdescription);
-//                        job_details.setJbcompanyprofile(jcompanyprofile);
-//                        job_details.setJbemail(jemail);
+                        job_details.setJbcompanyprofile(jcompanyprofile);
+                        job_details.setJbemail(jemail);
 
                         list.add(job_details);
 
@@ -276,4 +278,5 @@ public class MatchedFragment extends Fragment {
         Volley.newRequestQueue(getActivity()).add(stringRequest);
 
     }
+
 }

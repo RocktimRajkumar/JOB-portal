@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
-        android:padding="10dp">
+        android:padding="2dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -60,7 +60,7 @@
                 android:id="@+id/IV_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_home" />
+                android:src="@drawable/ic_home"/>
 
             <TextView
                 android:id="@+id/TV_home"

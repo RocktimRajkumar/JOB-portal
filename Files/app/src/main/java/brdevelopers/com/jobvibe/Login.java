@@ -220,12 +220,36 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
         SharedPreferences sharedPreferences=getSharedPreferences("Data",MODE_PRIVATE);
         String email=sharedPreferences.getString("email"," ");
         String password=sharedPreferences.getString("password"," ");
-        et_email.setText(email);
-        et_password.setText(password);
-        if(!email.equals("")) {
-            saveCredential(email, password);
+
+        String pattern = "^[a-zA-Z0-9]{1,20}@[a-zA-Z]{1,10}.(com|org)$";
+        Matcher matcherObj = Pattern.compile(pattern).matcher(email);
+
+        if(email.length()>0 && matcherObj.matches() && password.length()>=8) {
+            et_email.setText(email);
+            et_password.setText(password);
+            if(Util.isNetworkConnected(Login.this)) {
+                saveCredential(email, password);
+            }
+            else{
+                Toast toast=new Toast(Login.this);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
+
+                progressBar.setVisibility(View.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                LayoutInflater inf=getLayoutInflater();
+
+                View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)findViewById(R.id.CustomToast_Parent));
+                TextView tf=layoutview.findViewById(R.id.CustomToast);
+                tf.setText("No Internet Connection "+ Html.fromHtml("&#9995;"));
+                toast.setView(layoutview);
+                toast.show();
+            }
         }
         else {
+            et_email.setText(null);
+            et_password.setText(null);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             progressBar.setVisibility(View.GONE);
         }

@@ -31,4 +31,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
 
+    implementation 'com.github.clans:fab:1.6.4'
 }
