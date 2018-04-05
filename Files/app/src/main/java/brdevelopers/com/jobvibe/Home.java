@@ -7,7 +7,9 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -24,16 +26,13 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
-import java.io.Serializable;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
 
-   private TextView matched,recommended,tv_home,tv_activity,tv_notification;
+   private TextView matched,recommended,tv_home,tv_activity,tv_notification,tv_empname,tv_empemail;
    private CandidateDetails candidateDetails;
    private ImageView iv_home,iv_activity,iv_notification;
 
@@ -62,7 +61,9 @@ public class Home extends AppCompatActivity
         tv_activity.setOnClickListener(this);
         tv_notification.setOnClickListener(this);
         candidateDetails=(CandidateDetails)getIntent().getSerializableExtra("candidate");
+
         loadFragment(new MatchedFragment());
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -72,7 +73,17 @@ public class Home extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        View headerView = navigationView.getHeaderView(0);
+        tv_empname = (TextView) headerView.findViewById(R.id.TV_empName);
+        tv_empemail=(TextView)headerView.findViewById(R.id.TV_empEmail);
+
+        tv_empname.setText(candidateDetails.getName());
+        tv_empemail.setText(candidateDetails.getEmail());
+
         navigationView.setNavigationItemSelectedListener(this);
+
+        loadFragment(new MatchedFragment());
     }
 
     @Override

@@ -1,6 +1,8 @@
 package brdevelopers.com.jobvibe;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +24,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,16 +33,21 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-public class Recommended extends Fragment {
+public class Recommended extends Fragment implements View.OnClickListener {
 
     private String allJob="http://103.230.103.142/jobportalapp/job.asmx/JobSearch";
     private RecyclerView recyclerView;
     private List<Job_details> list=new ArrayList<>();
     private RecyclerAdapter recyclerAdapter;
     private ProgressBar progressBar;
+    private FloatingActionButton floatlocation,floatskill,floatcompany;
+    private HashSet<String> jblocation=new HashSet<>();
+    private HashSet<String> jbcompany=new HashSet<>();
+    private HashSet<String> jbskill=new HashSet<>();
 
     @Nullable
     @Override
@@ -47,9 +56,17 @@ public class Recommended extends Fragment {
         View view=inflater.inflate(R.layout.recommended,container,false);
         progressBar=view.findViewById(R.id.progressbar);
         recyclerView=view.findViewById(R.id.RV_job);
+        floatlocation=view.findViewById(R.id.location);
+        floatskill=view.findViewById(R.id.skill);
+        floatcompany=view.findViewById(R.id.company);
+
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        floatlocation.setOnClickListener(this);
+        floatskill.setOnClickListener(this);
+        floatcompany.setOnClickListener(this);
 
         if(Util.isNetworkConnected(getActivity())) {
             loadalljob();
@@ -149,6 +166,39 @@ public class Recommended extends Fragment {
 
                         list.add(job_details);
 
+                        jblocation.add(jlocation.toLowerCase());
+
+                        if(!jcname.isEmpty())
+                            jbcompany.add(jcname.toLowerCase());
+                        if(!jbca.isEmpty())
+                            jbskill.add(jbca.toLowerCase());
+                        if(!jmca.isEmpty())
+                            jbskill.add(jmca.toLowerCase());
+                        if(!jcse.isEmpty())
+                            jbskill.add(jcse.toLowerCase());
+                        if(!jit.isEmpty())
+                            jbskill.add(jit.toLowerCase());
+                        if(!jee.isEmpty())
+                            jbskill.add(jee.toLowerCase());
+                        if(!jece.isEmpty())
+                            jbskill.add(jece.toLowerCase());
+                        if(!jcivil.isEmpty())
+                            jbskill.add(jcivil.toLowerCase());
+                        if(!jmba.isEmpty())
+                            jbskill.add(jmba.toLowerCase());
+                        if(!jasp.isEmpty())
+                            jbskill.add(jasp.toLowerCase());
+                        if(!jphp.isEmpty())
+                            jbskill.add(jphp.toLowerCase());
+                        if(!jjava.isEmpty())
+                            jbskill.add(jjava.toLowerCase());
+                        if(!jios.isEmpty())
+                            jbskill.add(jios.toLowerCase());
+                        if(!jandroid.isEmpty())
+                            jbskill.add(jandroid.toLowerCase());
+                        if(!jdbms.isEmpty())
+                            jbskill.add(jdbms.toLowerCase());
+
                     }
 
                     recyclerAdapter=new RecyclerAdapter(getActivity(),list);
@@ -190,4 +240,250 @@ public class Recommended extends Fragment {
 
         Volley.newRequestQueue(getActivity()).add(stringRequest);
     }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId()==R.id.location){
+
+            showLocation();
+        }
+        else if(v.getId()==R.id.skill){
+            showSkill();
+        }
+        else if(v.getId()==R.id.company){
+            showCompany();
+        }
+    }
+
+    private void showCompany() {
+
+        // setup the alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Choose Company");
+
+        // add a checkbox list
+        final String []company=jbcompany.toArray(new String[0]);
+        boolean[] checkedItems = new boolean[jbcompany.size()];
+        int i=0;
+        for (String s:jbcompany) {
+            checkedItems[i]=false;
+            i++;
+        }
+
+
+        final List<String> newCompany=new ArrayList<>();
+
+        builder.setMultiChoiceItems(company, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                // user checked or unchecked a box
+                if(isChecked)
+                    newCompany.add(company[which]);
+                else
+                    newCompany.remove(which);
+            }
+        });
+
+        // add OK and Cancel buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // user clicked OK
+
+                if(newCompany.size()!=0)
+                    loadNewCompanyJob(newCompany);
+
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+
+        // create and show the alert dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+    private void showSkill() {
+
+        // setup the alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Choose Skill");
+
+        // add a checkbox list
+        final String []skill=jbskill.toArray(new String[0]);
+        final boolean[] checkedItems = new boolean[jbskill.size()];
+        int i=0;
+        for (String s:jbskill) {
+            checkedItems[i]=false;
+            i++;
+        }
+
+
+        final List<String> newSkill=new ArrayList<>();
+
+        builder.setMultiChoiceItems(skill, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                // user checked or unchecked a box
+                if(isChecked)
+                    newSkill.add(skill[which]);
+
+                else
+                    newSkill.remove(which);
+
+            }
+        });
+
+        // add OK and Cancel buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // user clicked OK
+                if(newSkill.size()!=0)
+                    loadNewSkillJob(newSkill);
+
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+
+        // create and show the alert dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+    private void showLocation() {
+
+        // setup the alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Choose Location");
+
+        // add a checkbox list
+        final String []location=jblocation.toArray(new String[0]);
+        final boolean[] checkedItems = new boolean[jblocation.size()];
+        int i=0;
+        for (String s:jblocation) {
+            checkedItems[i]=false;
+            i++;
+        }
+
+        final List<String> newLocation=new ArrayList<>();
+
+        builder.setMultiChoiceItems(location, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                // user checked or unchecked a box
+                if(isChecked)
+                    newLocation.add(location[which]);
+                else
+                    newLocation.remove(which);
+
+            }
+        });
+
+        // add OK and Cancel buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // user clicked OK
+                if(newLocation.size()!=0)
+                    loadNewLocationJob(newLocation);
+
+
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+
+        // create and show the alert dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+    private void loadNewSkillJob(List<String> newSkilllist) {
+
+        List<Job_details> skilllist=new ArrayList<>();
+
+        for(String newSkill:newSkilllist){
+            for(Job_details job_details:list){
+                if(job_details.getJbbca().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbmca().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbcse().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbit().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbee().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbee().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbece().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbcivil().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbmba().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbasp().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbphp().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbjava().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbios().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbandroid().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbdbms().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+            }
+        }
+        recyclerAdapter.filter(skilllist);
+
+    }
+
+    private void loadNewCompanyJob(List<String> newCompanylist) {
+
+        List<Job_details> companylist=new ArrayList<>();
+
+        for(String newCompany:newCompanylist){
+            for(Job_details job_details:list){
+                if(job_details.getJbcompnayname().equalsIgnoreCase(newCompany)){
+                    companylist.add(job_details);
+                }
+            }
+        }
+        recyclerAdapter.filter(companylist);
+
+    }
+
+    private void loadNewLocationJob(List<String> newLocation) {
+
+        List<Job_details> locationlist=new ArrayList<>();
+
+        for(String newLoc:newLocation){
+            for(Job_details job_details:list){
+                if(job_details.getJblocation().equalsIgnoreCase(newLoc)){
+                    locationlist.add(job_details);
+                }
+            }
+        }
+        recyclerAdapter.filter(locationlist);
+    }
+
 }
