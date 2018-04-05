@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_filter" />
-                            <entry key="sourceFile" value="E:\Homepage\Buttons\filter.svg" />
+                            <entry key="outputName" value="ic_backarrow" />
+                            <entry key="sourceFile" value="E:\Homepage\Buttons\backarrow.svg" />
                           </map>
                         </option>
                       </PersistentState>

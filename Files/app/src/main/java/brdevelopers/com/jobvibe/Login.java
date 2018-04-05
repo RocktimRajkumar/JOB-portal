@@ -37,14 +37,14 @@ import java.util.regex.Pattern;
 
 public class Login extends AppCompatActivity implements TextWatcher,View.OnClickListener{
 
-   private TextInputLayout til_password,til_email;
-   private EditText et_email, et_password;
-   private TextView tv_btnlogin,tv_createnew;
-   private ProgressBar progressBar;
+    private TextInputLayout til_password,til_email;
+    private EditText et_email, et_password;
+    private TextView tv_btnlogin,tv_createnew;
+    private ProgressBar progressBar;
 
-   private int i_email=0,i_password=0;
+    private int i_email=0,i_password=0;
 
-   private String saveLogin="http://103.230.103.142/jobportalapp/job.asmx/CandidateLogin";
+    private String saveLogin="http://103.230.103.142/jobportalapp/job.asmx/CandidateLogin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,7 +197,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
 
 
         }
-         else if(v.getId()==R.id.crete_new)
+        else if(v.getId()==R.id.crete_new)
         {
             Intent profile = new Intent(Login.this, Sign_up.class);
             startActivity(profile);
@@ -220,12 +220,36 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
         SharedPreferences sharedPreferences=getSharedPreferences("Data",MODE_PRIVATE);
         String email=sharedPreferences.getString("email"," ");
         String password=sharedPreferences.getString("password"," ");
-        et_email.setText(email);
-        et_password.setText(password);
-        if(!email.equals("")) {
-            saveCredential(email, password);
+
+        String pattern = "^[a-zA-Z0-9]{1,20}@[a-zA-Z]{1,10}.(com|org)$";
+        Matcher matcherObj = Pattern.compile(pattern).matcher(email);
+
+        if(email.length()>0 && matcherObj.matches() && password.length()>=8) {
+            et_email.setText(email);
+            et_password.setText(password);
+            if(Util.isNetworkConnected(Login.this)) {
+                saveCredential(email, password);
+            }
+            else{
+                Toast toast=new Toast(Login.this);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
+
+                progressBar.setVisibility(View.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                LayoutInflater inf=getLayoutInflater();
+
+                View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)findViewById(R.id.CustomToast_Parent));
+                TextView tf=layoutview.findViewById(R.id.CustomToast);
+                tf.setText("No Internet Connection "+ Html.fromHtml("&#9995;"));
+                toast.setView(layoutview);
+                toast.show();
+            }
         }
         else {
+            et_email.setText(null);
+            et_password.setText(null);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             progressBar.setVisibility(View.GONE);
         }

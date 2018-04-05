@@ -27,6 +27,8 @@ import android.widget.TextView;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
+import java.io.Serializable;
+
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -34,7 +36,6 @@ public class Home extends AppCompatActivity
    private TextView matched,recommended,tv_home,tv_activity,tv_notification;
    private CandidateDetails candidateDetails;
    private ImageView iv_home,iv_activity,iv_notification;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,39 +64,6 @@ public class Home extends AppCompatActivity
         candidateDetails=(CandidateDetails)getIntent().getSerializableExtra("candidate");
         loadFragment(new MatchedFragment());
 
-
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                ImageView location = new ImageView(Home.this); // Create an icon
-                location.setImageDrawable(getResources().getDrawable(R.drawable.ic_location));
-
-                ImageView company = new ImageView(Home.this); // Create an icon
-                company.setImageDrawable(getResources().getDrawable(R.drawable.ic_office));
-
-                ImageView skill = new ImageView(Home.this); // Create an icon
-                skill.setImageDrawable(getResources().getDrawable(R.drawable.ic_thought));
-
-                SubActionButton.Builder itemBuilder = new SubActionButton.Builder(Home.this);
-
-                SubActionButton actionButton1 = itemBuilder.setContentView(location).build();
-                SubActionButton actionButton2 = itemBuilder.setContentView(company).build();
-                SubActionButton actionButton3 = itemBuilder.setContentView(skill).build();
-
-                FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(Home.this)
-                        .addSubActionView(actionButton1)
-                        .addSubActionView(actionButton2)
-                        .addSubActionView(actionButton3)
-                        .attachTo(fab)
-                        .build();
-
-
-
-
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -187,6 +155,7 @@ public class Home extends AppCompatActivity
         {
            loadFragment(new Recommended());
         }
+
         else if(v.getId()==R.id.IV_home || v.getId()==R.id.TV_home)
         {
             iv_home.setImageResource(R.drawable.ic_onhome);
@@ -195,6 +164,9 @@ public class Home extends AppCompatActivity
             tv_activity.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
+            loadFragment(new MatchedFragment());
+            matched.setVisibility(View.VISIBLE);
+            recommended.setVisibility(View.VISIBLE);
         }
         else if(v.getId()==R.id.IV_activity || v.getId()==R.id.TV_activity)
         {
@@ -204,6 +176,7 @@ public class Home extends AppCompatActivity
             tv_home.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
+            loadFragment(new ActivityFragment());
         }
         else if(v.getId()==R.id.IV_notification || v.getId()==R.id.TV_notification)
         {
@@ -213,8 +186,12 @@ public class Home extends AppCompatActivity
             tv_home.setTextColor(Color.rgb(0, 150, 136));
             iv_activity.setImageResource(R.drawable.ic_activity);
             tv_activity.setTextColor(Color.rgb(0, 150, 136));
+            loadFragment(new NotificationFragment());
+            matched.setVisibility(View.GONE);
+            recommended.setVisibility(View.GONE);
         }
     }
+
 
     public void loadFragment(Fragment fragment) {
         //Sending Degree and FOS to Fragments

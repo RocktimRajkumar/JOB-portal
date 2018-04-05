@@ -40,7 +40,6 @@ public class Profile extends AppCompatActivity {
 
         String email=getIntent().getStringExtra("email");
         String password=getIntent().getStringExtra("password");
-
         //Sending email and password to Fragments
         Bundle bundle=new Bundle();
         bundle.putString("email",email);
