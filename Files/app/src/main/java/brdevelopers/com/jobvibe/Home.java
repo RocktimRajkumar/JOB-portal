@@ -9,9 +9,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.widget.SearchView;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -26,12 +25,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -40,7 +33,8 @@ public class Home extends AppCompatActivity
    private TextView matched,recommended,tv_home,tv_activity,tv_notification,tv_empname,tv_empemail;
    private CandidateDetails candidateDetails;
    private ImageView iv_home,iv_activity,iv_notification;
-
+   private SearchView searchView;
+   private int butnclick=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,12 +94,12 @@ public class Home extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.home, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -164,10 +158,12 @@ public class Home extends AppCompatActivity
 
         if(v.getId()==R.id.TV_matched)
         {
+            butnclick=0;
             loadFragment(new MatchedFragment());
         }
         else if(v.getId()==R.id.TV_recommended)
         {
+            butnclick=1;
            loadFragment(new Recommended());
         }
         else if(v.getId()==R.id.IV_home || v.getId()==R.id.TV_home)
@@ -178,6 +174,7 @@ public class Home extends AppCompatActivity
             tv_activity.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
+            butnclick=0;
         }
         else if(v.getId()==R.id.IV_activity || v.getId()==R.id.TV_activity)
         {
@@ -205,10 +202,50 @@ public class Home extends AppCompatActivity
         Bundle bundle=new Bundle();
         bundle.putString("degree",candidateDetails.getDegree());
         bundle.putString("FOS",candidateDetails.getFieldOfStudy());
+
         fragment.setArguments(bundle);
         FragmentManager fm=getFragmentManager();
         FragmentTransaction ft=fm.beginTransaction();
         ft.replace(R.id.FL_content,fragment);
         ft.commit();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.searchfile,menu);
+        getMenuInflater().inflate(R.menu.home, menu);
+
+        final MenuItem myactionmenu=menu.findItem(R.id.search);
+        searchView=(SearchView)myactionmenu.getActionView();
+
+        searchView.setQueryHint(Html.fromHtml("<font color = #ffffff>" + getResources().getString(R.string.search_title) + "</font>"));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                if(searchView.isIconified())
+                    searchView.setIconified(true);
+
+                myactionmenu.collapseActionView();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(butnclick==0) {
+                    MatchedFragment matchedFragment = new MatchedFragment();
+                    matchedFragment.searchFilter(newText);
+                }
+                else if(butnclick==1){
+                    Recommended recommended=new Recommended();
+                    recommended.searchFilter(newText);
+                }
+
+                return false;
+            }
+        });
+        return true;
+    }
+
 }

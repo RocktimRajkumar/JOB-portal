@@ -41,8 +41,8 @@ public class Recommended extends Fragment implements View.OnClickListener {
 
     private String allJob="http://103.230.103.142/jobportalapp/job.asmx/JobSearch";
     private RecyclerView recyclerView;
-    private List<Job_details> list=new ArrayList<>();
-    private RecyclerAdapter recyclerAdapter;
+    private static List<Job_details> list;
+    private static RecyclerAdapter recyclerAdapter;
     private ProgressBar progressBar;
     private FloatingActionButton floatlocation,floatskill,floatcompany;
     private HashSet<String> jblocation=new HashSet<>();
@@ -97,6 +97,7 @@ public class Recommended extends Fragment implements View.OnClickListener {
             public void onResponse(String response) {
 
                 Log.d("LogCheck",response);
+                list=new ArrayList<>();
 
                 try {
                     JSONObject jsonObject=new JSONObject(response);
@@ -484,6 +485,22 @@ public class Recommended extends Fragment implements View.OnClickListener {
             }
         }
         recyclerAdapter.filter(locationlist);
+    }
+
+    public void searchFilter(String query)
+    {
+        query=query.toLowerCase();
+        final List<Job_details> newlist=new ArrayList<>();
+
+        for(Job_details job:list)
+        {
+            final String name=job.getJbtitle().toLowerCase();
+            if(name.startsWith(query))
+            {
+                newlist.add(job);
+            }
+        }
+        recyclerAdapter.filter(newlist);
     }
 
 }
