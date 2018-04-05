@@ -49,7 +49,6 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
     private RecyclerAdapter recyclerAdapter;
     private ProgressBar progressBar;
     private FloatingActionButton floatlocation,floatskill,floatcompany;
-    private FloatingActionMenu floatingActionMenu;
     private List<Job_details> list;
     private HashSet<String> jblocation=new HashSet<>();
     private HashSet<String> jbcompany=new HashSet<>();
