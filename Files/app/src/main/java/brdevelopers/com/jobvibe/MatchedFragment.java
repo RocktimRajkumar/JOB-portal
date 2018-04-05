@@ -30,6 +30,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,6 +49,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
     private RecyclerAdapter recyclerAdapter;
     private ProgressBar progressBar;
     private FloatingActionButton floatlocation,floatskill,floatcompany;
+    private FloatingActionMenu floatingActionMenu;
     private List<Job_details> list;
     private HashSet<String> jblocation=new HashSet<>();
     private HashSet<String> jbcompany=new HashSet<>();
@@ -423,6 +425,8 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // user clicked OK
+                if(newSkill.size()!=0)
+                    loadNewSkillJob(newSkill);
 
             }
         });
@@ -470,6 +474,8 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
                 // user clicked OK
                 if(newLocation.size()!=0)
                     loadNewLocationJob(newLocation);
+
+
             }
         });
         builder.setNegativeButton("Cancel", null);
@@ -477,6 +483,63 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         // create and show the alert dialog
         AlertDialog dialog = builder.create();
         dialog.show();
+
+    }
+
+    private void loadNewSkillJob(List<String> newSkilllist) {
+
+        List<Job_details> skilllist=new ArrayList<>();
+
+        for(String newSkill:newSkilllist){
+            for(Job_details job_details:list){
+                if(job_details.getJbbca().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbmca().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbcse().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbit().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbee().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbee().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbece().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbcivil().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbmba().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbasp().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbphp().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbjava().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbios().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbandroid().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+                else if(job_details.getJbdbms().equalsIgnoreCase(newSkill)){
+                    skilllist.add(job_details);
+                }
+            }
+        }
+        recyclerAdapter.filter(skilllist);
 
     }
 
@@ -508,4 +571,5 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         }
         recyclerAdapter.filter(locationlist);
     }
+
 }
