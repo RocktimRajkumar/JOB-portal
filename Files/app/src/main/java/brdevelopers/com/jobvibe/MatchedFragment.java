@@ -1,10 +1,12 @@
 package brdevelopers.com.jobvibe;
 
-import android.app.AlertDialog;;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import com.github.clans.fab.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -24,8 +26,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.clans.fab.FloatingActionButton;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,6 +75,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         floatlocation.setOnClickListener(this);
         floatskill.setOnClickListener(this);
         floatcompany.setOnClickListener(this);
+
 
 
         if(degree.equals("B.TECH"))
@@ -250,22 +251,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
                         if(!jcname.isEmpty())
                             jbcompany.add(jcname.toLowerCase());
-                        if(!jbca.isEmpty())
-                        jbskill.add(jbca.toLowerCase());
-                        if(!jmca.isEmpty())
-                        jbskill.add(jmca.toLowerCase());
-                        if(!jcse.isEmpty())
-                        jbskill.add(jcse.toLowerCase());
-                        if(!jit.isEmpty())
-                        jbskill.add(jit.toLowerCase());
-                        if(!jee.isEmpty())
-                        jbskill.add(jee.toLowerCase());
-                        if(!jece.isEmpty())
-                        jbskill.add(jece.toLowerCase());
-                        if(!jcivil.isEmpty())
-                        jbskill.add(jcivil.toLowerCase());
-                        if(!jmba.isEmpty())
-                        jbskill.add(jmba.toLowerCase());
+
                         if(!jasp.isEmpty())
                         jbskill.add(jasp.toLowerCase());
                         if(!jphp.isEmpty())
@@ -488,34 +474,8 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
         for(String newSkill:newSkilllist){
             for(Job_details job_details:list){
-                if(job_details.getJbbca().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbmca().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbcse().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbit().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbee().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbee().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbece().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbcivil().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbmba().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbasp().equalsIgnoreCase(newSkill)){
+
+                if(job_details.getJbasp().equalsIgnoreCase(newSkill)){
                     skilllist.add(job_details);
                 }
                 else if(job_details.getJbphp().equalsIgnoreCase(newSkill)){
@@ -567,4 +527,6 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         }
         recyclerAdapter.filter(locationlist);
     }
+
+
 }

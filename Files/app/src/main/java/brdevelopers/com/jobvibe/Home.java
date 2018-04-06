@@ -27,14 +27,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
 
-   private TextView matched,recommended,tv_home,tv_activity,tv_notification,tv_empname,tv_empemail;
-   private CandidateDetails candidateDetails;
-   private ImageView iv_home,iv_activity,iv_notification;
+    private TextView matched,recommended,tv_home,tv_activity,tv_notification,tv_empname,tv_empemail;
+    private CandidateDetails candidateDetails;
+    private ImageView iv_home,iv_activity,iv_notification;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +61,6 @@ public class Home extends AppCompatActivity
         tv_activity.setOnClickListener(this);
         tv_notification.setOnClickListener(this);
         candidateDetails=(CandidateDetails)getIntent().getSerializableExtra("candidate");
-
-        loadFragment(new MatchedFragment());
 
 
 
@@ -164,9 +162,8 @@ public class Home extends AppCompatActivity
         }
         else if(v.getId()==R.id.TV_recommended)
         {
-           loadFragment(new Recommended());
+            loadFragment(new Recommended());
         }
-
         else if(v.getId()==R.id.IV_home || v.getId()==R.id.TV_home)
         {
             iv_home.setImageResource(R.drawable.ic_onhome);
@@ -175,9 +172,10 @@ public class Home extends AppCompatActivity
             tv_activity.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
-            loadFragment(new MatchedFragment());
+            loadFragment(new MatchedFragment());//
             matched.setVisibility(View.VISIBLE);
             recommended.setVisibility(View.VISIBLE);
+
         }
         else if(v.getId()==R.id.IV_activity || v.getId()==R.id.TV_activity)
         {
@@ -187,7 +185,10 @@ public class Home extends AppCompatActivity
             tv_home.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
+
             loadFragment(new ActivityFragment());
+            matched.setVisibility(View.VISIBLE);
+            recommended.setVisibility(View.VISIBLE);
         }
         else if(v.getId()==R.id.IV_notification || v.getId()==R.id.TV_notification)
         {
@@ -197,12 +198,12 @@ public class Home extends AppCompatActivity
             tv_home.setTextColor(Color.rgb(0, 150, 136));
             iv_activity.setImageResource(R.drawable.ic_activity);
             tv_activity.setTextColor(Color.rgb(0, 150, 136));
+
             loadFragment(new NotificationFragment());
             matched.setVisibility(View.GONE);
             recommended.setVisibility(View.GONE);
         }
     }
-
 
     public void loadFragment(Fragment fragment) {
         //Sending Degree and FOS to Fragments

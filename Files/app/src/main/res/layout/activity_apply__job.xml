@@ -2,82 +2,419 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1A237E">
-
-    <ImageView
-        android:id="@+id/IV_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_backarrow" />
+    android:background="@color/white">
 
     <LinearLayout
+        android:id="@+id/LL_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:elevation="8dp">
+        android:layout_height="wrap_content"
+        android:background="@color/bluehead"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:elevation="1dp">
 
+        <ImageView
+            android:id="@+id/IV_backbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_backarrow"/>
 
-
-        <FrameLayout
-            android:id="@+id/FL_description"
-            android:layout_width="match_parent"
-            android:layout_below="@+id/IV_back"
-            android:layout_height="480dp"
-            android:background="@color/white"
-            android:elevation="5dp">
-
-            <ListView
-                android:id="@+id/LV_description"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </ListView>
-        </FrameLayout>
-
-        <LinearLayout
-            android:id="@+id/LL_button"
+        <TextView
+            android:id="@+id/TV_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/FL_description"
-            android:layout_marginTop="8dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="8dp"
-            android:background="@color/white"
-            android:elevation="5dp">
+            android:layout_toRightOf="@+id/IV_backbutton"
+            android:text="Job Details"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/label"
+            android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/TV_save"
-                android:layout_width="0dp"
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LL_title"
+        android:layout_above="@id/LL_buttons">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
+
+
+                <RelativeLayout
+                    android:id="@+id/RL_heading"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/headingbg"
+                    android:layout_marginTop="5dp"
+                    android:elevation="1dp">
+
+                    <TextView
+                        android:id="@+id/TV_jobtitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mobile App Development"
+                        android:gravity="center"
+                        android:textSize="@dimen/jobDetailLabel"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="24dp"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"/>
+
+                    <TextView
+                        android:id="@+id/TV_companyname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/TV_jobtitle"
+                        android:text="Wipro"
+                        android:gravity="center"
+                        android:textSize="@dimen/label"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/TV_dateLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/TV_companyname"
+                        android:text="Last Date of Application : "
+                        android:layout_marginLeft="68dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="3dp"
+                        android:textSize="@dimen/pofileET"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"/>
+
+
+                    <TextView
+                        android:id="@+id/TV_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/TV_companyname"
+                        android:layout_toRightOf="@+id/TV_dateLabel"
+                        android:text=" 12/02/1997"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="3dp"
+                        android:textSize="@dimen/pofileET"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"/>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/RL_primaryDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/RL_heading"
+                    android:layout_marginTop="5dp"
+                    android:paddingTop="5dp"
+                    android:background="@color/white"
+                    android:elevation="3dp">
+
+                    <TextView
+                        android:id="@+id/TV_locationLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Location"
+                        android:textColor="@color/joblabel"
+                        android:textSize="@dimen/label"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/TV_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="80dp"
+                        android:layout_toRightOf="@+id/TV_locationLabel"
+                        android:text="Kolkata"
+                        android:textSize="@dimen/label"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/TV_salaryLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/TV_locationLabel"
+                        android:text="Salary  "
+                        android:textColor="@color/joblabel"
+                        android:textSize="@dimen/label"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/TV_salary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/TV_location"
+                        android:layout_below="@+id/TV_location"
+                        android:text="25000"
+                        android:textSize="@dimen/label"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/TV_selectionLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/TV_salaryLabel"
+                        android:text="Selection Process "
+                        android:textColor="@color/joblabel"
+                        android:textSize="@dimen/label"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/TV_selection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/TV_location"
+                        android:layout_below="@+id/TV_salary"
+                        android:text="walk-in, written, online"
+                        android:textSize="@dimen/label"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/TV_eligibleLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/TV_selection"
+                        android:text="Eligible For "
+                        android:textColor="@color/joblabel"
+                        android:textSize="@dimen/label"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/TV_eligible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/TV_location"
+                        android:layout_below="@+id/TV_selection"
+                        android:text="mca,bca,btech"
+                        android:textSize="@dimen/label"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/TV_skillLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/TV_eligible"
+                        android:paddingBottom="5dp"
+                        android:text="Prefered Skills "
+                        android:textColor="@color/joblabel"
+                        android:textSize="@dimen/label"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/TV_skill"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/TV_location"
+                        android:layout_below="@+id/TV_eligibleLabel"
+                        android:paddingBottom="5dp"
+                        android:text="java,android."
+                        android:textSize="@dimen/label"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/splitLine1"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                       android:layout_alignParentBottom="true"
+                        android:background="#37474F" />
+
+                </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/RL_description"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="SAVE"
-                android:gravity="center"
-                android:textColor="@color/bluehead"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"
-                android:background="@drawable/apply_button_back" />
+                android:layout_below="@+id/RL_primaryDetails"
+                android:paddingTop="5dp"
+                android:background="@color/white"
+                android:elevation="3dp">
 
-            <TextView
-                android:id="@+id/TV_Apply"
-                android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/TV_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textSize="@dimen/jobDetailLabel"
+                    android:textStyle="bold"
+                    android:textColor="@color/bluehead"/>
+
+                <TextView
+                    android:id="@+id/TV_aboutLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/TV_description"
+                    android:text="About the Job  "
+                    android:textColor="@color/joblabel"
+                    android:textSize="@dimen/label"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/TV_about"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_description"
+                    android:layout_toRightOf="@+id/TV_aboutLabel"
+                    android:layout_marginLeft="25dp"
+                    android:text="Android App Developement"
+                    android:textSize="@dimen/label"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/TV_cprofileLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/TV_about"
+                    android:paddingBottom="5dp"
+                    android:text="Company Profile "
+                    android:textColor="@color/joblabel"
+                    android:textSize="@dimen/label"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/TV_cprofile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_about"
+                    android:layout_alignLeft="@+id/TV_about"
+                    android:paddingBottom="5dp"
+                    android:text="Wipro is one of the most reputed compant in India."
+                    android:textSize="@dimen/label"
+                    android:textStyle="bold" />
+                <View
+                    android:id="@+id/splitLine2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/TV_cprofile"
+                    android:background="#37474F" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RL_contactDetails"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="APPLY"
-                android:gravity="center"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"
-                android:textColor="@color/white"
-                android:background="@color/bluehead"/>
+                android:layout_below="@id/RL_description"
+                android:paddingTop="5dp"
+                android:background="@color/white"
+                android:elevation="3dp">
+
+                <TextView
+                    android:id="@+id/TV_contactHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Contact Details"
+                    android:textSize="@dimen/jobDetailLabel"
+                    android:textStyle="bold"
+                    android:textColor="@color/bluehead"/>
+
+                <TextView
+                    android:id="@+id/TV_urlLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/TV_contactHeader"
+                    android:text="Website "
+                    android:textColor="@color/joblabel"
+                    android:textSize="@dimen/label"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/TV_url"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_contactHeader"
+                    android:layout_toRightOf="@+id/TV_urlLabel"
+                    android:layout_marginLeft="77dp"
+                    android:text="www.wipro.com"
+                    android:textSize="@dimen/label"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/TV_emailLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/TV_url"
+                    android:paddingBottom="5dp"
+                    android:text="E-mail "
+                    android:textColor="@color/joblabel"
+                    android:textSize="@dimen/label"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/TV_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_url"
+                    android:layout_alignLeft="@+id/TV_url"
+                    android:paddingBottom="5dp"
+                    android:text="wiproindia@wipro.com"
+                    android:textSize="@dimen/label"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/splitLine3"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/TV_email"
+                    android:background="#37474F" />
+
+            </RelativeLayout>
 
 
-        </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/LL_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/TV_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SAVE"
+            android:gravity="center"
+            android:textColor="@color/bluehead"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:elevation="5dp"
+            android:background="@drawable/apply_button_back"/>
+
+        <TextView
+            android:id="@+id/TV_Apply"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="APPLY"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:elevation="5dp"
+            android:textColor="@color/white"
+            android:background="@color/bluehead"/>
 
     </LinearLayout>
 

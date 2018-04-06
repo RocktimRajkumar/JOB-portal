@@ -11,5 +11,6 @@
     <color name="black">#272822</color>
     <color name="onbutton">#C71A42</color>
     <color name="button">#009688</color>
->>>>>>> 3d28678263bb69340cc14882e0c3f3c30d3f566b
+    <color name="joblabel">#FD6A00</color>
+
 </resources>
