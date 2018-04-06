@@ -1,6 +1,7 @@
 package brdevelopers.com.jobvibe;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,13 @@ import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
-
     private LayoutInflater inflater;
     private List<Job_details> joblist= Collections.emptyList();
+    private Context context;
 
     public RecyclerAdapter(Context context,List<Job_details> joblist)
     {
+        this.context=context;
         inflater=LayoutInflater.from(context);
         this.joblist=joblist;
     }
@@ -52,18 +54,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         notifyDataSetChanged();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder
-    {
+    class MyViewHolder extends RecyclerView.ViewHolder{
         TextView jobtitle;
         TextView jobcompany;
         TextView joblocation;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-
             jobtitle=itemView.findViewById(R.id.TV_jobtitle);
             jobcompany=itemView.findViewById(R.id.TV_companyname);
             joblocation=itemView.findViewById(R.id.TV_location);
         }
+
     }
 }

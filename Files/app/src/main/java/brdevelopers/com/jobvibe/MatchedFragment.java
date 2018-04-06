@@ -3,8 +3,11 @@ package brdevelopers.com.jobvibe;
 import android.app.AlertDialog;;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -95,6 +98,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
             tf.setText("No Internet Connection " + Html.fromHtml("&#9995;"));
             toast.setView(layoutview);
             toast.show();
+
             progressBar.setVisibility(View.GONE);
             getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
