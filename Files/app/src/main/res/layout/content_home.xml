@@ -14,24 +14,57 @@
         android:id="@+id/LL_listby">
 
         <TextView
+            android:id="@+id/TV_matched"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Matched"
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="@dimen/label"
-            android:id="@+id/TV_matched"
             android:padding="5dp"/>
 
         <TextView
+            android:id="@+id/TV_recommended"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Recommended"
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="@dimen/label"
-            android:id="@+id/TV_recommended"
             android:padding="5dp"/>
+
+        <TextView
+            android:text="Viewed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/label"
+            android:id="@+id/TV_viewed"
+            android:padding="5dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/TV_saved"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Saved"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/label"
+            android:padding="5dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/TV_applied"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Applied"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/label"
+            android:padding="5dp"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <FrameLayout
