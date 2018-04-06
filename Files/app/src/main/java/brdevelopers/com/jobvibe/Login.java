@@ -39,13 +39,15 @@ import java.util.regex.Pattern;
 
 public class Login extends AppCompatActivity implements TextWatcher,View.OnClickListener{
 
+
    private TextInputLayout til_password,til_email;
    private EditText et_email, et_password;
    private TextView tv_btnlogin,tv_createnew;
    private ProgressBar progressBar;
    private int i_email=0,i_password=0;
 
-   private String saveLogin="http://103.230.103.142/jobportalapp/job.asmx/CandidateLogin";
+
+    private String saveLogin="http://103.230.103.142/jobportalapp/job.asmx/CandidateLogin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,7 +200,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
 
 
         }
-         else if(v.getId()==R.id.crete_new)
+        else if(v.getId()==R.id.crete_new)
         {
             Intent profile = new Intent(Login.this, Sign_up.class);
             startActivity(profile);

@@ -171,22 +171,7 @@ public class Recommended extends Fragment implements View.OnClickListener {
 
                         if(!jcname.isEmpty())
                             jbcompany.add(jcname.toLowerCase());
-                        if(!jbca.isEmpty())
-                            jbskill.add(jbca.toLowerCase());
-                        if(!jmca.isEmpty())
-                            jbskill.add(jmca.toLowerCase());
-                        if(!jcse.isEmpty())
-                            jbskill.add(jcse.toLowerCase());
-                        if(!jit.isEmpty())
-                            jbskill.add(jit.toLowerCase());
-                        if(!jee.isEmpty())
-                            jbskill.add(jee.toLowerCase());
-                        if(!jece.isEmpty())
-                            jbskill.add(jece.toLowerCase());
-                        if(!jcivil.isEmpty())
-                            jbskill.add(jcivil.toLowerCase());
-                        if(!jmba.isEmpty())
-                            jbskill.add(jmba.toLowerCase());
+
                         if(!jasp.isEmpty())
                             jbskill.add(jasp.toLowerCase());
                         if(!jphp.isEmpty())
@@ -407,34 +392,8 @@ public class Recommended extends Fragment implements View.OnClickListener {
 
         for(String newSkill:newSkilllist){
             for(Job_details job_details:list){
-                if(job_details.getJbbca().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbmca().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbcse().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbit().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbee().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbee().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbece().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbcivil().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbmba().equalsIgnoreCase(newSkill)){
-                    skilllist.add(job_details);
-                }
-                else if(job_details.getJbasp().equalsIgnoreCase(newSkill)){
+
+                if(job_details.getJbasp().equalsIgnoreCase(newSkill)){
                     skilllist.add(job_details);
                 }
                 else if(job_details.getJbphp().equalsIgnoreCase(newSkill)){

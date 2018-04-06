@@ -30,11 +30,13 @@ public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
 
-   private TextView matched,recommended,tv_home,tv_activity,tv_notification,tv_empname,tv_empemail;
+
+   private TextView matched,recommended,viewed,saved,applied,tv_home,tv_activity,tv_notification,tv_empname,tv_empemail;
    private CandidateDetails candidateDetails;
    private ImageView iv_home,iv_activity,iv_notification;
    private SearchView searchView;
    private int butnclick=0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,9 @@ public class Home extends AppCompatActivity
         setContentView(R.layout.activity_home);
         matched=findViewById(R.id.TV_matched);
         recommended=findViewById(R.id.TV_recommended);
+        viewed=findViewById(R.id.TV_viewed);
+        saved=findViewById(R.id.TV_saved);
+        applied=findViewById(R.id.TV_applied);
         iv_home=findViewById(R.id.IV_home);
         iv_activity=findViewById(R.id.IV_activity);
         iv_notification=findViewById(R.id.IV_notification);
@@ -54,6 +59,9 @@ public class Home extends AppCompatActivity
 
         matched.setOnClickListener(this);
         recommended.setOnClickListener(this);
+        viewed.setOnClickListener(this);
+        saved.setOnClickListener(this);
+        applied.setOnClickListener(this);
         iv_home.setOnClickListener(this);
         iv_activity.setOnClickListener(this);
         iv_notification.setOnClickListener(this);
@@ -160,11 +168,26 @@ public class Home extends AppCompatActivity
         {
             butnclick=0;
             loadFragment(new MatchedFragment());
+            matched.setBackgroundColor(Color.rgb(0, 150, 136));
+            recommended.setBackgroundColor(Color.rgb(255, 255, 255));
         }
         else if(v.getId()==R.id.TV_recommended)
         {
+
             butnclick=1;
            loadFragment(new Recommended());
+
+            recommended.setBackgroundColor(Color.rgb(0, 150, 136));
+            matched.setBackgroundColor(Color.rgb(255, 255, 255));
+        }
+        else if(v.getId()==R.id.TV_viewed){
+            loadFragment(new Viewed_Fragment());
+        }
+        else if(v.getId()==R.id.TV_saved){
+            loadFragment(new Saved_Fragment());
+        }
+        else if(v.getId()==R.id.TV_applied){
+            loadFragment(new Applied_Fragment());
         }
         else if(v.getId()==R.id.IV_home || v.getId()==R.id.TV_home)
         {
@@ -174,7 +197,16 @@ public class Home extends AppCompatActivity
             tv_activity.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
+
             butnclick=0;
+            
+            loadFragment(new MatchedFragment());
+            matched.setVisibility(View.VISIBLE);
+            recommended.setVisibility(View.VISIBLE);
+            viewed.setVisibility(View.GONE);
+            saved.setVisibility(View.GONE);
+            applied.setVisibility(View.GONE);
+
         }
         else if(v.getId()==R.id.IV_activity || v.getId()==R.id.TV_activity)
         {
@@ -184,6 +216,15 @@ public class Home extends AppCompatActivity
             tv_home.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
+
+            loadFragment(new Viewed_Fragment());
+            matched.setVisibility(View.GONE);
+            recommended.setVisibility(View.GONE);
+            viewed.setVisibility(View.VISIBLE);
+            saved.setVisibility(View.VISIBLE);
+            applied.setVisibility(View.VISIBLE);
+
+
         }
         else if(v.getId()==R.id.IV_notification || v.getId()==R.id.TV_notification)
         {
@@ -193,12 +234,20 @@ public class Home extends AppCompatActivity
             tv_home.setTextColor(Color.rgb(0, 150, 136));
             iv_activity.setImageResource(R.drawable.ic_activity);
             tv_activity.setTextColor(Color.rgb(0, 150, 136));
+
+            loadFragment(new NotificationFragment());
+            matched.setVisibility(View.GONE);
+            recommended.setVisibility(View.GONE);
+            viewed.setVisibility(View.GONE);
+            saved.setVisibility(View.GONE);
+            applied.setVisibility(View.GONE);
+
         }
     }
 
     public void loadFragment(Fragment fragment) {
         //Sending Degree and FOS to Fragments
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         Bundle bundle=new Bundle();
         bundle.putString("degree",candidateDetails.getDegree());
         bundle.putString("FOS",candidateDetails.getFieldOfStudy());

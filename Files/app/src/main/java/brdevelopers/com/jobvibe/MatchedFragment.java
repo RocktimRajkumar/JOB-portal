@@ -1,13 +1,13 @@
 package brdevelopers.com.jobvibe;
 
+
 import android.app.AlertDialog;;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
+import com.github.clans.fab.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -27,7 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.clans.fab.FloatingActionButton;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,6 +63,8 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         floatskill = view.findViewById(R.id.skill);
         floatcompany = view.findViewById(R.id.company);
 
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -78,11 +80,14 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         floatskill.setOnClickListener(this);
         floatcompany.setOnClickListener(this);
 
-        if (degree.equals("B.TECH")) {
-            degree = degree + "(" + FOS + ")";
+
+        if(degree.equals("B.TECH"))
+        {
+            degree=degree+"("+FOS+")";
         }
 
-        course = degree;
+        course=degree;
+
 
         if (Util.isNetworkConnected(getActivity())) {
                 loadAlljob();
@@ -247,33 +252,18 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
                         if (!jcname.isEmpty())
                             jbcompany.add(jcname.toLowerCase());
-                        if (!jbca.isEmpty())
-                            jbskill.add(jbca.toLowerCase());
-                        if (!jmca.isEmpty())
-                            jbskill.add(jmca.toLowerCase());
-                        if (!jcse.isEmpty())
-                            jbskill.add(jcse.toLowerCase());
-                        if (!jit.isEmpty())
-                            jbskill.add(jit.toLowerCase());
-                        if (!jee.isEmpty())
-                            jbskill.add(jee.toLowerCase());
-                        if (!jece.isEmpty())
-                            jbskill.add(jece.toLowerCase());
-                        if (!jcivil.isEmpty())
-                            jbskill.add(jcivil.toLowerCase());
-                        if (!jmba.isEmpty())
-                            jbskill.add(jmba.toLowerCase());
-                        if (!jasp.isEmpty())
+
+                        if(!jasp.isEmpty())
                             jbskill.add(jasp.toLowerCase());
-                        if (!jphp.isEmpty())
+                        if(!jphp.isEmpty())
                             jbskill.add(jphp.toLowerCase());
-                        if (!jjava.isEmpty())
+                        if(!jjava.isEmpty())
                             jbskill.add(jjava.toLowerCase());
-                        if (!jios.isEmpty())
-                            jbskill.add(jios.toLowerCase());
-                        if (!jandroid.isEmpty())
-                            jbskill.add(jandroid.toLowerCase());
-                        if (!jdbms.isEmpty())
+                        if(!jios.isEmpty())
+                             jbskill.add(jios.toLowerCase());
+                        if(!jandroid.isEmpty())
+                             jbskill.add(jandroid.toLowerCase());
+                        if(!jdbms.isEmpty())
                             jbskill.add(jdbms.toLowerCase());
 
                     }
@@ -319,6 +309,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         Volley.newRequestQueue(getActivity()).add(stringRequest);
 
     }
+
 
     @Override
     public void onClick(View v) {
@@ -480,27 +471,10 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
         List<Job_details> skilllist = new ArrayList<>();
 
-        for (String newSkill : newSkilllist) {
-            for (Job_details job_details : list) {
-                if (job_details.getJbbca().equalsIgnoreCase(newSkill)) {
-                    skilllist.add(job_details);
-                } else if (job_details.getJbmca().equalsIgnoreCase(newSkill)) {
-                    skilllist.add(job_details);
-                } else if (job_details.getJbcse().equalsIgnoreCase(newSkill)) {
-                    skilllist.add(job_details);
-                } else if (job_details.getJbit().equalsIgnoreCase(newSkill)) {
-                    skilllist.add(job_details);
-                } else if (job_details.getJbee().equalsIgnoreCase(newSkill)) {
-                    skilllist.add(job_details);
-                } else if (job_details.getJbee().equalsIgnoreCase(newSkill)) {
-                    skilllist.add(job_details);
-                } else if (job_details.getJbece().equalsIgnoreCase(newSkill)) {
-                    skilllist.add(job_details);
-                } else if (job_details.getJbcivil().equalsIgnoreCase(newSkill)) {
-                    skilllist.add(job_details);
-                } else if (job_details.getJbmba().equalsIgnoreCase(newSkill)) {
-                    skilllist.add(job_details);
-                } else if (job_details.getJbasp().equalsIgnoreCase(newSkill)) {
+        for(String newSkill:newSkilllist){
+            for(Job_details job_details:list){
+
+                if(job_details.getJbasp().equalsIgnoreCase(newSkill)){
                     skilllist.add(job_details);
                 } else if (job_details.getJbphp().equalsIgnoreCase(newSkill)) {
                     skilllist.add(job_details);
