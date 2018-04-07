@@ -36,6 +36,7 @@ public class Home extends AppCompatActivity
    private ImageView iv_home,iv_activity,iv_notification;
    private SearchView searchView;
    private int butnclick=0;
+   public static String canemail;
 
 
     @Override
@@ -69,7 +70,7 @@ public class Home extends AppCompatActivity
         tv_activity.setOnClickListener(this);
         tv_notification.setOnClickListener(this);
         candidateDetails=(CandidateDetails)getIntent().getSerializableExtra("candidate");
-
+        canemail=candidateDetails.getEmail();
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -199,7 +200,7 @@ public class Home extends AppCompatActivity
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
 
             butnclick=0;
-            
+
             loadFragment(new MatchedFragment());
             matched.setVisibility(View.VISIBLE);
             recommended.setVisibility(View.VISIBLE);

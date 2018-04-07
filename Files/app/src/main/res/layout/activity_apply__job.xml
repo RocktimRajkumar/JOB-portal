@@ -214,7 +214,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@+id/TV_location"
-                        android:layout_below="@+id/TV_eligibleLabel"
+                        android:layout_below="@+id/TV_eligible"
                         android:paddingBottom="5dp"
                         android:text="java,android."
                         android:textSize="@dimen/label"

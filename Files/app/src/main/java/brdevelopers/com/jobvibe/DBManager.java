@@ -5,6 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBManager extends SQLiteOpenHelper {
 
@@ -19,8 +23,8 @@ public class DBManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE "+Viewed+"(Auto primary key AUTOINCREMENT,JOB_ID text,JOB_Title text)");
-        db.execSQL("CREATE TABLE "+Saved+"(Auto primary key AUTOINCREMENT,JOB_ID text,JOB_Title text)");
+        db.execSQL("CREATE TABLE "+Viewed+"(Auto integer primary key AUTOINCREMENT,JOB_ID text,Cemail text)");
+        db.execSQL("CREATE TABLE "+Saved+"(Auto integer primary key AUTOINCREMENT,JOB_ID text,Cemail text)");
     }
 
     @Override
@@ -29,11 +33,11 @@ public class DBManager extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+Saved);
     }
 
-    public boolean insertViewed(String jobid,String jobtitle){
+    public boolean insertViewed(String jobid,String cemail){
 
         ContentValues cv=new ContentValues();
         cv.put("JOB_ID",jobid);
-        cv.put("JOB_Title",jobtitle);
+        cv.put("Cemail",cemail);
 
         long success=-1;
         try{
@@ -44,18 +48,18 @@ public class DBManager extends SQLiteOpenHelper {
             ex.printStackTrace();
             success=-1;
         }
-        if(success!=1)
+        if(success!=-1)
             return true;
         else
             return false;
     }
 
 
-    public boolean insertData(String jobid,String jobtitle){
+    public boolean insertData(String jobid,String cemail){
 
         ContentValues cv=new ContentValues();
         cv.put("JOB_ID",jobid);
-        cv.put("JOB_Title",jobtitle);
+        cv.put("Cemail",cemail);
 
         long success=-1;
         try{
@@ -72,11 +76,11 @@ public class DBManager extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean isViewedExists(String jobid){
+    public boolean isViewedExists(String jobid,String cemail){
         SQLiteDatabase db=this.getReadableDatabase();
         Cursor cs=null;
         try{
-            cs=db.rawQuery("Select * from "+Viewed+" where JOB_ID='"+jobid+"'",null);
+            cs=db.rawQuery("Select * from "+Viewed+" where Cemail='"+cemail+"'AND JOB_ID='"+jobid+"'",null);
             if(cs.getCount()>0){
                 cs.close();
                 return true;
@@ -88,15 +92,16 @@ public class DBManager extends SQLiteOpenHelper {
         }
         catch (Exception ex){
             cs.close();
+            Log.d("logcheck","is viewed "+ex);
             return  false;
         }
     }
 
-    public boolean isSavedExists(String jobid){
+    public boolean isSavedExists(String jobid,String cemail){
         SQLiteDatabase db=this.getReadableDatabase();
         Cursor cs=null;
         try{
-            cs=db.rawQuery("Select * from "+Saved+" where JOB_ID='"+jobid+"'",null);
+            cs=db.rawQuery("Select * from "+Saved+" where Cemail='"+cemail+"'AND JOB_ID='"+jobid+"'",null);
             if(cs.getCount()>0){
                 cs.close();
                 return true;
@@ -108,15 +113,16 @@ public class DBManager extends SQLiteOpenHelper {
         }
         catch (Exception ex){
             cs.close();
+            Log.d("logcheck","is viewed "+ex);
             return  false;
         }
     }
 
-    public boolean deleteViewed(String jobid){
+    public boolean deleteViewed(String jobid, String cemail){
         long success=1;
         try{
             SQLiteDatabase db=this.getWritableDatabase();
-            success=db.delete(Viewed,"JOB_ID=?",new String[]{jobid});
+            success=db.delete(Viewed,"JOB_ID=? AND Cemail=?",new String[]{jobid,cemail});
         }
         catch (Exception ex){
             success=-1;
@@ -127,11 +133,11 @@ public class DBManager extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean deleteSaved(String jobid){
+    public boolean deleteSaved(String jobid,String cemail){
         long success=1;
         try{
             SQLiteDatabase db=this.getWritableDatabase();
-            success=db.delete(Viewed,"JOB_ID=?",new String[]{jobid});
+            success=db.delete(Viewed,"JOB_ID=? AND Cemail=?",new String[]{jobid,cemail});
         }
         catch (Exception ex){
             success=-1;
@@ -140,6 +146,64 @@ public class DBManager extends SQLiteOpenHelper {
             return true;
         else
             return false;
+    }
+
+    public List<JobActivity> getViewedData(String cemail){
+        SQLiteDatabase db=this.getReadableDatabase();
+        ArrayList<JobActivity> jobv=new ArrayList<>();
+        Cursor cs=null;
+        try{
+            cs=db.rawQuery("Select * from "+Viewed+" where Cemail='"+cemail+"'",null);
+            if(cs.getCount()>0){
+                while(cs.moveToNext()){
+                    String jobID=cs.getString(1);
+                    String candidateEmail=cs.getString(2);
+
+                    JobActivity jobActivity=new JobActivity();
+                    jobActivity.setJobid(jobID);
+                    jobActivity.setCemail(candidateEmail);
+
+                    jobv.add(jobActivity);
+                }
+            }
+            else
+                jobv=null;
+            cs.close();
+        }
+        catch (Exception ex){
+            cs.close();
+            Log.d("logcheck","error "+ex);
+        }
+        return jobv;
+    }
+
+    public List<JobActivity> getSavedData(String jobid, String cemail){
+        SQLiteDatabase db=this.getReadableDatabase();
+        ArrayList<JobActivity> jobv=new ArrayList<>();
+        Cursor cs=null;
+        try{
+            cs=db.rawQuery("Select * from "+Saved+" where Cemail='"+cemail+"'",null);
+            if(cs.getCount()>0){
+                while(cs.moveToNext()){
+                    String jobID=cs.getString(1);
+                    String candidateEmail=cs.getString(2);
+
+                    JobActivity jobActivity=new JobActivity();
+                    jobActivity.setJobid(jobID);
+                    jobActivity.setCemail(candidateEmail);
+
+                    jobv.add(jobActivity);
+                }
+            }
+            else
+                jobv=null;
+            cs.close();
+        }
+        catch (Exception ex){
+            cs.close();
+            Log.d("logcheck","error "+ex);
+        }
+        return jobv;
     }
 
 }

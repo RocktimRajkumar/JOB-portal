@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Saved_Fragment">
+    tools:context=".Viewed_Fragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/RV_job"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This Is Saved Fragment"
-        android:gravity="center"
-        android:textColor="@color/bluehead"/>
+        android:layout_height="wrap_content"
+        android:fadeScrollbars="true">
 
-</FrameLayout>
+    </android.support.v7.widget.RecyclerView>
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/TV_nojob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No job Saved"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/label"
+        android:textStyle="bold"
+        android:textColor="@color/orange"
+        android:visibility="gone"/>
+
+</RelativeLayout>

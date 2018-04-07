@@ -1,16 +1,19 @@
 package brdevelopers.com.jobvibe;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class Apply_Job extends AppCompatActivity {
 
-    TextView jobtitle,joblocation,lastdate,cname,url,salary,jobdescription,cprofile,email,selection,eligibility,preferedskill;
+    TextView jobtitle,joblocation,lastdate,cname,url,salary,jobdescription,cprofile,email,selection,eligibility,preferedskill,saved;
     String asp,php,java,ios,android,dbms;
     String bca,mca,cse,it,ee,ece,civil,mba;
     String written,walkin,online;
@@ -33,6 +36,7 @@ public class Apply_Job extends AppCompatActivity {
         selection=findViewById(R.id.TV_selection);
         eligibility=findViewById(R.id.TV_eligible);
         preferedskill=findViewById(R.id.TV_skill);
+        saved=findViewById(R.id.TV_save);
 
         jobid=getIntent().getStringExtra("jobid");
         jobtitle.setText(getIntent().getStringExtra("jobtitle"));
@@ -126,6 +130,31 @@ public class Apply_Job extends AppCompatActivity {
 
         preferedskill.setText(skillcomma);
 
+        //Storing data in sqlite database
+        final DBManager db=new DBManager(this);
+        Log.d("logcheck",Home.canemail);
 
+        boolean bolviewed=db.isViewedExists(jobid,Home.canemail);
+        if(bolviewed) {
+            db.deleteViewed(jobid, Home.canemail);
+            db.insertViewed(jobid, Home.canemail);
+        }
+        else
+            db.insertViewed(jobid, Home.canemail);
+
+
+        saved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean bolsaved = db.isSavedExists(jobid, Home.canemail);
+                if (bolsaved) {
+                    db.deleteSaved(jobid, Home.canemail);
+                    Toast.makeText(Apply_Job.this, "Job Unsaved", Toast.LENGTH_SHORT).show();
+                } else {
+                    db.insertViewed(jobid, Home.canemail);
+                    Toast.makeText(Apply_Job.this, "Job Saved", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
