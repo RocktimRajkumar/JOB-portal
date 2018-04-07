@@ -58,6 +58,8 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        matched.setBackgroundColor(Color.rgb(0, 150, 136));
+
         matched.setOnClickListener(this);
         recommended.setOnClickListener(this);
         viewed.setOnClickListener(this);

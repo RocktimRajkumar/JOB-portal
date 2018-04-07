@@ -80,7 +80,7 @@ public class DBManager extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getReadableDatabase();
         Cursor cs=null;
         try{
-            cs=db.rawQuery("Select * from "+Viewed+" where Cemail='"+cemail+"'AND JOB_ID='"+jobid+"'",null);
+            cs=db.rawQuery("Select * from "+Viewed+" where Cemail='"+cemail+"' AND JOB_ID='"+jobid+"'",null);
             if(cs.getCount()>0){
                 cs.close();
                 return true;
@@ -101,7 +101,7 @@ public class DBManager extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getReadableDatabase();
         Cursor cs=null;
         try{
-            cs=db.rawQuery("Select * from "+Saved+" where Cemail='"+cemail+"'AND JOB_ID='"+jobid+"'",null);
+            cs=db.rawQuery("Select * from "+Saved+" where Cemail='"+cemail+"' AND JOB_ID='"+jobid+"'",null);
             if(cs.getCount()>0){
                 cs.close();
                 return true;
@@ -137,10 +137,11 @@ public class DBManager extends SQLiteOpenHelper {
         long success=1;
         try{
             SQLiteDatabase db=this.getWritableDatabase();
-            success=db.delete(Viewed,"JOB_ID=? AND Cemail=?",new String[]{jobid,cemail});
+            success=db.delete(Saved,"JOB_ID=? AND Cemail=?",new String[]{jobid,cemail});
         }
         catch (Exception ex){
             success=-1;
+            Log.d("logcheck","delete saved "+ex);
         }
         if(success!=-1)
             return true;
@@ -177,7 +178,7 @@ public class DBManager extends SQLiteOpenHelper {
         return jobv;
     }
 
-    public List<JobActivity> getSavedData(String jobid, String cemail){
+    public List<JobActivity> getSavedData(String cemail){
         SQLiteDatabase db=this.getReadableDatabase();
         ArrayList<JobActivity> jobv=new ArrayList<>();
         Cursor cs=null;

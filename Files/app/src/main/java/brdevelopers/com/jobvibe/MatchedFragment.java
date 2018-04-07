@@ -63,8 +63,6 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         floatskill = view.findViewById(R.id.skill);
         floatcompany = view.findViewById(R.id.company);
 
-        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -90,6 +88,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
 
         if (Util.isNetworkConnected(getActivity())) {
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 loadAlljob();
         } else {
             Toast toast = new Toast(getActivity());

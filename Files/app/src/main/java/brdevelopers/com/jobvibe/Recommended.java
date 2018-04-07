@@ -69,6 +69,7 @@ public class Recommended extends Fragment implements View.OnClickListener {
         floatcompany.setOnClickListener(this);
 
         if(Util.isNetworkConnected(getActivity())) {
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             loadalljob();
         }
         else{

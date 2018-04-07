@@ -63,6 +63,7 @@ public class Viewed_Fragment extends Fragment {
             for (JobActivity jobActivity : arrayList) {
                 loadalViewedJob(jobActivity.getJobid());
             }
+
         }
         else {
             progressBar.setVisibility(View.GONE);
@@ -79,6 +80,9 @@ public class Viewed_Fragment extends Fragment {
             public void onResponse(String response) {
 
                 Log.d("LogCheck",response);
+                progressBar.setVisibility(View.VISIBLE);
+                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
 
                 try {
                     JSONObject jsonObject=new JSONObject(response);
@@ -149,6 +153,7 @@ public class Viewed_Fragment extends Fragment {
                     recyclerView.setAdapter(recyclerAdapter);
                     progressBar.setVisibility(View.GONE);
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();

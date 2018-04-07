@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,11 +15,13 @@ import java.util.ArrayList;
 
 public class Apply_Job extends AppCompatActivity {
 
-    TextView jobtitle,joblocation,lastdate,cname,url,salary,jobdescription,cprofile,email,selection,eligibility,preferedskill,saved;
-    String asp,php,java,ios,android,dbms;
-    String bca,mca,cse,it,ee,ece,civil,mba;
-    String written,walkin,online;
-    String jobid=null;
+    private TextView jobtitle,joblocation,lastdate,cname,url,salary,jobdescription,cprofile,email,selection,eligibility,preferedskill;
+    private LinearLayout saved,apply;
+    private String asp,php,java,ios,android,dbms;
+    private String bca,mca,cse,it,ee,ece,civil,mba;
+    private String written,walkin,online;
+    private String jobid=null;
+    private ImageView saveimg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,9 @@ public class Apply_Job extends AppCompatActivity {
         selection=findViewById(R.id.TV_selection);
         eligibility=findViewById(R.id.TV_eligible);
         preferedskill=findViewById(R.id.TV_skill);
-        saved=findViewById(R.id.TV_save);
+        saved=findViewById(R.id.LL_save);
+        apply=findViewById(R.id.LL_apply);
+        saveimg=findViewById(R.id.IV_save);
 
         jobid=getIntent().getStringExtra("jobid");
         jobtitle.setText(getIntent().getStringExtra("jobtitle"));
@@ -143,6 +149,10 @@ public class Apply_Job extends AppCompatActivity {
             db.insertViewed(jobid, Home.canemail);
 
 
+        boolean imgcolor=db.isSavedExists(jobid,Home.canemail);
+        if(imgcolor)
+            saveimg.setImageResource(R.drawable.starblue);
+
         saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,9 +160,11 @@ public class Apply_Job extends AppCompatActivity {
                 if (bolsaved) {
                     db.deleteSaved(jobid, Home.canemail);
                     Toast.makeText(Apply_Job.this, "Job Unsaved", Toast.LENGTH_SHORT).show();
+                    saveimg.setImageResource(R.drawable.starwhite);
                 } else {
-                    db.insertViewed(jobid, Home.canemail);
+                    db.insertData(jobid, Home.canemail);
                     Toast.makeText(Apply_Job.this, "Job Saved", Toast.LENGTH_SHORT).show();
+                    saveimg.setImageResource(R.drawable.starblue);
                 }
             }
         });

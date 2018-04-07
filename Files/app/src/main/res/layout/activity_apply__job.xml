@@ -386,39 +386,67 @@
         android:paddingBottom="5dp"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/TV_save"
+        <LinearLayout
+            android:id="@+id/LL_save"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="SAVE"
             android:gravity="center"
-            android:textColor="@color/bluehead"
-            android:textStyle="bold"
-            android:textSize="@dimen/label"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:elevation="5dp"
-            android:background="@drawable/apply_button_back"/>
+            android:background="@drawable/apply_button_back">
 
-        <TextView
-            android:id="@+id/TV_Apply"
+            <ImageView
+                android:id="@+id/IV_save"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/starwhite"
+                android:layout_marginRight="3dp"/>
+
+            <TextView
+                android:id="@+id/TV_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SAVE"
+                android:gravity="center"
+                android:textColor="@color/bluehead"
+                android:textStyle="bold"
+                android:textSize="@dimen/label"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LL_apply"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="APPLY"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="@dimen/label"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:elevation="5dp"
-            android:textColor="@color/white"
-            android:background="@color/bluehead"/>
+            android:background="@color/bluehead"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/TV_Apply"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="APPLY"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="@dimen/label"
+               />
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 
