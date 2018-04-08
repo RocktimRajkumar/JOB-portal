@@ -96,6 +96,13 @@ public class Home extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
+        iv_home.setImageResource(R.drawable.ic_onhome);
+        tv_home.setTextColor(Color.rgb(199, 26, 66));
+        iv_activity.setImageResource(R.drawable.ic_activity);
+        tv_activity.setTextColor(Color.rgb(0, 150, 136));
+        iv_notification.setImageResource(R.drawable.ic_notification);
+        tv_notification.setTextColor(Color.rgb(0, 150, 136));
+
         loadFragment(new MatchedFragment());
     }
 
