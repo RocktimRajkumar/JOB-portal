@@ -9,9 +9,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.widget.SearchView;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -31,10 +30,13 @@ public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
 
-    private TextView matched,recommended,viewed,saved,applied,tv_home,tv_activity,tv_notification,tv_empname,tv_empemail;
-    private CandidateDetails candidateDetails;
-    private ImageView iv_home,iv_activity,iv_notification,iv_profileImage;
-    public static String canemail;
+   private TextView matched,recommended,viewed,saved,applied,tv_home,tv_activity,tv_notification,tv_empname,tv_empemail;
+   private ImageView iv_home,iv_activity,iv_notification,iv_profileImage;
+   private SearchView searchView;
+   private int butnclick=0;
+   public static String canemail;
+   private String name,getdegree,getfos;
+
 
 
     @Override
@@ -58,6 +60,8 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        matched.setBackgroundColor(Color.rgb(0, 150, 136));
+
         matched.setOnClickListener(this);
         recommended.setOnClickListener(this);
         viewed.setOnClickListener(this);
@@ -69,8 +73,11 @@ public class Home extends AppCompatActivity
         tv_home.setOnClickListener(this);
         tv_activity.setOnClickListener(this);
         tv_notification.setOnClickListener(this);
-        candidateDetails=(CandidateDetails)getIntent().getSerializableExtra("candidate");
-        canemail=candidateDetails.getEmail();
+
+        canemail=getIntent().getStringExtra("emailid");
+        name=getIntent().getStringExtra("name");
+        getdegree= getIntent().getStringExtra("gedegree");
+        getfos=getIntent().getStringExtra("getfos");
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -90,16 +97,22 @@ public class Home extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent editProfile = new Intent(Home.this, EditActivity.class);
-                editProfile.putExtra("candidateDetails",candidateDetails);
                 startActivity(editProfile);
 
             }
         });
 
-        tv_empname.setText(candidateDetails.getName());
-        tv_empemail.setText(candidateDetails.getEmail());
+        tv_empname.setText(name);
+        tv_empemail.setText(canemail);
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        iv_home.setImageResource(R.drawable.ic_onhome);
+        tv_home.setTextColor(Color.rgb(199, 26, 66));
+        iv_activity.setImageResource(R.drawable.ic_activity);
+        tv_activity.setTextColor(Color.rgb(0, 150, 136));
+        iv_notification.setImageResource(R.drawable.ic_notification);
+        tv_notification.setTextColor(Color.rgb(0, 150, 136));
 
         loadFragment(new MatchedFragment());
     }
@@ -114,12 +127,12 @@ public class Home extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.home, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -178,13 +191,17 @@ public class Home extends AppCompatActivity
 
         if(v.getId()==R.id.TV_matched)
         {
+            butnclick=0;
             loadFragment(new MatchedFragment());
             matched.setBackgroundColor(Color.rgb(0, 150, 136));
             recommended.setBackgroundColor(Color.rgb(255, 255, 255));
         }
         else if(v.getId()==R.id.TV_recommended)
         {
-            loadFragment(new Recommended());
+
+            butnclick=1;
+           loadFragment(new Recommended());
+
             recommended.setBackgroundColor(Color.rgb(0, 150, 136));
             matched.setBackgroundColor(Color.rgb(255, 255, 255));
         }
@@ -205,6 +222,9 @@ public class Home extends AppCompatActivity
             tv_activity.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
+
+            butnclick=0;
+
             loadFragment(new MatchedFragment());
             matched.setVisibility(View.VISIBLE);
             recommended.setVisibility(View.VISIBLE);
@@ -257,12 +277,52 @@ public class Home extends AppCompatActivity
         //Sending Degree and FOS to Fragments
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         Bundle bundle=new Bundle();
-        bundle.putString("degree",candidateDetails.getDegree());
-        bundle.putString("FOS",candidateDetails.getFieldOfStudy());
+        bundle.putString("degree",getdegree);
+        bundle.putString("FOS",getfos);
+
         fragment.setArguments(bundle);
         FragmentManager fm=getFragmentManager();
         FragmentTransaction ft=fm.beginTransaction();
         ft.replace(R.id.FL_content,fragment);
         ft.commit();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.searchfile,menu);
+        getMenuInflater().inflate(R.menu.home, menu);
+
+        final MenuItem myactionmenu=menu.findItem(R.id.search);
+        searchView=(SearchView)myactionmenu.getActionView();
+
+        searchView.setQueryHint(Html.fromHtml("<font color = #ffffff>" + getResources().getString(R.string.search_title) + "</font>"));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                if(searchView.isIconified())
+                    searchView.setIconified(true);
+
+                myactionmenu.collapseActionView();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(butnclick==0) {
+                    MatchedFragment matchedFragment = new MatchedFragment();
+                    matchedFragment.searchFilter(newText);
+                }
+                else if(butnclick==1){
+                    Recommended recommended=new Recommended();
+                    recommended.searchFilter(newText);
+                }
+
+                return false;
+            }
+        });
+        return true;
+    }
+
 }

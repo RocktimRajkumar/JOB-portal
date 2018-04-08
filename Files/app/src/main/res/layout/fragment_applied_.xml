@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Applied_Fragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/RV_job"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fadeScrollbars="true">
+
+    </android.support.v7.widget.RecyclerView>
+
     <TextView
+        android:id="@+id/JOb_apply"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="This Is Applied Fragment"
-        android:gravity="center"
-        android:textColor="@color/button"/>
+        android:text="No job Applied"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/label"
+        android:textStyle="bold"
+        android:textColor="@color/orange"
+        android:visibility="gone"/>
 
-</FrameLayout>
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+</RelativeLayout>

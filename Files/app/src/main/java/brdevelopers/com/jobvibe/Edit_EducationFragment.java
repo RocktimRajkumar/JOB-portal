@@ -42,7 +42,6 @@ public class Edit_EducationFragment extends Fragment implements View.OnClickList
     private String editEducation="http://103.230.103.142/jobportalapp/job.asmx/EditCandidateEducationalDetails";
     private String getcandidatedetail="http://103.230.103.142/jobportalapp/job.asmx/GetCandidateDetails";
 
-    private CandidateDetails candidateDetails;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

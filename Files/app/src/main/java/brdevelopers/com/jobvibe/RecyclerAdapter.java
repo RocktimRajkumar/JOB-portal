@@ -53,20 +53,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         notifyDataSetChanged();
     }
 
+
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
         TextView jobtitle;
         TextView jobcompany;
         TextView joblocation;
 
-//        ArrayList<Job_details> newJobList=new ArrayList<>();
         Context context;
         Job_details job_details;
 
         public MyViewHolder(View itemView, Context context) {
             super(itemView);
             this.context=context;
-//            this.newJobList=newJobList;
+
             itemView.setOnClickListener(this);
+
             jobtitle=itemView.findViewById(R.id.TV_jobtitle);
             jobcompany=itemView.findViewById(R.id.TV_companyname);
             joblocation=itemView.findViewById(R.id.TV_location);

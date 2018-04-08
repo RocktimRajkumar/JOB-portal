@@ -1,25 +1,55 @@
 package brdevelopers.com.jobvibe;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Apply_Job extends AppCompatActivity {
 
-    TextView jobtitle,joblocation,lastdate,cname,url,salary,jobdescription,cprofile,email,selection,eligibility,preferedskill;
-    String asp,php,java,ios,android,dbms;
-    String bca,mca,cse,it,ee,ece,civil,mba;
-    String written,walkin,online;
-    String jobid=null;
+    private TextView jobtitle,joblocation,lastdate,cname,url,salary,jobdescription,cprofile,email,selection,eligibility,preferedskill;
+    private LinearLayout saved,apply;
+    private String asp,php,java,ios,android,dbms;
+    private String bca,mca,cse,it,ee,ece,civil,mba;
+    private String written,walkin,online;
+    private String jobid=null;
+    private ImageView saveimg;
+    private ProgressBar progressBar;
+
+    private String applyjob="http://103.230.103.142/jobportalapp/job.asmx/ApplyJob";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply__job);
+        progressBar=findViewById(R.id.progressbar);
 
         jobtitle=findViewById(R.id.TV_jobtitle);
         joblocation=findViewById(R.id.TV_location);
@@ -33,6 +63,10 @@ public class Apply_Job extends AppCompatActivity {
         selection=findViewById(R.id.TV_selection);
         eligibility=findViewById(R.id.TV_eligible);
         preferedskill=findViewById(R.id.TV_skill);
+
+        saved=findViewById(R.id.LL_save);
+        apply=findViewById(R.id.LL_apply);
+        saveimg=findViewById(R.id.IV_save);
 
         jobid=getIntent().getStringExtra("jobid");
         jobtitle.setText(getIntent().getStringExtra("jobtitle"));
@@ -126,6 +160,127 @@ public class Apply_Job extends AppCompatActivity {
 
         preferedskill.setText(skillcomma);
 
+        //Storing data in sqlite database
+        final DBManager db=new DBManager(this);
+        Log.d("logcheck",Home.canemail);
 
+        boolean bolviewed=db.isViewedExists(jobid,Home.canemail);
+        if(bolviewed) {
+            db.deleteViewed(jobid, Home.canemail);
+            db.insertViewed(jobid, Home.canemail);
+        }
+        else
+            db.insertViewed(jobid, Home.canemail);
+
+
+        boolean imgcolor=db.isSavedExists(jobid,Home.canemail);
+        if(imgcolor)
+            saveimg.setImageResource(R.drawable.starblue);
+
+        saved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean bolsaved = db.isSavedExists(jobid, Home.canemail);
+                if (bolsaved) {
+                    db.deleteSaved(jobid, Home.canemail);
+                    Toast.makeText(Apply_Job.this, "Job Unsaved", Toast.LENGTH_SHORT).show();
+                    saveimg.setImageResource(R.drawable.starwhite);
+                } else {
+                    db.insertData(jobid, Home.canemail);
+                    Toast.makeText(Apply_Job.this, "Job Saved", Toast.LENGTH_SHORT).show();
+                    saveimg.setImageResource(R.drawable.starblue);
+                }
+            }
+        });
+
+
+        apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                applyJob();
+            }
+        });
+    }
+
+    private void applyJob() {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, applyjob, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Log.d("LogCheck", response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    String success=jsonObject.getString("Sucess");
+                    if(success.equals("1"))
+                    {
+                        Toast toast=new Toast(Apply_Job.this);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER,0,0);
+
+                        LayoutInflater inf=getLayoutInflater();
+
+                        View layoutview=inf.inflate(R.layout.toast_apply_job,(ViewGroup)findViewById(R.id.CustomToast_Parent));
+//                        TextView tf=layoutview.findViewById(R.id.CustomToast);
+//                        tf.setText("Thanks for showing your Interest."+Html.fromHtml("<br>")+"We will notify you with further information.");
+                        toast.setView(layoutview);
+                        toast.show();
+                    }
+                    else{
+                        Toast toast=new Toast(Apply_Job.this);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
+
+                        LayoutInflater inf=getLayoutInflater();
+
+                        View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)findViewById(R.id.CustomToast_Parent));
+                        TextView tf=layoutview.findViewById(R.id.CustomToast);
+                        tf.setText("You haved already applied for this job. "+Html.fromHtml(" &#x1f604;"));
+                        toast.setView(layoutview);
+                        toast.show();
+                    }
+
+                    progressBar.setVisibility(View.GONE);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.d("LogCheck", "" + e);
+                    progressBar.setVisibility(View.GONE);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                }
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("LogCheck", "" + error);
+                        Toast.makeText(Apply_Job.this, "" + error, Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    }
+                }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                HashMap<String, String> jobHash = new HashMap<>();
+                jobHash.put("cemail", Home.canemail);
+                jobHash.put("eemail",email.getText().toString());
+                jobHash.put("jobid",jobid);
+
+                return jobHash;
+            }
+
+        };
+
+        Volley.newRequestQueue(Apply_Job.this).add(stringRequest);
     }
 }

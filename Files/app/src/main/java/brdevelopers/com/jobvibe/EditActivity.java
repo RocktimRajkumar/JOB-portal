@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class EditActivity extends AppCompatActivity {
     TextView tv_personal,tv_education;
-    CandidateDetails candidateDetails;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,6 @@ public class EditActivity extends AppCompatActivity {
         tv_education=findViewById(R.id.TV_profileEmail);
         loadFragmentEdit(new Edit_PersonalFragment());
 
-        candidateDetails= (CandidateDetails)getIntent().getSerializableExtra("candidateDetails");
     }
     public void loadEdit(View view)
     {
@@ -34,8 +33,6 @@ public class EditActivity extends AppCompatActivity {
         }
     }
     private void loadFragmentEdit(Fragment fragment) {
-        Bundle bundle=new Bundle();
-        bundle.putSerializable("candidate",candidateDetails);
         FragmentManager fm=getFragmentManager();
         FragmentTransaction ft=fm.beginTransaction();
         ft.replace(R.id.FL_edit,fragment);

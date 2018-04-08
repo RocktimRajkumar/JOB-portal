@@ -192,21 +192,19 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
                 try {
                     JSONObject jsonObject=new JSONObject(response);
 
-                    CandidateDetails candidateDetails=new CandidateDetails();
-                    candidateDetails.setEmail(email);
-                    candidateDetails.setName(name);
-                    candidateDetails.setPwd(password);
-                    candidateDetails.setCurrentcity(city);
-                    candidateDetails.setAddress(address);
-                    candidateDetails.setPincode(pincode);
-                    candidateDetails.setGender(gender);
-                    candidateDetails.setDob(dob);
-                    candidateDetails.setDegree(getdegree);
-                    candidateDetails.setFieldOfStudy(getfos);
-                    candidateDetails.setMobile(mobile);
 
                     Bundle bundle=new Bundle();
-                    bundle.putSerializable("candidate",candidateDetails);
+                    bundle.putString("email",email);
+                    bundle.putString("name",name);
+                    bundle.putString("password",password);
+                    bundle.putString("city",city);
+                    bundle.putString("address",address);
+                    bundle.putString("pincode",pincode);
+                    bundle.putString("gender",gender);
+                    bundle.putString("dob",dob);
+                    bundle.putString("getdegree",getdegree);
+                    bundle.putString("getfos",getfos);
+                    bundle.putString("getmobile",mobile);
 
 
                     FragmentManager fragmentManager=getActivity().getFragmentManager();

@@ -1,6 +1,7 @@
 package brdevelopers.com.jobvibe;
 
-import android.app.AlertDialog;
+
+import android.app.AlertDialog;;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,45 +41,42 @@ import java.util.Map;
 
 public class MatchedFragment extends Fragment implements View.OnClickListener {
 
-    private String allJob="http://103.230.103.142/jobportalapp/job.asmx/JobSearch";
+    private String allJob = "http://103.230.103.142/jobportalapp/job.asmx/JobSearch";
     private RecyclerView recyclerView;
-    private RecyclerAdapter recyclerAdapter;
+    private static RecyclerAdapter recyclerAdapter;
     private ProgressBar progressBar;
-    private FloatingActionButton floatlocation,floatskill,floatcompany;
-    private List<Job_details> list;
-    private HashSet<String> jblocation=new HashSet<>();
-    private HashSet<String> jbcompany=new HashSet<>();
-    private HashSet<String> jbskill=new HashSet<>();
+    private FloatingActionButton floatlocation, floatskill, floatcompany;
+    private static List<Job_details> list;
+    private HashSet<String> jblocation = new HashSet<>();
+    private HashSet<String> jbcompany = new HashSet<>();
+    private HashSet<String> jbskill = new HashSet<>();
 
     private static String course;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.matched_fragment,container,false);
-        recyclerView=view.findViewById(R.id.RV_job);
-        progressBar=view.findViewById(R.id.progressbar);
-        floatlocation=view.findViewById(R.id.location);
-        floatskill=view.findViewById(R.id.skill);
-        floatcompany=view.findViewById(R.id.company);
-
-        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        View view = inflater.inflate(R.layout.matched_fragment, container, false);
+        recyclerView = view.findViewById(R.id.RV_job);
+        progressBar = view.findViewById(R.id.progressbar);
+        floatlocation = view.findViewById(R.id.location);
+        floatskill = view.findViewById(R.id.skill);
+        floatcompany = view.findViewById(R.id.company);
 
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
         //Receiving Degree and FOS from Home activity
-        Bundle bundle=getArguments();
-        String degree=bundle.getString("degree");
-        String FOS=bundle.getString("FOS");
+        Bundle bundle = getArguments();
+        String degree = bundle.getString("degree");
+        String FOS = bundle.getString("FOS");
 
 
         floatlocation.setOnClickListener(this);
         floatskill.setOnClickListener(this);
         floatcompany.setOnClickListener(this);
-
 
 
         if(degree.equals("B.TECH"))
@@ -87,21 +86,23 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
         course=degree;
 
-        if(Util.isNetworkConnected(getActivity())) {
-            loadAlljob();
-        }
-        else{
-            Toast toast=new Toast(getActivity());
+
+        if (Util.isNetworkConnected(getActivity())) {
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                loadAlljob();
+        } else {
+            Toast toast = new Toast(getActivity());
             toast.setDuration(Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
+            toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
 
-            LayoutInflater inf=getActivity().getLayoutInflater();
+            LayoutInflater inf = getActivity().getLayoutInflater();
 
-            View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)getActivity().findViewById(R.id.CustomToast_Parent));
-            TextView tf=layoutview.findViewById(R.id.CustomToast);
-            tf.setText("No Internet Connection "+ Html.fromHtml("&#9995;"));
+            View layoutview = inf.inflate(R.layout.custom_toast, (ViewGroup) getActivity().findViewById(R.id.CustomToast_Parent));
+            TextView tf = layoutview.findViewById(R.id.CustomToast);
+            tf.setText("No Internet Connection " + Html.fromHtml("&#9995;"));
             toast.setView(layoutview);
             toast.show();
+
             progressBar.setVisibility(View.GONE);
             getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
@@ -111,39 +112,37 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
     private void loadAlljob() {
 
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, allJob, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, allJob, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                Log.d("LogCheck",response);
+                Log.d("LogCheck", response);
 
 
                 try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    JSONArray jsonArray=jsonObject.getJSONArray("JobList");
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("JobList");
 
-                    for(int i=0;i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
 
-                        JSONObject jobobject=jsonArray.getJSONObject(i);
+                        JSONObject jobobject = jsonArray.getJSONObject(i);
 
-                        String jlocation=jobobject.getString("location");
+                        String jlocation = jobobject.getString("location");
 
                         jblocation.add(jlocation.toLowerCase());
 
                     }
 
-                    list=new ArrayList<>();
+                    list = new ArrayList<>();
 
-                    for(String loc:jblocation)
-                    {
-                        loadCourseJob(list,loc);
+                    for (String loc : jblocation) {
+                        loadCourseJob(list, loc);
                     }
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.d("LogCheck",""+e);
+                    Log.d("LogCheck", "" + e);
                     progressBar.setVisibility(View.GONE);
                 }
 
@@ -152,19 +151,19 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("LogCheck",""+error);
-                        Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
+                        Log.d("LogCheck", "" + error);
+                        Toast.makeText(getActivity(), "" + error, Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
                     }
-                }){
+                }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                HashMap<String,String> jobHash=new HashMap<>();
-                jobHash.put("location","");
-                jobHash.put("skill","");
-                jobHash.put("course","");
+                HashMap<String, String> jobHash = new HashMap<>();
+                jobHash.put("location", "");
+                jobHash.put("skill", "");
+                jobHash.put("course", "");
 
                 return jobHash;
             }
@@ -176,51 +175,50 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
     private void loadCourseJob(final List<Job_details> list, final String loc) {
 
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, allJob, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, allJob, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                Log.d("LogCheck",response);
+                Log.d("LogCheck", response);
 
                 try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    JSONArray jsonArray=jsonObject.getJSONArray("JobList");
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("JobList");
 
-                    for(int i=0;i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
 
-                        JSONObject jobobject=jsonArray.getJSONObject(i);
+                        JSONObject jobobject = jsonArray.getJSONObject(i);
 
-                        String jid=jobobject.getString("jid");
-                        String jtitle=jobobject.getString("jobtitle");
-                        String jlocation=jobobject.getString("location");
-                        String jldapply=jobobject.getString("ldapply");
-                        String jcname=jobobject.getString("cname");
-                        String jurl=jobobject.getString("url");
-                        String jsalary=jobobject.getString("salary");
-                        String jbca=jobobject.getString("bca");
-                        String jmca=jobobject.getString("mca");
-                        String jcse=jobobject.getString("cse");
-                        String jit=jobobject.getString("it");
-                        String jee=jobobject.getString("ee");
-                        String jece=jobobject.getString("ece");
-                        String jcivil=jobobject.getString("civil");
-                        String jmba=jobobject.getString("mba");
-                        String jasp=jobobject.getString("asp");
-                        String jphp=jobobject.getString("php");
-                        String jjava=jobobject.getString("java");
-                        String jios=jobobject.getString("ios");
-                        String jandroid=jobobject.getString("android");
-                        String jdbms=jobobject.getString("dbms");
-                        String jwrittentest=jobobject.getString("writtentest");
-                        String jwalkin=jobobject.getString("walkin");
-                        String jonline=jobobject.getString("online");
-                        String jdescription=jobobject.getString("jobdescription");
-                        String jcompanyprofile=jobobject.getString("companyprofile");
-                        String jemail=jobobject.getString("email");
+                        String jid = jobobject.getString("jid");
+                        String jtitle = jobobject.getString("jobtitle");
+                        String jlocation = jobobject.getString("location");
+                        String jldapply = jobobject.getString("ldapply");
+                        String jcname = jobobject.getString("cname");
+                        String jurl = jobobject.getString("url");
+                        String jsalary = jobobject.getString("salary");
+                        String jbca = jobobject.getString("bca");
+                        String jmca = jobobject.getString("mca");
+                        String jcse = jobobject.getString("cse");
+                        String jit = jobobject.getString("it");
+                        String jee = jobobject.getString("ee");
+                        String jece = jobobject.getString("ece");
+                        String jcivil = jobobject.getString("civil");
+                        String jmba = jobobject.getString("mba");
+                        String jasp = jobobject.getString("asp");
+                        String jphp = jobobject.getString("php");
+                        String jjava = jobobject.getString("java");
+                        String jios = jobobject.getString("ios");
+                        String jandroid = jobobject.getString("android");
+                        String jdbms = jobobject.getString("dbms");
+                        String jwrittentest = jobobject.getString("writtentest");
+                        String jwalkin = jobobject.getString("walkin");
+                        String jonline = jobobject.getString("online");
+                        String jdescription = jobobject.getString("jobdescription");
+                        String jcompanyprofile = jobobject.getString("companyprofile");
+                        String jemail = jobobject.getString("email");
 
 
-                        Job_details job_details=new Job_details();
+                        Job_details job_details = new Job_details();
                         job_details.setJbid(jid);
                         job_details.setJbtitle(jtitle);
                         job_details.setJblocation(jlocation);
@@ -251,32 +249,33 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
                         list.add(job_details);
 
-                        if(!jcname.isEmpty())
+                        if (!jcname.isEmpty())
                             jbcompany.add(jcname.toLowerCase());
 
                         if(!jasp.isEmpty())
-                        jbskill.add(jasp.toLowerCase());
+                            jbskill.add(jasp.toLowerCase());
                         if(!jphp.isEmpty())
-                        jbskill.add(jphp.toLowerCase());
+                            jbskill.add(jphp.toLowerCase());
                         if(!jjava.isEmpty())
-                        jbskill.add(jjava.toLowerCase());
+                            jbskill.add(jjava.toLowerCase());
                         if(!jios.isEmpty())
-                        jbskill.add(jios.toLowerCase());
+                             jbskill.add(jios.toLowerCase());
                         if(!jandroid.isEmpty())
-                        jbskill.add(jandroid.toLowerCase());
+                             jbskill.add(jandroid.toLowerCase());
                         if(!jdbms.isEmpty())
-                        jbskill.add(jdbms.toLowerCase());
+                            jbskill.add(jdbms.toLowerCase());
 
                     }
 
-                    recyclerAdapter=new RecyclerAdapter(getActivity(),list);
+
+                    recyclerAdapter = new RecyclerAdapter(getActivity(), list);
                     recyclerView.setAdapter(recyclerAdapter);
                     progressBar.setVisibility(View.GONE);
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.d("LogCheck",""+e);
+                    Log.d("LogCheck", "" + e);
                     progressBar.setVisibility(View.GONE);
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
@@ -286,20 +285,20 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("LogCheck",""+error);
-                        Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
+                        Log.d("LogCheck", "" + error);
+                        Toast.makeText(getActivity(), "" + error, Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
                         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
-                }){
+                }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                HashMap<String,String> jobHash=new HashMap<>();
-                jobHash.put("location",loc);
-                jobHash.put("skill","");
-                jobHash.put("course",course);
+                HashMap<String, String> jobHash = new HashMap<>();
+                jobHash.put("location", loc);
+                jobHash.put("skill", "");
+                jobHash.put("course", course);
 
                 return jobHash;
             }
@@ -313,15 +312,13 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.location){
+        if (v.getId() == R.id.location) {
 
-                showLocation();
-        }
-        else if(v.getId()==R.id.skill){
-                showSkill();
-        }
-        else if(v.getId()==R.id.company){
-                showCompany();
+            showLocation();
+        } else if (v.getId() == R.id.skill) {
+            showSkill();
+        } else if (v.getId() == R.id.company) {
+            showCompany();
         }
     }
 
@@ -332,22 +329,22 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         builder.setTitle("Choose Company");
 
         // add a checkbox list
-        final String []company=jbcompany.toArray(new String[0]);
+        final String[] company = jbcompany.toArray(new String[0]);
         boolean[] checkedItems = new boolean[jbcompany.size()];
-        int i=0;
-        for (String s:jbcompany) {
-            checkedItems[i]=false;
+        int i = 0;
+        for (String s : jbcompany) {
+            checkedItems[i] = false;
             i++;
-            }
+        }
 
 
-        final List<String> newCompany=new ArrayList<>();
+        final List<String> newCompany = new ArrayList<>();
 
         builder.setMultiChoiceItems(company, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 // user checked or unchecked a box
-                if(isChecked)
+                if (isChecked)
                     newCompany.add(company[which]);
                 else
                     newCompany.remove(which);
@@ -360,7 +357,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
             public void onClick(DialogInterface dialog, int which) {
                 // user clicked OK
 
-                if(newCompany.size()!=0)
+                if (newCompany.size() != 0)
                     loadNewCompanyJob(newCompany);
 
             }
@@ -380,22 +377,22 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         builder.setTitle("Choose Skill");
 
         // add a checkbox list
-        final String []skill=jbskill.toArray(new String[0]);
+        final String[] skill = jbskill.toArray(new String[0]);
         final boolean[] checkedItems = new boolean[jbskill.size()];
-        int i=0;
-        for (String s:jbskill) {
-            checkedItems[i]=false;
+        int i = 0;
+        for (String s : jbskill) {
+            checkedItems[i] = false;
             i++;
         }
 
 
-        final List<String> newSkill=new ArrayList<>();
+        final List<String> newSkill = new ArrayList<>();
 
         builder.setMultiChoiceItems(skill, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 // user checked or unchecked a box
-                if(isChecked)
+                if (isChecked)
                     newSkill.add(skill[which]);
 
                 else
@@ -409,7 +406,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // user clicked OK
-                if(newSkill.size()!=0)
+                if (newSkill.size() != 0)
                     loadNewSkillJob(newSkill);
 
             }
@@ -429,21 +426,21 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         builder.setTitle("Choose Location");
 
         // add a checkbox list
-        final String []location=jblocation.toArray(new String[0]);
+        final String[] location = jblocation.toArray(new String[0]);
         final boolean[] checkedItems = new boolean[jblocation.size()];
-        int i=0;
-        for (String s:jblocation) {
-            checkedItems[i]=false;
+        int i = 0;
+        for (String s : jblocation) {
+            checkedItems[i] = false;
             i++;
         }
 
-        final List<String> newLocation=new ArrayList<>();
+        final List<String> newLocation = new ArrayList<>();
 
         builder.setMultiChoiceItems(location, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 // user checked or unchecked a box
-                if(isChecked)
+                if (isChecked)
                     newLocation.add(location[which]);
                 else
                     newLocation.remove(which);
@@ -456,9 +453,8 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // user clicked OK
-                if(newLocation.size()!=0)
+                if (newLocation.size() != 0)
                     loadNewLocationJob(newLocation);
-
 
             }
         });
@@ -472,27 +468,22 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
     private void loadNewSkillJob(List<String> newSkilllist) {
 
-        List<Job_details> skilllist=new ArrayList<>();
+        List<Job_details> skilllist = new ArrayList<>();
 
         for(String newSkill:newSkilllist){
             for(Job_details job_details:list){
 
                 if(job_details.getJbasp().equalsIgnoreCase(newSkill)){
                     skilllist.add(job_details);
-                }
-                else if(job_details.getJbphp().equalsIgnoreCase(newSkill)){
+                } else if (job_details.getJbphp().equalsIgnoreCase(newSkill)) {
                     skilllist.add(job_details);
-                }
-                else if(job_details.getJbjava().equalsIgnoreCase(newSkill)){
+                } else if (job_details.getJbjava().equalsIgnoreCase(newSkill)) {
                     skilllist.add(job_details);
-                }
-                else if(job_details.getJbios().equalsIgnoreCase(newSkill)){
+                } else if (job_details.getJbios().equalsIgnoreCase(newSkill)) {
                     skilllist.add(job_details);
-                }
-                else if(job_details.getJbandroid().equalsIgnoreCase(newSkill)){
+                } else if (job_details.getJbandroid().equalsIgnoreCase(newSkill)) {
                     skilllist.add(job_details);
-                }
-                else if(job_details.getJbdbms().equalsIgnoreCase(newSkill)){
+                } else if (job_details.getJbdbms().equalsIgnoreCase(newSkill)) {
                     skilllist.add(job_details);
                 }
             }
@@ -503,11 +494,11 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
     private void loadNewCompanyJob(List<String> newCompanylist) {
 
-        List<Job_details> companylist=new ArrayList<>();
+        List<Job_details> companylist = new ArrayList<>();
 
-        for(String newCompany:newCompanylist){
-            for(Job_details job_details:list){
-                if(job_details.getJbcompnayname().equalsIgnoreCase(newCompany)){
+        for (String newCompany : newCompanylist) {
+            for (Job_details job_details : list) {
+                if (job_details.getJbcompnayname().equalsIgnoreCase(newCompany)) {
                     companylist.add(job_details);
                 }
             }
@@ -518,11 +509,11 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
     private void loadNewLocationJob(List<String> newLocation) {
 
-        List<Job_details> locationlist=new ArrayList<>();
+        List<Job_details> locationlist = new ArrayList<>();
 
-        for(String newLoc:newLocation){
-            for(Job_details job_details:list){
-                if(job_details.getJblocation().equalsIgnoreCase(newLoc)){
+        for (String newLoc : newLocation) {
+            for (Job_details job_details : list) {
+                if (job_details.getJblocation().equalsIgnoreCase(newLoc)) {
                     locationlist.add(job_details);
                 }
             }
@@ -530,5 +521,21 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         recyclerAdapter.filter(locationlist);
     }
 
+
+    public void searchFilter(String query)
+    {
+        query=query.toLowerCase();
+        final List<Job_details> newlist=new ArrayList<>();
+
+        for(Job_details job:list)
+        {
+            final String name=job.getJbtitle().toLowerCase();
+            if(name.startsWith(query))
+            {
+                newlist.add(job);
+            }
+        }
+        recyclerAdapter.filter(newlist);
+    }
 
 }
