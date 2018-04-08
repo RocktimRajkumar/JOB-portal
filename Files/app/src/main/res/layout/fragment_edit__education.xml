@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:id="@+id/RL_edudetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp">
+
+            <!--   Current Education Details      -->
+
+            <RelativeLayout
+                android:id="@+id/RL_curedu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/TV_curedu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/current_education"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/headlabel"
+                    android:textColor="#2b78e4"/>
+
+                <TextView
+                    android:id="@+id/TV_university"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/TV_curedu"
+                    android:text="@string/university_board"
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/pofileTV"/>
+                <EditText
+                    android:id="@+id/ET_university"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_university"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="textCapWords"/>
+
+                <TextView
+                    android:id="@+id/TV_college"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ET_university"
+                    android:text="@string/college"
+                    android:textSize="@dimen/pofileTV"
+                    android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/ET_college"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_college"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="textCapWords"/>
+
+                <TextView
+                    android:id="@+id/TV_cyoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ET_college"
+                    android:text="@string/year_of_completion"
+                    android:textSize="@dimen/pofileTV"
+                    android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/ET_cyoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_cyoc"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="number"
+                    android:maxLength="4"/>
+
+                <TextView
+                    android:id="@+id/TV_cper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ET_cyoc"
+                    android:text="@string/percentage"
+                    android:textSize="@dimen/pofileTV"
+                    android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/ET_cper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_cper"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="numberDecimal"/>
+
+
+            </RelativeLayout>
+
+            <!--   12th Educatio Details   -->
+
+            <RelativeLayout
+                android:id="@+id/RL_12thedu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RL_curedu"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/TV_12edu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_12th_education"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/headlabel"
+                    android:textColor="#2b78e4"/>
+
+                <TextView
+                    android:id="@+id/TV_12board"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/TV_12edu"
+                    android:text="@string/board"
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/pofileTV"/>
+                <EditText
+                    android:id="@+id/ET_12board"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_12board"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="textCapWords"/>
+
+                <TextView
+                    android:id="@+id/TV_12school"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ET_12board"
+                    android:text="@string/school"
+                    android:textSize="@dimen/pofileTV"
+                    android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/ET_12school"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_12school"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="textCapWords"/>
+
+                <TextView
+                    android:id="@+id/TV_12yoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ET_12school"
+                    android:text="@string/year_of_completion"
+                    android:textSize="@dimen/pofileTV"
+                    android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/ET_12yoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_12yoc"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="number"
+                    android:maxLength="4"/>
+
+                <TextView
+                    android:id="@+id/TV_12per"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ET_12yoc"
+                    android:text="@string/percentage"
+                    android:textSize="@dimen/pofileTV"
+                    android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/ET_12per"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_12per"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="numberDecimal"/>
+
+
+            </RelativeLayout>
+
+            <!--    10th Education Details   -->
+
+            <RelativeLayout
+                android:id="@+id/RL_10thedu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RL_12thedu"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/TV_10edu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_10th_education"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/headlabel"
+                    android:textColor="#2b78e4"/>
+
+                <TextView
+                    android:id="@+id/TV_10board"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/TV_10edu"
+                    android:text="@string/board"
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/pofileTV"/>
+                <EditText
+                    android:id="@+id/ET_10board"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_10board"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="textCapWords"/>
+
+                <TextView
+                    android:id="@+id/TV_10school"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ET_10board"
+                    android:text="@string/school"
+                    android:textSize="@dimen/pofileTV"
+                    android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/ET_10school"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_10school"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="textCapWords"/>
+
+                <TextView
+                    android:id="@+id/TV_10yoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ET_10school"
+                    android:text="@string/year_of_completion"
+                    android:textSize="@dimen/pofileTV"
+                    android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/ET_10yoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_10yoc"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="number"
+                    android:maxLength="4"/>
+
+                <TextView
+                    android:id="@+id/TV_10per"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ET_10yoc"
+                    android:text="@string/percentage"
+                    android:textSize="@dimen/pofileTV"
+                    android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/ET_10per"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TV_10per"
+                    android:textSize="@dimen/pofileET"
+                    android:inputType="numberDecimal"/>
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/TV_btnnext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RL_10thedu"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="30dp"
+                android:text="GET STARTED"
+                android:drawableRight="@drawable/ic_nexta"
+                android:textSize="@dimen/label"
+                android:textColor="#005ECE"
+                android:background="@drawable/profile_btn_bg"
+                android:padding="3dp"
+                android:layout_marginBottom="20dp"
+                android:elevation="5dp" />
+
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
+
+</RelativeLayout>

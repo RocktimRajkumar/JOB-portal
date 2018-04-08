@@ -33,7 +33,8 @@ public class Home extends AppCompatActivity
 
     private TextView matched,recommended,viewed,saved,applied,tv_home,tv_activity,tv_notification,tv_empname,tv_empemail;
     private CandidateDetails candidateDetails;
-    private ImageView iv_home,iv_activity,iv_notification;
+    private ImageView iv_home,iv_activity,iv_notification,iv_profileImage;
+    public static String canemail;
 
 
     @Override
@@ -52,6 +53,8 @@ public class Home extends AppCompatActivity
         tv_activity=findViewById(R.id.TV_activity);
         tv_notification=findViewById(R.id.TV_notification);
 
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -67,7 +70,7 @@ public class Home extends AppCompatActivity
         tv_activity.setOnClickListener(this);
         tv_notification.setOnClickListener(this);
         candidateDetails=(CandidateDetails)getIntent().getSerializableExtra("candidate");
-
+        canemail=candidateDetails.getEmail();
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -79,8 +82,19 @@ public class Home extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         View headerView = navigationView.getHeaderView(0);
-        tv_empname = (TextView) headerView.findViewById(R.id.TV_empName);
-        tv_empemail=(TextView)headerView.findViewById(R.id.TV_empEmail);
+        tv_empname = (TextView) headerView.findViewById(R.id.TV_profileName);
+        tv_empemail=(TextView)headerView.findViewById(R.id.TV_profileEmail);
+        iv_profileImage=headerView.findViewById(R.id.imageView);
+
+        iv_profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editProfile = new Intent(Home.this, EditActivity.class);
+                editProfile.putExtra("candidateDetails",candidateDetails);
+                startActivity(editProfile);
+
+            }
+        });
 
         tv_empname.setText(candidateDetails.getName());
         tv_empemail.setText(candidateDetails.getEmail());
@@ -234,6 +248,9 @@ public class Home extends AppCompatActivity
             applied.setVisibility(View.GONE);
 
         }
+//        else if(v.getId()==R.id.imageView){
+//
+//        }
     }
 
     public void loadFragment(Fragment fragment) {

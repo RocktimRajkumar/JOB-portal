@@ -26,11 +26,11 @@ public class Profile extends AppCompatActivity {
 
     public void loadProfile(View view)
     {
-        if(view.getId()==R.id.TV_personal)
+        if(view.getId()==R.id.TV_editPersonal)
         {
             loadFragmentProfile(new Profile_personal());
         }
-        else if(view.getId()==R.id.TV_education)
+        else if(view.getId()==R.id.TV_editEducation)
         {
             loadFragmentProfile(new Profile_Educaion());
         }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="brdevelopers.com.jobvibe.Profile">
+
+    <LinearLayout
+        android:id="@+id/LL_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/TV_editPersonal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Personal Details"
+            android:textSize="@dimen/headlabel"
+            android:padding="4dp"
+            android:onClick="loadEdit"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/TV_editEducation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Educational Details"
+            android:layout_weight="1"
+            android:textSize="@dimen/headlabel"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/TV_personal"
+            android:padding="4dp"
+            android:onClick="loadEdit"
+            android:gravity="center"/>
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/FL_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LL_edit">
+
+
+    </FrameLayout>
+
+</RelativeLayout>
