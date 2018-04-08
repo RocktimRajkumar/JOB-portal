@@ -174,7 +174,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                             saveLoginDetails("email",email);
                             saveLoginDetails("password",password);
 
-                            saveCredential(email,password);
+                            checkCredential(email,password);
                         }
                         else{
                             Toast toast=new Toast(Login.this);
@@ -231,7 +231,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
             et_email.setText(email);
             et_password.setText(password);
             if(Util.isNetworkConnected(Login.this)) {
-                saveCredential(email, password);
+                checkCredential(email, password);
             }
             else{
                 Toast toast=new Toast(Login.this);
@@ -258,7 +258,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
         }
     }
 
-    private void saveCredential(final String email, final String password) {
+    private void checkCredential(final String email, final String password) {
 
         StringRequest stringRequest=new StringRequest(Request.Method.POST, saveLogin, new Response.Listener<String>() {
             @Override
@@ -272,61 +272,20 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                         JSONObject jsonObject2=jsonObject.getJSONObject("CandidateDetails");
                         String email=jsonObject2.getString("email");
                         String name=jsonObject2.getString("name");
-                        String password=jsonObject2.getString("pwd");
-                        String currentcity=jsonObject2.getString("currentcity");
-                        String address=jsonObject2.getString("address");
-                        String pincode=jsonObject2.getString("pincode");
-                        String gender=jsonObject2.getString("gender");
-                        String dob=jsonObject2.getString("dob");
+
                         String degree=jsonObject2.getString("course");
                         String fieldofstudy=jsonObject2.getString("branch");
-                        String YOC=jsonObject2.getString("poy");
-                        String percentage=jsonObject2.getString("percentage");
-                        String instituteName=jsonObject2.getString("iname");
-                        String universityName=jsonObject2.getString("uname");
-                        String higherBoard=jsonObject2.getString("tboard");
-                        String higherSchool=jsonObject2.getString("tschool");
-                        String higherYOC=jsonObject2.getString("tpoy");
-                        String higherpercentage=jsonObject2.getString("tpercentage");
-                        String tenBoard=jsonObject2.getString("mboard");
-                        String tenSchool=jsonObject2.getString("mschool");
-                        String tenYOC=jsonObject2.getString("mpoy");
-                        String tenpercentage=jsonObject2.getString("mpercentage");
-                        String mobile=jsonObject2.getString("mob");
-
-
-                        CandidateDetails candidateDetails=new CandidateDetails();
-
-                        candidateDetails.setEmail(email);
-                        candidateDetails.setName(name);
-                        candidateDetails.setPwd(password);
-                        candidateDetails.setCurrentcity(currentcity);
-                        candidateDetails.setAddress(address);
-                        candidateDetails.setPincode(pincode);
-                        candidateDetails.setGender(gender);
-                        candidateDetails.setDob(dob);
-                        candidateDetails.setDegree(degree);
-                        candidateDetails.setFieldOfStudy(fieldofstudy);
-                        candidateDetails.setYOC(YOC);
-                        candidateDetails.setPercentage(percentage);
-                        candidateDetails.setInstituteName(instituteName);
-                        candidateDetails.setUniversityName(universityName);
-                        candidateDetails.setHigherBoard(higherBoard);
-                        candidateDetails.setHigherSchool(higherSchool);
-                        candidateDetails.setHigherYOC(higherYOC);
-                        candidateDetails.setHigherpercentage(higherpercentage);
-                        candidateDetails.setTenboard(tenBoard);
-                        candidateDetails.setTenschool(tenSchool);
-                        candidateDetails.setTenYOC(tenYOC);
-                        candidateDetails.setTenpercentage(tenpercentage);
-                        candidateDetails.setMobile(mobile);
 
 
                         progressBar.setVisibility(View.GONE);
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                         Intent profile = new Intent(getApplicationContext(),Home.class);
-                        profile.putExtra("candidate",candidateDetails);
+
+                        profile.putExtra("emailid",email);
+                        profile.putExtra("name",name);
+                        profile.putExtra("gedegree",degree);
+                        profile.putExtra("getfos",fieldofstudy);
                         startActivity(profile);
                     }
                     else{

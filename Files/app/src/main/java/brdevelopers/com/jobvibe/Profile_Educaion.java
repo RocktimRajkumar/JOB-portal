@@ -39,7 +39,7 @@ public class Profile_Educaion extends Fragment {
 
     private final String editEducation="http://103.230.103.142/jobportalapp/job.asmx/EditCandidateEducationalDetails";
     private final String editPersonal="http://103.230.103.142/jobportalapp/job.asmx/EditCandidatePersonalDetails";
-    private CandidateDetails candidateDetails;
+    private String emailid,name,password,city,address,pincode,gender,dob,getdegree,getfos,mobile;
 
     @Nullable
     @Override
@@ -47,7 +47,17 @@ public class Profile_Educaion extends Fragment {
         View view=inflater.inflate(R.layout.profile_education,container,false);
 
         Bundle bundle=getArguments();
-        candidateDetails= (CandidateDetails) bundle.getSerializable("candidate");
+        emailid= bundle.getString("email");
+        name=bundle.getString("name");
+        password=bundle.getString("password");
+        city=bundle.getString("city");
+        address=bundle.getString("address");
+        pincode=bundle.getString("pincode");
+        gender=bundle.getString("gender");
+        dob=bundle.getString("dob");
+        getdegree=bundle.getString("getdegree");
+        getfos=bundle.getString("getfos");
+        mobile=bundle.getString("getmobile");
 
         et_university=view.findViewById(R.id.ET_university);
         et_college=view.findViewById(R.id.ET_college);
@@ -114,18 +124,6 @@ public class Profile_Educaion extends Fragment {
             public void onResponse(String response) {
                 Log.d("checklog",""+response);
 
-                candidateDetails.setYOC(cyoc);
-                candidateDetails.setPercentage(cper);
-                candidateDetails.setInstituteName(college);
-                candidateDetails.setUniversityName(university);
-                candidateDetails.setHigherBoard(tboard);
-                candidateDetails.setHigherSchool(tschool);
-                candidateDetails.setHigherYOC(tyoc);
-                candidateDetails.setHigherpercentage(tper);
-                candidateDetails.setTenboard(mboard);
-                candidateDetails.setTenschool(mschool);
-                candidateDetails.setTenYOC(myoc);
-                candidateDetails.setTenpercentage(mper);
 
                 saveEduDetails(university,college,cyoc,cper);
 
@@ -144,7 +142,7 @@ public class Profile_Educaion extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> hashMap=new HashMap<>();
-                hashMap.put("email",candidateDetails.getEmail());
+                hashMap.put("email",emailid);
                 hashMap.put("mschool",mschool);
                 hashMap.put("mboard",mboard);
                 hashMap.put("mpercentage",mper);
@@ -175,7 +173,10 @@ public class Profile_Educaion extends Fragment {
                 progressBar.setVisibility(View.GONE);
 
                 Intent profile = new Intent(getActivity(),Home.class);
-                profile.putExtra("candidate",candidateDetails);
+                profile.putExtra("emailid",emailid);
+                profile.putExtra("name",name);
+                profile.putExtra("gedegree",getdegree);
+                profile.putExtra("getfos",getfos);
                 startActivity(profile);
             }
         }, new Response.ErrorListener() {
@@ -189,14 +190,14 @@ public class Profile_Educaion extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 HashMap<String,String> hashMap=new HashMap<>();
-                hashMap.put("email",candidateDetails.getEmail());
-                hashMap.put("name",candidateDetails.getName());
-                hashMap.put("mobile",candidateDetails.getMobile());
-                hashMap.put("currentcity",candidateDetails.getCurrentcity());
-                hashMap.put("address",candidateDetails.getAddress());
-                hashMap.put("pincode",candidateDetails.getPincode());
-                hashMap.put("gender",candidateDetails.getGender());
-                hashMap.put("dob",candidateDetails.getDob());
+                hashMap.put("email",emailid);
+                hashMap.put("name",name);
+                hashMap.put("mobile",mobile);
+                hashMap.put("currentcity",city);
+                hashMap.put("address",address);
+                hashMap.put("pincode",pincode);
+                hashMap.put("gender",gender);
+                hashMap.put("dob",dob);
                 hashMap.put("poy",cyoc);
                 hashMap.put("percentage",cper);
                 hashMap.put("il"," ");

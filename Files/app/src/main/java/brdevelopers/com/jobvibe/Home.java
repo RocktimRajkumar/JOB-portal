@@ -32,11 +32,11 @@ public class Home extends AppCompatActivity
 
 
    private TextView matched,recommended,viewed,saved,applied,tv_home,tv_activity,tv_notification,tv_empname,tv_empemail;
-   private CandidateDetails candidateDetails;
    private ImageView iv_home,iv_activity,iv_notification;
    private SearchView searchView;
    private int butnclick=0;
    public static String canemail;
+   private String name,getdegree,getfos;
 
 
     @Override
@@ -71,8 +71,12 @@ public class Home extends AppCompatActivity
         tv_home.setOnClickListener(this);
         tv_activity.setOnClickListener(this);
         tv_notification.setOnClickListener(this);
-        candidateDetails=(CandidateDetails)getIntent().getSerializableExtra("candidate");
-        canemail=candidateDetails.getEmail();
+
+        canemail=getIntent().getStringExtra("emailid");
+        name=getIntent().getStringExtra("name");
+        getdegree= getIntent().getStringExtra("gedegree");
+        getfos=getIntent().getStringExtra("getfos");
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -87,8 +91,8 @@ public class Home extends AppCompatActivity
         tv_empname = (TextView) headerView.findViewById(R.id.TV_empName);
         tv_empemail=(TextView)headerView.findViewById(R.id.TV_empEmail);
 
-        tv_empname.setText(candidateDetails.getName());
-        tv_empemail.setText(candidateDetails.getEmail());
+        tv_empname.setText(name);
+        tv_empemail.setText(canemail);
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -252,8 +256,8 @@ public class Home extends AppCompatActivity
         //Sending Degree and FOS to Fragments
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         Bundle bundle=new Bundle();
-        bundle.putString("degree",candidateDetails.getDegree());
-        bundle.putString("FOS",candidateDetails.getFieldOfStudy());
+        bundle.putString("degree",getdegree);
+        bundle.putString("FOS",getfos);
 
         fragment.setArguments(bundle);
         FragmentManager fm=getFragmentManager();
