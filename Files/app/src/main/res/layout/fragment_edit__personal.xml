@@ -187,34 +187,36 @@
                 android:text="Degree"
                 android:textSize="@dimen/pofileTV"
                 android:layout_marginTop="15dp"/>
-            <Spinner
-                android:id="@+id/Spinner_degree"
+            <EditText
+                android:id="@+id/ET_degree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/TV_degree">
+                android:layout_below="@+id/TV_degree"
+                android:focusable="false">
 
-            </Spinner>
+            </EditText>
 
             <TextView
                 android:id="@+id/TV_fos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/Spinner_degree"
+                android:layout_below="@id/ET_degree"
                 android:text="Field of Study"
                 android:textSize="@dimen/pofileTV"
                 android:layout_marginTop="15dp"/>
-            <Spinner
-                android:id="@+id/Spinner_fos"
+            <EditText
+                android:id="@+id/ET_fos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/TV_fos">
-            </Spinner>
+                android:layout_below="@+id/TV_fos"
+                android:focusable="false">
+            </EditText>
 
             <TextView
                 android:id="@+id/TV_btnnext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/Spinner_fos"
+                android:layout_below="@+id/ET_fos"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="30dp"
                 android:text="NEXT"

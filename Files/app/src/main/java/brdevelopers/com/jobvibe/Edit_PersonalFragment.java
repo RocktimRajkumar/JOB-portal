@@ -45,23 +45,18 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-public class Edit_PersonalFragment extends Fragment implements View.OnClickListener,View.OnFocusChangeListener,AdapterView.OnItemSelectedListener,TextWatcher {
-    private EditText et_email, et_dob,et_mobile,et_name,et_address,et_pincode,et_city;
+public class Edit_PersonalFragment extends Fragment implements View.OnClickListener,View.OnFocusChangeListener,TextWatcher {
+    private EditText et_email, et_dob,et_mobile,et_name,et_address,et_pincode,et_city,et_degree,et_fos;
     private RadioButton radio_male,radio_female;
     private ImageView iv_dob;
     private TextView tv_btnnext,tv_age;
-    private Spinner deg,fos;
     private ProgressBar progressBar;
 
-    private String getdegree,getfos,password;
 
     private String degreeUrl="http://103.230.103.142/jobportalapp/job.asmx/GetCourse";
     private String fosUrl="http://103.230.103.142/jobportalapp/job.asmx/GetBranch";
     private String editcandidate="http://103.230.103.142/jobportalapp/job.asmx/EditCandidatePersonalDetails";
     private String getcandidatedetail="http://103.230.103.142/jobportalapp/job.asmx/GetCandidateDetails";
-
-    final Map<String,String> clist=new LinkedHashMap<>();
-    final ArrayList<String> fosmap=new ArrayList<>();
 
 
     @Override
@@ -78,8 +73,8 @@ public class Edit_PersonalFragment extends Fragment implements View.OnClickListe
         et_dob=view.findViewById(R.id.ET_dob);
         radio_male=view.findViewById(R.id.Radio_male);
         radio_female=view.findViewById(R.id.Radio_female);
-        deg=view.findViewById(R.id.Spinner_degree);
-        fos=view.findViewById(R.id.Spinner_fos);
+        et_degree=view.findViewById(R.id.ET_degree);
+        et_fos=view.findViewById(R.id.ET_fos);
         iv_dob=view.findViewById(R.id.IV_dob);
         tv_btnnext=view.findViewById(R.id.TV_btnnext);
         tv_age=view.findViewById(R.id.TV_age);
@@ -108,13 +103,10 @@ public class Edit_PersonalFragment extends Fragment implements View.OnClickListe
         et_dob.setOnClickListener(this);        //Edit Text dob click
         iv_dob.setOnClickListener(this);        //Image View dob click
         et_dob.setOnFocusChangeListener(this);  //Edit Text dob on focus
-        et_mobile.addTextChangedListener(this);  //Edit Text mobile on textchange
+        et_mobile.addTextChangedListener(this);//Edit Text mobile on textchange
 
-        //On degree Spinner click
-        deg.setOnItemSelectedListener(this);
 
-        //On fos spinner click
-        fos.setOnItemSelectedListener(this);
+        tv_btnnext.setOnClickListener(this);
 
         return view;
 
@@ -136,8 +128,8 @@ public class Edit_PersonalFragment extends Fragment implements View.OnClickListe
                     String pincode=jsonObject.getString("pincode");
                     String gender=jsonObject.getString("gender");
                     String dob=jsonObject.getString("dob");
-                    getdegree=jsonObject.getString("course");
-                    getfos=jsonObject.getString("branch");
+                    String getdegree=jsonObject.getString("course");
+                    String getfos=jsonObject.getString("branch");
                     String mobile=jsonObject.getString("mob");
 
                     Calendar c=Calendar.getInstance();
@@ -158,17 +150,13 @@ public class Edit_PersonalFragment extends Fragment implements View.OnClickListe
                     et_pincode.setText(pincode);
                     et_city.setText(currentcity);
                     et_dob.setText(dob);
+                    et_degree.setText(getdegree);
+                    et_fos.setText(getfos);
 
                     if(gender.equals("Male"))
                         radio_male.isChecked();
                     else if (gender.equals("Female"))
                         radio_female.isChecked();
-
-
-//                    deg.setAdapter(degree);
-//                    fos.setAdapter(fieldofstudy);
-
-                    getDegree();
 
 
 
@@ -192,6 +180,8 @@ public class Edit_PersonalFragment extends Fragment implements View.OnClickListe
         };
         Volley.newRequestQueue(getActivity()).add(stringRequest);
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -217,7 +207,7 @@ public class Edit_PersonalFragment extends Fragment implements View.OnClickListe
 
 
             if(Util.isNetworkConnected(getActivity())) {
-                personalDetailsEntry(email, name, mobile, address, pincode, city, dob, gender);
+                editcandidateDetails(email, name, mobile, address, pincode, city, dob, gender);
             }
             else{
                 Toast toast=new Toast(getActivity());
@@ -250,45 +240,25 @@ public class Edit_PersonalFragment extends Fragment implements View.OnClickListe
 
     }
 
-    private void personalDetailsEntry(final String email, final String name, final String mobile, final String address, final String pincode, final String city, final String dob, final String gender) {
+    private void editcandidateDetails(final String email, final String name, final String mobile, final String address, final String pincode, final String city, final String dob, final String gender) {
 
         StringRequest stringRequest=new StringRequest(Request.Method.POST, editcandidate, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("checklog",response);
-                try {
-                    JSONObject jsonObject=new JSONObject(response);
+                Log.d("show"," "+response);
+                Log.d("show"," "+response);
+                Toast toast=new Toast(getActivity());
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
 
-                    CandidateDetails candidateDetails=new CandidateDetails();
-                    candidateDetails.setEmail(email);
-                    candidateDetails.setName(name);
-                    candidateDetails.setPwd(password);
-                    candidateDetails.setCurrentcity(city);
-                    candidateDetails.setAddress(address);
-                    candidateDetails.setPincode(pincode);
-                    candidateDetails.setGender(gender);
-                    candidateDetails.setDob(dob);
-                    candidateDetails.setDegree(getdegree);
-                    candidateDetails.setFieldOfStudy(getfos);
-                    candidateDetails.setMobile(mobile);
+                LayoutInflater inf=getActivity().getLayoutInflater();
 
-                    Bundle bundle=new Bundle();
-                    bundle.putSerializable("candidate",candidateDetails);
-
-
-                    FragmentManager fragmentManager=getActivity().getFragmentManager();
-                    FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                    Profile_Educaion profile_educaion=new Profile_Educaion();
-                    profile_educaion.setArguments(bundle);
-                    fragmentTransaction.replace(R.id.FL_profile,profile_educaion);
-                    fragmentTransaction.commit();
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    progressBar.setVisibility(View.GONE);
-                }
-
+                View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)getActivity().findViewById(R.id.CustomToast_Parent));
+                TextView tf=layoutview.findViewById(R.id.CustomToast);
+                tf.setText("Details Updated Sucessfully "+ Html.fromHtml("&#x1f604;"));
+                toast.setView(layoutview);
+                toast.show();
+                progressBar.setVisibility(View.GONE);
 
             }
         }, new Response.ErrorListener() {
@@ -305,14 +275,12 @@ public class Edit_PersonalFragment extends Fragment implements View.OnClickListe
                 HashMap<String,String> hashMap=new HashMap<>();
                 hashMap.put("email",email);
                 hashMap.put("name",name);
-                hashMap.put("pwd",password);
+                hashMap.put("mobile",mobile);
                 hashMap.put("currentcity",city);
                 hashMap.put("address",address);
                 hashMap.put("pincode",pincode);
                 hashMap.put("gender",gender);
                 hashMap.put("dob",dob);
-                hashMap.put("course",getdegree);
-                hashMap.put("branch",getfos);
                 hashMap.put("poy"," ");
                 hashMap.put("percentage"," ");
                 hashMap.put("il"," ");
@@ -324,6 +292,7 @@ public class Edit_PersonalFragment extends Fragment implements View.OnClickListe
         };
         Volley.newRequestQueue(getActivity()).add(stringRequest);
     }
+
 
     private void dateOfBirth() {
 
@@ -372,150 +341,6 @@ public class Edit_PersonalFragment extends Fragment implements View.OnClickListe
 
         tv_age.setText("Age : "+age);
         tv_age.setVisibility(View.VISIBLE);
-
-    }
-
-    //Getting degree data from webservices
-    private void getDegree() {
-
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, degreeUrl, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    JSONArray jsonArray=jsonObject.getJSONArray("courseList");
-                    for(int i=0;i<jsonArray.length();i++)
-                    {
-                        JSONObject course=jsonArray.getJSONObject(i);
-                        String courseid=course.getString("cid");
-                        String coursename=course.getString("cname");
-                        clist.put(courseid,coursename);
-                    }
-
-                    ArrayList<String> sortcourse=new ArrayList<>();
-
-                    for(String course:clist.values()){
-                        if(course.equals(getdegree))
-                            sortcourse.add(0,course);
-                        else
-                            sortcourse.add(course);
-                    }
-
-                    //Converting hashmap to string array
-                    String[] clistString = clist.values().toArray(new String[0]);
-                    ArrayAdapter<String> arrayAdapterCourse=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,sortcourse);
-                    deg.setSelection(3);
-                    deg.setAdapter(arrayAdapterCourse);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("LogCheck",error.toString());
-                Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
-    }
-
-    //On Degree Spinner Item selected
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        if(parent.getId()==R.id.Spinner_degree) {
-            String hashvalue = parent.getItemAtPosition(position).toString(); //Getting value of the spinner item by position
-            String hashkey = null;
-            getdegree=hashvalue;
-            for (Object o : clist.keySet()) {
-                if (clist.get(o).equals(hashvalue)) {
-                    hashkey = o.toString();   //Getting the haskey from the hashvalue
-                    break;
-                }
-            }
-
-            if(Util.isNetworkConnected(getActivity())) {
-                //Calling fieldOfStudey and passing hashkey of degreeId
-                fieldOfStudy(hashkey);
-            }
-            else{
-                Toast toast=new Toast(getActivity());
-                toast.setDuration(Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
-
-                LayoutInflater inf=getActivity().getLayoutInflater();
-
-                View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)getActivity().findViewById(R.id.CustomToast_Parent));
-                TextView tf=layoutview.findViewById(R.id.CustomToast);
-                tf.setText("No Internet Connection "+ Html.fromHtml("&#9995;"));
-                toast.setView(layoutview);
-                toast.show();
-            }
-        }
-        else if(parent.getId()==R.id.Spinner_fos)
-        {
-            getfos=parent.getItemAtPosition(position).toString();
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-    //Retrieving data from webservice according the degreeid
-    private void fieldOfStudy(final String hashkey) {
-
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, fosUrl, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                try {
-                    fosmap.clear();
-                    JSONObject jsonObject=new JSONObject(response);
-                    JSONArray jsonArray=jsonObject.getJSONArray("branchList");
-                    for(int i=0;i<jsonArray.length();i++)
-                    {
-                        JSONObject foslist=jsonArray.getJSONObject(i);
-                        String fosname=foslist.getString("bname");
-                        if(fosname.equals(getfos))
-                            fosmap.add(0,fosname);
-                        else
-                            fosmap.add(fosname);
-
-                    }
-
-                    String[] fosmapString = fosmap.toArray(new String[0]);
-                    ArrayAdapter<String> arrayAdapterCourse=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,fosmapString);
-                    fos.setAdapter(arrayAdapterCourse);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("LogCheck",""+error);
-                Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                HashMap<String,String> foshash=new HashMap<>();
-                foshash.put("courseid",hashkey);
-                return foshash;
-            }
-        };
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
-
 
     }
 
