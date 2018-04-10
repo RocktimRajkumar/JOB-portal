@@ -16,6 +16,7 @@ public class DBManager extends SQLiteOpenHelper {
     private static int DBVersion=1;
     private static String Viewed="Viewed";
     private static String Saved="Saved";
+    private static String Notification="Notification";
 
     public DBManager(Context context){
         super(context,DBName,null,DBVersion);
@@ -25,12 +26,14 @@ public class DBManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE "+Viewed+"(Auto integer primary key AUTOINCREMENT,JOB_ID text,Cemail text)");
         db.execSQL("CREATE TABLE "+Saved+"(Auto integer primary key AUTOINCREMENT,JOB_ID text,Cemail text)");
+        db.execSQL("CREATE TABLE "+Notification+"(Auto integer primary key AUTOINCREMENT,JOB_ID text,Cemail text,ViewedJob text)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+Viewed);
         db.execSQL("DROP TABLE IF EXISTS "+Saved);
+        db.execSQL("DROP TABLE IF EXISTS "+Notification);
     }
 
     public boolean insertViewed(String jobid,String cemail){
@@ -65,6 +68,28 @@ public class DBManager extends SQLiteOpenHelper {
         try{
             SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
             success=sqLiteDatabase.insert(Saved,null,cv);
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            success=-1;
+        }
+        if(success!=1)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean insertNotifcation(String jobid,String cemail,String viewjob){
+
+        ContentValues cv=new ContentValues();
+        cv.put("JOB_ID",jobid);
+        cv.put("Cemail",cemail);
+        cv.put("ViewedJob",viewjob);
+
+        long success=-1;
+        try{
+            SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
+            success=sqLiteDatabase.insert(Notification,null,cv);
         }
         catch (Exception ex){
             ex.printStackTrace();
@@ -205,6 +230,59 @@ public class DBManager extends SQLiteOpenHelper {
             Log.d("logcheck","error "+ex);
         }
         return jobv;
+    }
+
+    public List<JobActivity> getNotificationData(String cemail){
+        SQLiteDatabase db=this.getReadableDatabase();
+        ArrayList<JobActivity> jobv=new ArrayList<>();
+        Cursor cs=null;
+        try{
+            cs=db.rawQuery("Select * from "+Notification+" where Cemail='"+cemail+"'",null);
+            if(cs.getCount()>0){
+                while(cs.moveToNext()){
+                    String jobID=cs.getString(1);
+                    String candidateEmail=cs.getString(2);
+                    String viewjob=cs.getString(3);
+
+                    JobActivity jobActivity=new JobActivity();
+                    jobActivity.setJobid(jobID);
+                    jobActivity.setCemail(candidateEmail);
+                    jobActivity.setViewedjob(viewjob);
+
+                    jobv.add(jobActivity);
+                }
+            }
+            else
+                jobv=null;
+            cs.close();
+        }
+        catch (Exception ex){
+            cs.close();
+            Log.d("logcheck","error "+ex);
+        }
+        return jobv;
+    }
+
+    public boolean updateNotificationView(String jobid, String cemail,String viewNotification){
+
+        ContentValues cv=new ContentValues();
+        cv.put("JOB_ID",jobid);
+        cv.put("Cemail",cemail);
+        cv.put("ViewedJob",viewNotification);
+
+        long success=-1;
+        try{
+            SQLiteDatabase database=this.getWritableDatabase();
+            success=database.update(Notification,cv,"JOB_ID=? AND Cemail=?",new String[]{jobid,cemail});
+        }
+        catch (Exception ex){
+            success=-1;
+        }
+        if(success!=-1)
+            return true;
+        else
+            return false;
+
     }
 
 }

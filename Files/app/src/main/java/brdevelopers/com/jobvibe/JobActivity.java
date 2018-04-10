@@ -4,6 +4,7 @@ public class JobActivity {
 
     private String jobid;
     private String cemail;
+    private String viewedjob;
 
     public String getJobid() {
         return jobid;
@@ -19,5 +20,13 @@ public class JobActivity {
 
     public void setCemail(String cemail) {
         this.cemail = cemail;
+    }
+
+    public String getViewedjob() {
+        return viewedjob;
+    }
+
+    public void setViewedjob(String viewedjob) {
+        this.viewedjob = viewedjob;
     }
 }

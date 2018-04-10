@@ -239,6 +239,10 @@ public class Apply_Job extends AppCompatActivity {
                     String success=jsonObject.getString("Sucess");
                     if(success.equals("1"))
                     {
+                        DBManager db=new DBManager(Apply_Job.this);
+                        db.insertNotifcation(jobid,Home.canemail,"0");
+
+
                         Toast toast=new Toast(Apply_Job.this);
                         toast.setDuration(Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER,0,0);
@@ -246,8 +250,6 @@ public class Apply_Job extends AppCompatActivity {
                         LayoutInflater inf=getLayoutInflater();
 
                         View layoutview=inf.inflate(R.layout.toast_apply_job,(ViewGroup)findViewById(R.id.CustomToast_Parent));
-//                        TextView tf=layoutview.findViewById(R.id.CustomToast);
-//                        tf.setText("Thanks for showing your Interest."+Html.fromHtml("<br>")+"We will notify you with further information.");
                         toast.setView(layoutview);
                         toast.show();
                     }
