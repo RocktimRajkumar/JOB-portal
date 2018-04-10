@@ -285,7 +285,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
 
                         profile.putExtra("emailid",email);
                         profile.putExtra("name",name);
-                        profile.putExtra("gedegree",degree);
+                        profile.putExtra("getdegree",degree);
                         profile.putExtra("getfos",fieldofstudy);
                         startActivity(profile);
                     }

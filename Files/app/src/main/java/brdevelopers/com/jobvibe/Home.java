@@ -47,6 +47,7 @@ public class Home extends AppCompatActivity
    private TabLayout tabLayout;
    private ViewPager viewPager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +78,7 @@ public class Home extends AppCompatActivity
 
         canemail=getIntent().getStringExtra("emailid");
         name=getIntent().getStringExtra("name");
-        getdegree= getIntent().getStringExtra("gedegree");
+        getdegree= getIntent().getStringExtra("getdegree");
         getfos=getIntent().getStringExtra("getfos");
 
 
@@ -94,7 +95,7 @@ public class Home extends AppCompatActivity
         tv_empemail=(TextView)headerView.findViewById(R.id.TV_profileEmail);
         iv_profileImage=headerView.findViewById(R.id.imageView);
 
-        iv_profileImage.setOnClickListener(new View.OnClickListener() {
+        tv_empname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent editProfile = new Intent(Home.this, EditActivity.class);
@@ -208,14 +209,21 @@ public class Home extends AppCompatActivity
         if (id == R.id.nav_setting) {
             // Handle the camera action
         } else if (id == R.id.nav_faq) {
+            Intent intent=new Intent(Home.this,FAQ.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_terms) {
+            Intent intent=new Intent(Home.this,Terms.class);
+            startActivity(intent);
+
 
         } else if (id == R.id.nav_report) {
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_about) {
+            Intent intent=new Intent(Home.this,AboutUs.class);
+            startActivity(intent);
 
         }else if(id==R.id.nav_logout){
 

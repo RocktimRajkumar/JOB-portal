@@ -177,7 +177,7 @@ public class Profile_Educaion extends Fragment {
                 Intent profile = new Intent(getActivity(),Home.class);
                 profile.putExtra("emailid",emailid);
                 profile.putExtra("name",name);
-                profile.putExtra("gedegree",getdegree);
+                profile.putExtra("getdegree",getdegree);
                 profile.putExtra("getfos",getfos);
                 startActivity(profile);
             }

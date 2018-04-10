@@ -29,12 +29,14 @@
         android:textSize="@dimen/label"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    <TextView
-        android:id="@+id/TV_profileEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="4dp"
-        android:textSize="@dimen/headlabel"
-        android:text="bijoy10dutta@gmail.com" />
+
+        <TextView
+            android:id="@+id/TV_profileEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:textSize="@dimen/headlabel"
+            android:text="bijoy10dutta@gmail.com" />
+
 
 </LinearLayout>
