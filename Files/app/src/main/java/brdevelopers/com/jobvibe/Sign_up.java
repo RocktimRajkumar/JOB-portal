@@ -274,6 +274,7 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
                                 profile.putExtra("email", email);
                                 profile.putExtra("password", password);
                                 startActivity(profile);
+                                finish();
                             }
                             else{
                                 Toast toast=new Toast(Sign_up.this);

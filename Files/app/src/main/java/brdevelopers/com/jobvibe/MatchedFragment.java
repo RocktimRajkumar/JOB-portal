@@ -10,10 +10,14 @@ import android.support.annotation.Nullable;
 import com.github.clans.fab.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -43,15 +47,23 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
     private String allJob = "http://103.230.103.142/jobportalapp/job.asmx/JobSearch";
     private RecyclerView recyclerView;
-    private static RecyclerAdapter recyclerAdapter;
+    private RecyclerAdapter recyclerAdapter;
     private ProgressBar progressBar;
     private FloatingActionButton floatlocation, floatskill, floatcompany;
-    private static List<Job_details> list;
+    private  List<Job_details> list;
     private HashSet<String> jblocation = new HashSet<>();
     private HashSet<String> jbcompany = new HashSet<>();
     private HashSet<String> jbskill = new HashSet<>();
 
     private static String course;
+
+    private SearchView searchView;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Nullable
     @Override
@@ -108,6 +120,37 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         }
 
         return view;
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        getActivity().getMenuInflater().inflate(R.menu.home, menu);
+        inflater.inflate(R.menu.searchfile, menu);
+        final MenuItem myactionmenu=menu.findItem(R.id.search);
+        searchView=(SearchView)myactionmenu.getActionView();
+
+        searchView.setQueryHint(Html.fromHtml("<font color = #ffffff>" + getResources().getString(R.string.search_title) + "</font>"));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                if(searchView.isIconified())
+                    searchView.setIconified(true);
+
+                myactionmenu.collapseActionView();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                  searchFilter(newText);
+                return false;
+            }
+        });
+
     }
 
     private void loadAlljob() {

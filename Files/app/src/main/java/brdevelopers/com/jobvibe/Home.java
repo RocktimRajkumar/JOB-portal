@@ -9,9 +9,12 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,9 +24,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Home extends AppCompatActivity
@@ -32,10 +37,9 @@ public class Home extends AppCompatActivity
 
    private TextView matched,recommended,viewed,saved,applied,tv_home,tv_activity,tv_notification,tv_empname,tv_empemail;
    private ImageView iv_home,iv_activity,iv_notification,iv_profileImage;
-   private SearchView searchView;
-   private int butnclick=0;
    public static String canemail;
-   private String name,getdegree,getfos;
+   private static String name,getdegree,getfos;
+   private boolean onbackpressed=false;
 
 
 
@@ -121,18 +125,44 @@ public class Home extends AppCompatActivity
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
+            Log.d("logcheck","drawer");
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+       else if(!onbackpressed){
+            Log.d("logcheck","backpressed");
+            Toast toast = new Toast(Home.this);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
+
+            LayoutInflater inf = getLayoutInflater();
+
+            View layoutview = inf.inflate(R.layout.custom_toast, (ViewGroup)findViewById(R.id.CustomToast_Parent));
+            TextView tf = layoutview.findViewById(R.id.CustomToast);
+            tf.setText("Press back again to exit " + Html.fromHtml("&#9995;"));
+            toast.setView(layoutview);
+            toast.show();
+            onbackpressed=true;
+        }
+        else{
+            Log.d("logcheck","back super");
             super.onBackPressed();
         }
+        new CountDownTimer(3000,1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                Log.d("logcheck","on countdown timer ontick");
+            }
+
+            @Override
+            public void onFinish() {
+                Log.d("logcheck","on countdown timer onfinish");
+                onbackpressed=false;
+            }
+        }.start();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.home, menu);
-//        return true;
-//    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -191,7 +221,7 @@ public class Home extends AppCompatActivity
 
         if(v.getId()==R.id.TV_matched)
         {
-            butnclick=0;
+
             loadFragment(new MatchedFragment());
             matched.setBackgroundColor(Color.rgb(0, 150, 136));
             recommended.setBackgroundColor(Color.rgb(255, 255, 255));
@@ -199,7 +229,6 @@ public class Home extends AppCompatActivity
         else if(v.getId()==R.id.TV_recommended)
         {
 
-            butnclick=1;
            loadFragment(new Recommended());
 
             recommended.setBackgroundColor(Color.rgb(0, 150, 136));
@@ -223,7 +252,6 @@ public class Home extends AppCompatActivity
             iv_notification.setImageResource(R.drawable.ic_notification);
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
 
-            butnclick=0;
 
             loadFragment(new MatchedFragment());
             matched.setVisibility(View.VISIBLE);
@@ -284,45 +312,18 @@ public class Home extends AppCompatActivity
         FragmentManager fm=getFragmentManager();
         FragmentTransaction ft=fm.beginTransaction();
         ft.replace(R.id.FL_content,fragment);
+        ft.addToBackStack(null);
+
         ft.commit();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.searchfile,menu);
-        getMenuInflater().inflate(R.menu.home, menu);
 
-        final MenuItem myactionmenu=menu.findItem(R.id.search);
-        searchView=(SearchView)myactionmenu.getActionView();
+//        getMenuInflater().inflate(R.menu.home, menu);
 
-        searchView.setQueryHint(Html.fromHtml("<font color = #ffffff>" + getResources().getString(R.string.search_title) + "</font>"));
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                if(searchView.isIconified())
-                    searchView.setIconified(true);
-
-                myactionmenu.collapseActionView();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if(butnclick==0) {
-                    MatchedFragment matchedFragment = new MatchedFragment();
-                    matchedFragment.searchFilter(newText);
-                }
-                else if(butnclick==1){
-                    Recommended recommended=new Recommended();
-                    recommended.searchFilter(newText);
-                }
-
-                return false;
-            }
-        });
         return true;
     }
+
 
 }

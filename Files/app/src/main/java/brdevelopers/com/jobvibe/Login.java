@@ -204,6 +204,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
         {
             Intent profile = new Intent(Login.this, Sign_up.class);
             startActivity(profile);
+            finish();
         }
 
 
