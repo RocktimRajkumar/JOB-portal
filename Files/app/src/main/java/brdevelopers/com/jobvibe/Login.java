@@ -288,6 +288,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
                         profile.putExtra("getdegree",degree);
                         profile.putExtra("getfos",fieldofstudy);
                         startActivity(profile);
+                        finish();
                     }
                     else{
                         i_password=0;

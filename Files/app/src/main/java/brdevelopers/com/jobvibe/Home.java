@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 
 import android.support.v4.app.Fragment;
@@ -151,17 +152,21 @@ public class Home extends AppCompatActivity
         }
        else if(!onbackpressed){
             Log.d("logcheck","backpressed");
-            Toast toast = new Toast(Home.this);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
+//            Toast toast = new Toast(Home.this);
+//            toast.setDuration(Toast.LENGTH_SHORT);
+//            toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
+//
+//            LayoutInflater inf = getLayoutInflater();
+//
+//            View layoutview = inf.inflate(R.layout.custom_toast, (ViewGroup)findViewById(R.id.CustomToast_Parent));
+//            TextView tf = layoutview.findViewById(R.id.CustomToast);
+//            tf.setText("Press back again to exit " + Html.fromHtml("&#9995;"));
+//            toast.setView(layoutview);
+//            toast.show();
 
-            LayoutInflater inf = getLayoutInflater();
+            View v=findViewById(android.R.id.content);
+            Snackbar.make(v,"Press back again to exit "+Html.fromHtml("&#9995;"),Snackbar.LENGTH_SHORT).show();
 
-            View layoutview = inf.inflate(R.layout.custom_toast, (ViewGroup)findViewById(R.id.CustomToast_Parent));
-            TextView tf = layoutview.findViewById(R.id.CustomToast);
-            tf.setText("Press back again to exit " + Html.fromHtml("&#9995;"));
-            toast.setView(layoutview);
-            toast.show();
             onbackpressed=true;
         }
         else{
