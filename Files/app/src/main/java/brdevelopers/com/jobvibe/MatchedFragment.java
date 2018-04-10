@@ -103,11 +103,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        //Receiving Degree and FOS from Home activity
 
-//        Bundle bundle = getArguments();
-//        String degree = bundle.getString("degree");
-//        String FOS = bundle.getString("FOS");
         String degree=Home.getdegree;
         String FOS=Home.getfos;
 

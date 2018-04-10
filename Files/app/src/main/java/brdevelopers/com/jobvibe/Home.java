@@ -111,7 +111,7 @@ public class Home extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         iv_home.setImageResource(R.drawable.ic_onhome);
-        tv_home.setTextColor(Color.rgb(199, 26, 66));
+        tv_home.setTextColor(Color.rgb(255, 87, 34));
         iv_activity.setImageResource(R.drawable.ic_activity);
         tv_activity.setTextColor(Color.rgb(0, 150, 136));
         iv_notification.setImageResource(R.drawable.ic_notification);
@@ -152,17 +152,6 @@ public class Home extends AppCompatActivity
         }
        else if(!onbackpressed){
             Log.d("logcheck","backpressed");
-//            Toast toast = new Toast(Home.this);
-//            toast.setDuration(Toast.LENGTH_SHORT);
-//            toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
-//
-//            LayoutInflater inf = getLayoutInflater();
-//
-//            View layoutview = inf.inflate(R.layout.custom_toast, (ViewGroup)findViewById(R.id.CustomToast_Parent));
-//            TextView tf = layoutview.findViewById(R.id.CustomToast);
-//            tf.setText("Press back again to exit " + Html.fromHtml("&#9995;"));
-//            toast.setView(layoutview);
-//            toast.show();
 
             View v=findViewById(android.R.id.content);
             Snackbar.make(v,"Press back again to exit "+Html.fromHtml("&#9995;"),Snackbar.LENGTH_SHORT).show();
@@ -254,7 +243,7 @@ public class Home extends AppCompatActivity
 
         if (v.getId() == R.id.IV_home || v.getId() == R.id.TV_home) {
             iv_home.setImageResource(R.drawable.ic_onhome);
-            tv_home.setTextColor(Color.rgb(199, 26, 66));
+            tv_home.setTextColor(Color.rgb(255, 87, 34));
             iv_activity.setImageResource(R.drawable.ic_activity);
             tv_activity.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
@@ -266,7 +255,7 @@ public class Home extends AppCompatActivity
 
         } else if (v.getId() == R.id.IV_activity || v.getId() == R.id.TV_activity) {
             iv_activity.setImageResource(R.drawable.ic_onactivity);
-            tv_activity.setTextColor(Color.rgb(199, 26, 66));
+            tv_activity.setTextColor(Color.rgb(255, 87, 34));
             iv_home.setImageResource(R.drawable.ic_home);
             tv_home.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
@@ -279,7 +268,7 @@ public class Home extends AppCompatActivity
 
         } else if (v.getId() == R.id.IV_notification || v.getId() == R.id.TV_notification) {
             iv_notification.setImageResource(R.drawable.ic_onnotification);
-            tv_notification.setTextColor(Color.rgb(199, 26, 66));
+            tv_notification.setTextColor(Color.rgb(255, 87, 34));
             iv_home.setImageResource(R.drawable.ic_home);
             tv_home.setTextColor(Color.rgb(0, 150, 136));
             iv_activity.setImageResource(R.drawable.ic_activity);

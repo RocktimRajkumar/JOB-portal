@@ -16,9 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Cache;
+import com.android.volley.Network;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -42,6 +48,8 @@ public class Viewed_Fragment extends Fragment {
     private RecyclerAdapter recyclerAdapter;
     private TextView tv_nojob;
 
+    private RequestQueue mRequestQueue;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,6 +57,18 @@ public class Viewed_Fragment extends Fragment {
         recyclerView = view.findViewById(R.id.RV_job);
         progressBar=view.findViewById(R.id.progressbar);
         tv_nojob=view.findViewById(R.id.TV_nojob);
+
+// Instantiate the cache
+        Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
+
+// Set up the network to use HttpURLConnection as the HTTP client.
+        Network network = new BasicNetwork(new HurlStack());
+
+// Instantiate the RequestQueue with the cache and network.
+        mRequestQueue = new RequestQueue(cache, network);
+
+// Start the queue
+        mRequestQueue.start();
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
@@ -82,7 +102,8 @@ public class Viewed_Fragment extends Fragment {
 
                 Log.d("LogCheck",response);
                 progressBar.setVisibility(View.VISIBLE);
-                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                if(getActivity()!=null)
+                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 
                 try {
@@ -186,7 +207,8 @@ public class Viewed_Fragment extends Fragment {
 
         };
 
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
+//        Volley.newRequestQueue(getActivity()).add(stringRequest);
+        mRequestQueue.add(stringRequest);
     }
 
 }
