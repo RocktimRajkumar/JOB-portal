@@ -35,7 +35,7 @@ public class Home extends AppCompatActivity
    private SearchView searchView;
    private int butnclick=0;
    public static String canemail;
-   private String name,getdegree,getfos;
+   public static String name,getdegree,getfos;
 
 
 
@@ -76,7 +76,7 @@ public class Home extends AppCompatActivity
 
         canemail=getIntent().getStringExtra("emailid");
         name=getIntent().getStringExtra("name");
-        getdegree= getIntent().getStringExtra("gedegree");
+        getdegree= getIntent().getStringExtra("getdegree");
         getfos=getIntent().getStringExtra("getfos");
 
 
@@ -162,6 +162,9 @@ public class Home extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_terms) {
+            Intent intent=new Intent(Home.this,Terms.class);
+            startActivity(intent);
+
 
         } else if (id == R.id.nav_report) {
 

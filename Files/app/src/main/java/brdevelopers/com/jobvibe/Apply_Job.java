@@ -1,5 +1,6 @@
 package brdevelopers.com.jobvibe;
 
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,9 +41,12 @@ public class Apply_Job extends AppCompatActivity {
     private String bca,mca,cse,it,ee,ece,civil,mba;
     private String written,walkin,online;
     private String jobid=null;
-    private ImageView saveimg;
+    private ImageView saveimg,iv_back;
     private ProgressBar progressBar;
-
+    public String emailh=Home.canemail;
+    public String name=Home.name;
+    public String degree=Home.getdegree;
+    public String fos=Home.getfos;
     private String applyjob="http://103.230.103.142/jobportalapp/job.asmx/ApplyJob";
 
     @Override
@@ -65,6 +69,7 @@ public class Apply_Job extends AppCompatActivity {
         preferedskill=findViewById(R.id.TV_skill);
 
         saved=findViewById(R.id.LL_save);
+        iv_back=findViewById(R.id.IV_back);
         apply=findViewById(R.id.LL_apply);
         saveimg=findViewById(R.id.IV_save);
 
@@ -201,6 +206,21 @@ public class Apply_Job extends AppCompatActivity {
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 applyJob();
+            }
+        });
+
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Apply_Job.this,Home.class);
+                intent.putExtra("emailid",emailh);
+                intent.putExtra("name",name);
+                intent.putExtra("getdegree",degree);
+                intent.putExtra("getfos",fos);
+                startActivity(intent);
+                finish();
+
+
             }
         });
     }

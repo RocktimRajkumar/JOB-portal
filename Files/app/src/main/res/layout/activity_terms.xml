@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Terms">
+
+    <LinearLayout
+        android:id="@+id/LL_titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:background="@color/button"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/IV_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:src="@drawable/ic_backarrow"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Terms and Conditions"
+            android:paddingLeft="25sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/LL_titleBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TV_heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Purpose : "
+                android:textColor="@color/bluehead"
+                android:textSize="@dimen/label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="JobVibe is intended only to serve as a preliminary medium of contact and exchange of information for its users /members /visitors who have a bona fide intention to contact and/or be contacted for the purposes related to genuine existing job vacancies and for other career enhancement services." />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. Introduction : "
+                android:textColor="@color/bluehead"
+                android:textSize="@dimen/label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Please read this page carefully. It contains the terms and conditions (the 'Terms and Conditions') governing your access to and use of the CareerBuilder Web Sites and the Services (as each are defined below) provided by JobVibe. If you do not accept these Terms and Conditions or you do not meet or comply with their provisions, you may not use the JobVibe application and Services. These Terms and Conditions are effective as of March 1, 2018." />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2. Binding Agreement : "
+                android:textColor="@color/bluehead"
+                android:textSize="@dimen/label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="These Terms and Conditions (as they may be amended from time to time by JobVibe), together with your Advertising and Candidate Search Service Agreement (if applicable), form a binding agreement (the 'Agreement') between you and JobVibe. Your access to or use of the JobVibe application and Services indicates your acceptance of these Terms and Conditions. You are agreeing to use the Services at your own risk." />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" Privacy : "
+                android:textColor="@color/bluehead"
+                android:textSize="@dimen/label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text=" You are responsible for maintaining the confidentiality of Your account, Profile and passwords, as applicable. You may not share Your password or other account access information with any other party, temporarily or permanently, and You shall be responsible for all uses of Your JobVibe services, registrations and passwords, whether or not authorized by You. You agree to immediately notify Monster of any unauthorized use of Your account, Profile, or passwords." />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="4. All JobVibe Users agree to not : "
+                android:textColor="@color/bluehead"
+                android:textSize="@dimen/label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:text="■ Take any action that imposes an unreasonable or disproportionately large load on any JobVibe's infrastructure. " />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:text="■ Use any data mining, robots or similar data gathering or extraction methods. " />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:text="■ Violate or attempt to violate the security of any Monster Site including attempting to probe, scan or test the vulnerability of a system or network or to 	   breach security or authentication measures without proper authorization. " />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:text="■ Reverse engineer or decompile any parts of any JobVibe application. " />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text=" Violations of system or network security may result in civil and/or criminal liability. JobVibe team will investigate occurrences which may involve such violations and may involve, and cooperate with, law enforcement authorities in prosecuting Users who are involved in such violations."
+                android:textSize="@dimen/label"
+                android:textStyle="bold" />
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

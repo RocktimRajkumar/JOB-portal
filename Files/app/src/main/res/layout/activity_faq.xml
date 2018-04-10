@@ -10,6 +10,8 @@
         android:id="@+id/LL_titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:background="@color/button"
         android:orientation="horizontal">
 
@@ -17,15 +19,16 @@
             android:id="@+id/IV_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:paddingLeft="10dp"
             android:src="@drawable/ic_backarrow"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="FAQs"
-            android:paddingLeft="30dp"
+            android:paddingLeft="25sp"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="30dp"/>
+            android:textSize="25sp"/>
 
     </LinearLayout>
 
@@ -41,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:paddingBottom="10dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="5dp">
