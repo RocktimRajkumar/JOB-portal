@@ -41,7 +41,8 @@
         <activity android:name=".Apply_Job" />
         <activity android:name=".EditActivity" />
         <activity android:name=".FAQ" />
-        <activity android:name=".Terms"></activity>
+        <activity android:name=".Terms" />
+        <activity android:name=".AboutUs"></activity>
     </application>
 
 </manifest>

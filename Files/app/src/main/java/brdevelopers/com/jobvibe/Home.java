@@ -31,7 +31,7 @@ public class Home extends AppCompatActivity
 
 
    private TextView matched,recommended,viewed,saved,applied,tv_home,tv_activity,tv_notification,tv_empname,tv_empemail;
-   private ImageView iv_home,iv_activity,iv_notification,iv_profileImage;
+   private ImageView iv_home,iv_activity,iv_notification,iv_profileImage,iv_edit;
    private SearchView searchView;
    private int butnclick=0;
    public static String canemail;
@@ -93,7 +93,7 @@ public class Home extends AppCompatActivity
         tv_empemail=(TextView)headerView.findViewById(R.id.TV_profileEmail);
         iv_profileImage=headerView.findViewById(R.id.imageView);
 
-        iv_profileImage.setOnClickListener(new View.OnClickListener() {
+        tv_empname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent editProfile = new Intent(Home.this, EditActivity.class);
@@ -171,6 +171,8 @@ public class Home extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_about) {
+            Intent intent=new Intent(Home.this,AboutUs.class);
+            startActivity(intent);
 
         }else if(id==R.id.nav_logout){
 
