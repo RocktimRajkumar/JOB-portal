@@ -32,6 +32,7 @@
             android:textSize="@dimen/label"
             android:textStyle="bold"
             android:text="Tata Consultancy Services"
+            android:textColor="@color/black"
             android:paddingBottom="2dp"/>
 
         <TextView
