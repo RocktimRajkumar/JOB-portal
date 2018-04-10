@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FAQ">
+
+    <LinearLayout
+        android:id="@+id/LL_titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/button"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/IV_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_backarrow"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FAQs"
+            android:paddingLeft="30dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="30dp"/>
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/LL_titleBar">
+
+        <LinearLayout
+            android:id="@+id/LL_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/TV_heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Frequently Asked Questions"
+                android:textSize="@dimen/jobtitle"
+                android:textColor="@color/bluehead"
+                android:gravity="center"
+                android:textStyle="bold"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black"/>
+
+            <TextView
+                android:id="@+id/TV_q1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="■ How do I Edit My Detials?"
+                android:textSize="@dimen/label"
+                android:textColor="@color/bluehead"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/TV_a1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text=" ► You can edit or update you information by clicking on your profile section of the navigation drawer."
+                android:textSize="@dimen/pofileTV"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+
+
+            <TextView
+                android:id="@+id/TV_q2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="■ What is search?"
+                android:textSize="@dimen/label"
+                android:textColor="@color/bluehead"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/TV_a2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text=" ► Search gives you an option to look for relevant jobs based on your specific requirements. To search for a job, you can use the given search window."
+                android:textSize="@dimen/pofileTV"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+
+            <TextView
+                android:id="@+id/TV_q3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="■ What is the 'Filter by Location' option provided on the Home Page?"
+                android:textSize="@dimen/label"
+                android:textColor="@color/bluehead"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/TV_a3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text=" ► ‘Filter by Location’ enables you to refine your search by selecting that particular city you are looking at for finding a job. Once you have selected a job location, the search result will reflect only those jobs that are based out of the particular location that you have selected."
+                android:textSize="@dimen/pofileTV"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+
+
+            <TextView
+                android:id="@+id/TV_q4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="■ What is the 'Filter by Company' option provided on the Home Page?"
+                android:textSize="@dimen/label"
+                android:textColor="@color/bluehead"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/TV_a4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text=" ► ‘Filter by Company’ enables you to refine your search by selecting that particular company you are looking  for. Once you have selected a company, the search result will reflect only those jobs that are based out of the particular company that you have selected."
+                android:textSize="@dimen/pofileTV"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+
+
+            <TextView
+                android:id="@+id/TV_q5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="■ What is the 'Filter by Skill' option provided on the Home Page?"
+                android:textSize="@dimen/label"
+                android:textColor="@color/bluehead"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/TV_a5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text=" ► ‘Filter by Skill’ enables you to refine your search by the Focus Areas(java, android, etc) you would like to work on. Once you have selected a skill, the search result will reflect only those jobs that are based out of the particular skill that you have selected."
+                android:textSize="@dimen/pofileTV"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+
+
+            <TextView
+                android:id="@+id/TV_q6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="■ How do I Save/Apply for a Job?"
+                android:textSize="@dimen/label"
+                android:textColor="@color/bluehead"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/TV_a6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text=" ► After selecting a Job we provide you with two options. You can save the Job for later by clicking on the 'Save' button provided. You can also directly apply for the selected job by clicking on the 'Apply' button provided."
+                android:textSize="@dimen/pofileTV"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+
+
+            <TextView
+                android:id="@+id/TV_q7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="■ How do I Edit My Detials?"
+                android:textSize="@dimen/label"
+                android:textColor="@color/bluehead"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/TV_a7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text=" ► You can edit or update you information by clicking on your profile section of the navigation drawer."
+                android:textSize="@dimen/pofileTV"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+
+            <TextView
+                android:id="@+id/TV_q8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="■ How do I Edit My Detials?"
+                android:textSize="@dimen/label"
+                android:textColor="@color/bluehead"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/TV_a8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text=" ► You can edit or update you information by clicking on your profile section of the navigation drawer."
+                android:textSize="@dimen/pofileTV"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

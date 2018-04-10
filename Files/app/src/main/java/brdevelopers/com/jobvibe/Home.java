@@ -158,6 +158,8 @@ public class Home extends AppCompatActivity
         if (id == R.id.nav_setting) {
             // Handle the camera action
         } else if (id == R.id.nav_faq) {
+            Intent intent=new Intent(Home.this,FAQ.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_terms) {
 

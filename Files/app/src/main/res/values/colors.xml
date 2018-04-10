@@ -12,5 +12,7 @@
     <color name="onbutton">#C71A42</color>
     <color name="button">#009688</color>
     <color name="joblabel">#FD6A00</color>
+    <color name="line">#37474f</color>
+
 
 </resources>
