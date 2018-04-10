@@ -110,7 +110,7 @@ public class Home extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         iv_home.setImageResource(R.drawable.ic_onhome);
-        tv_home.setTextColor(Color.rgb(199, 26, 66));
+        tv_home.setTextColor(Color.rgb(255, 87, 34));
         iv_activity.setImageResource(R.drawable.ic_activity);
         tv_activity.setTextColor(Color.rgb(0, 150, 136));
         iv_notification.setImageResource(R.drawable.ic_notification);
@@ -249,7 +249,7 @@ public class Home extends AppCompatActivity
 
         if (v.getId() == R.id.IV_home || v.getId() == R.id.TV_home) {
             iv_home.setImageResource(R.drawable.ic_onhome);
-            tv_home.setTextColor(Color.rgb(199, 26, 66));
+            tv_home.setTextColor(Color.rgb(255, 87, 34));
             iv_activity.setImageResource(R.drawable.ic_activity);
             tv_activity.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
@@ -261,7 +261,7 @@ public class Home extends AppCompatActivity
 
         } else if (v.getId() == R.id.IV_activity || v.getId() == R.id.TV_activity) {
             iv_activity.setImageResource(R.drawable.ic_onactivity);
-            tv_activity.setTextColor(Color.rgb(199, 26, 66));
+            tv_activity.setTextColor(Color.rgb(255, 87, 34));
             iv_home.setImageResource(R.drawable.ic_home);
             tv_home.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
@@ -274,7 +274,7 @@ public class Home extends AppCompatActivity
 
         } else if (v.getId() == R.id.IV_notification || v.getId() == R.id.TV_notification) {
             iv_notification.setImageResource(R.drawable.ic_onnotification);
-            tv_notification.setTextColor(Color.rgb(199, 26, 66));
+            tv_notification.setTextColor(Color.rgb(255, 87, 34));
             iv_home.setImageResource(R.drawable.ic_home);
             tv_home.setTextColor(Color.rgb(0, 150, 136));
             iv_activity.setImageResource(R.drawable.ic_activity);

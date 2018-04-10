@@ -35,7 +35,7 @@
         fab:menu_shadowRadius="4dp"
         fab:menu_shadowXOffset="1dp"
         fab:menu_shadowYOffset="3dp"
-        fab:menu_colorNormal="#DA4336"
+        fab:menu_colorNormal="@color/colorAccent"
         fab:menu_colorPressed="#E75043"
         fab:menu_colorRipple="#99FFFFFF"
         fab:menu_animationDelayPerItem="50"
@@ -72,7 +72,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_location"
             fab:fab_size="mini"
-            fab:fab_label="Location" />
+            fab:fab_label="Location"
+            fab:fab_colorNormal="@color/colorAccent"/>
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/skill"
@@ -80,7 +81,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_thought"
             fab:fab_size="mini"
-            fab:fab_label="Skill" />
+            fab:fab_label="Skill"
+            fab:fab_colorNormal="@color/colorAccent"/>
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/company"
@@ -88,7 +90,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_office"
             fab:fab_size="mini"
-            fab:fab_label="Company" />
+            fab:fab_label="Company"
+            fab:fab_colorNormal="@color/colorAccent"/>
 
     </com.github.clans.fab.FloatingActionMenu>
 
