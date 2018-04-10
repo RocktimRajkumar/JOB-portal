@@ -2,7 +2,8 @@ package brdevelopers.com.jobvibe;
 
 
 import android.os.Bundle;
-import android.app.Fragment;
+
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -17,9 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Cache;
+import com.android.volley.Network;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -47,12 +54,29 @@ public class Applied_Fragment extends Fragment {
     private RecyclerAdapter recyclerAdapter;
     private boolean bol=true;
 
+    private RequestQueue mRequestQueue;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_applied_,container,false);
         recyclerView=view.findViewById(R.id.RV_job);
         progressBar = view.findViewById(R.id.progressbar);
+
+
+
+// Instantiate the cache
+        Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
+
+// Set up the network to use HttpURLConnection as the HTTP client.
+        Network network = new BasicNetwork(new HurlStack());
+
+// Instantiate the RequestQueue with the cache and network.
+        mRequestQueue = new RequestQueue(cache, network);
+
+// Start the queue
+        mRequestQueue.start();
+
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -145,7 +169,9 @@ public class Applied_Fragment extends Fragment {
 
         };
 
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
+//        Volley.newRequestQueue(getActivity()).add(stringRequest);
+        mRequestQueue.add(stringRequest);
+
     }
 
     private void getAllResponse(final String comemail) {
@@ -212,8 +238,8 @@ public class Applied_Fragment extends Fragment {
 
         };
 
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
-
+//        Volley.newRequestQueue(getActivity()).add(stringRequest);
+        mRequestQueue.add(stringRequest);
     }
 
 
@@ -332,7 +358,8 @@ public class Applied_Fragment extends Fragment {
 
         };
 
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
+//        Volley.newRequestQueue(getActivity()).add(stringRequest);
+        mRequestQueue.add(stringRequest);
     }
 
 }

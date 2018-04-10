@@ -1,10 +1,11 @@
 package brdevelopers.com.jobvibe;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
+
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -233,7 +234,8 @@ public class Recommended extends Fragment implements View.OnClickListener {
                     recyclerAdapter=new RecyclerAdapter(getActivity(),list);
                     recyclerView.setAdapter(recyclerAdapter);
                     progressBar.setVisibility(View.GONE);
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    if(getActivity()!=null)
+                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -1,16 +1,18 @@
 package brdevelopers.com.jobvibe;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v7.widget.SearchView;
+import android.support.design.widget.TabLayout;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
@@ -25,10 +27,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Home extends AppCompatActivity
@@ -38,39 +42,32 @@ public class Home extends AppCompatActivity
    private TextView matched,recommended,viewed,saved,applied,tv_home,tv_activity,tv_notification,tv_empname,tv_empemail;
    private ImageView iv_home,iv_activity,iv_notification,iv_profileImage;
    public static String canemail;
-   private static String name,getdegree,getfos;
+   public static String name,getdegree,getfos;
    private boolean onbackpressed=false;
-
-
+   private TabLayout tabLayout;
+   private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        matched=findViewById(R.id.TV_matched);
-        recommended=findViewById(R.id.TV_recommended);
-        viewed=findViewById(R.id.TV_viewed);
-        saved=findViewById(R.id.TV_saved);
-        applied=findViewById(R.id.TV_applied);
+
         iv_home=findViewById(R.id.IV_home);
         iv_activity=findViewById(R.id.IV_activity);
         iv_notification=findViewById(R.id.IV_notification);
         tv_home=findViewById(R.id.TV_home);
         tv_activity=findViewById(R.id.TV_activity);
         tv_notification=findViewById(R.id.TV_notification);
+        tabLayout=findViewById(R.id.TL_tab);
+        viewPager=findViewById(R.id.VP_view);
 
 
+        tabLayout.setupWithViewPager(viewPager);
+        setterViewPager(viewPager);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        matched.setBackgroundColor(Color.rgb(0, 150, 136));
-
-        matched.setOnClickListener(this);
-        recommended.setOnClickListener(this);
-        viewed.setOnClickListener(this);
-        saved.setOnClickListener(this);
-        applied.setOnClickListener(this);
         iv_home.setOnClickListener(this);
         iv_activity.setOnClickListener(this);
         iv_notification.setOnClickListener(this);
@@ -118,7 +115,30 @@ public class Home extends AppCompatActivity
         iv_notification.setImageResource(R.drawable.ic_notification);
         tv_notification.setTextColor(Color.rgb(0, 150, 136));
 
-        loadFragment(new MatchedFragment());
+    }
+
+    private void setterViewPager(ViewPager viewPager) {
+
+        ViewAdapter viewAdapter=new ViewAdapter(getSupportFragmentManager());
+        viewAdapter.addFragment(new MatchedFragment(),"Matched");
+        viewAdapter.addFragment(new Recommended(),"Recommended");
+        viewPager.setAdapter(viewAdapter);
+    }
+
+    private void setterViewPagerActivity(ViewPager viewPager) {
+
+        ViewAdapter viewAdapter=new ViewAdapter(getSupportFragmentManager());
+        viewAdapter.addFragment(new Viewed_Fragment(),"Viewed");
+        viewAdapter.addFragment(new Saved_Fragment(),"Saved");
+        viewAdapter.addFragment(new Applied_Fragment(),"Applied");
+        viewPager.setAdapter(viewAdapter);
+    }
+
+    private void setterViewPagerNotification(ViewPager viewPager) {
+
+        ViewAdapter viewAdapter=new ViewAdapter(getSupportFragmentManager());
+        viewAdapter.addFragment(new NotificationFragment(),"Notification");
+        viewPager.setAdapter(viewAdapter);
     }
 
     @Override
@@ -219,32 +239,7 @@ public class Home extends AppCompatActivity
     @Override
     public void onClick(View v) {
 
-        if(v.getId()==R.id.TV_matched)
-        {
-
-            loadFragment(new MatchedFragment());
-            matched.setBackgroundColor(Color.rgb(0, 150, 136));
-            recommended.setBackgroundColor(Color.rgb(255, 255, 255));
-        }
-        else if(v.getId()==R.id.TV_recommended)
-        {
-
-           loadFragment(new Recommended());
-
-            recommended.setBackgroundColor(Color.rgb(0, 150, 136));
-            matched.setBackgroundColor(Color.rgb(255, 255, 255));
-        }
-        else if(v.getId()==R.id.TV_viewed){
-            loadFragment(new Viewed_Fragment());
-        }
-        else if(v.getId()==R.id.TV_saved){
-            loadFragment(new Saved_Fragment());
-        }
-        else if(v.getId()==R.id.TV_applied){
-            loadFragment(new Applied_Fragment());
-        }
-        else if(v.getId()==R.id.IV_home || v.getId()==R.id.TV_home)
-        {
+        if (v.getId() == R.id.IV_home || v.getId() == R.id.TV_home) {
             iv_home.setImageResource(R.drawable.ic_onhome);
             tv_home.setTextColor(Color.rgb(199, 26, 66));
             iv_activity.setImageResource(R.drawable.ic_activity);
@@ -252,17 +247,11 @@ public class Home extends AppCompatActivity
             iv_notification.setImageResource(R.drawable.ic_notification);
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
 
+            tabLayout.setVisibility(View.VISIBLE);
+            tabLayout.setupWithViewPager(viewPager);
+            setterViewPager(viewPager);
 
-            loadFragment(new MatchedFragment());
-            matched.setVisibility(View.VISIBLE);
-            recommended.setVisibility(View.VISIBLE);
-            viewed.setVisibility(View.GONE);
-            saved.setVisibility(View.GONE);
-            applied.setVisibility(View.GONE);
-
-        }
-        else if(v.getId()==R.id.IV_activity || v.getId()==R.id.TV_activity)
-        {
+        } else if (v.getId() == R.id.IV_activity || v.getId() == R.id.TV_activity) {
             iv_activity.setImageResource(R.drawable.ic_onactivity);
             tv_activity.setTextColor(Color.rgb(199, 26, 66));
             iv_home.setImageResource(R.drawable.ic_home);
@@ -270,17 +259,12 @@ public class Home extends AppCompatActivity
             iv_notification.setImageResource(R.drawable.ic_notification);
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
 
-            loadFragment(new Viewed_Fragment());
-            matched.setVisibility(View.GONE);
-            recommended.setVisibility(View.GONE);
-            viewed.setVisibility(View.VISIBLE);
-            saved.setVisibility(View.VISIBLE);
-            applied.setVisibility(View.VISIBLE);
+            tabLayout.setVisibility(View.VISIBLE);
+            tabLayout.setupWithViewPager(viewPager);
+            setterViewPagerActivity(viewPager);
 
 
-        }
-        else if(v.getId()==R.id.IV_notification || v.getId()==R.id.TV_notification)
-        {
+        } else if (v.getId() == R.id.IV_notification || v.getId() == R.id.TV_notification) {
             iv_notification.setImageResource(R.drawable.ic_onnotification);
             tv_notification.setTextColor(Color.rgb(199, 26, 66));
             iv_home.setImageResource(R.drawable.ic_home);
@@ -288,34 +272,13 @@ public class Home extends AppCompatActivity
             iv_activity.setImageResource(R.drawable.ic_activity);
             tv_activity.setTextColor(Color.rgb(0, 150, 136));
 
-            loadFragment(new NotificationFragment());
-            matched.setVisibility(View.GONE);
-            recommended.setVisibility(View.GONE);
-            viewed.setVisibility(View.GONE);
-            saved.setVisibility(View.GONE);
-            applied.setVisibility(View.GONE);
+            tabLayout.setVisibility(View.GONE);
+            setterViewPagerNotification(viewPager);
+
 
         }
-//        else if(v.getId()==R.id.imageView){
-//
-//        }
     }
 
-    public void loadFragment(Fragment fragment) {
-        //Sending Degree and FOS to Fragments
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        Bundle bundle=new Bundle();
-        bundle.putString("degree",getdegree);
-        bundle.putString("FOS",getfos);
-
-        fragment.setArguments(bundle);
-        FragmentManager fm=getFragmentManager();
-        FragmentTransaction ft=fm.beginTransaction();
-        ft.replace(R.id.FL_content,fragment);
-        ft.addToBackStack(null);
-
-        ft.commit();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -323,6 +286,39 @@ public class Home extends AppCompatActivity
 //        getMenuInflater().inflate(R.menu.home, menu);
 
         return true;
+    }
+
+    public class ViewAdapter extends FragmentStatePagerAdapter{
+
+        private List<Fragment> toplist=new ArrayList<>();
+        private List<String>titlelist=new ArrayList<>();
+
+        public ViewAdapter(android.support.v4.app.FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public android.support.v4.app.Fragment getItem(int position) {
+            return toplist.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return toplist.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titlelist.get(position);
+        }
+
+
+        public void addFragment(Fragment fragment, String string){
+
+            toplist.add(fragment);
+            titlelist.add(string);
+        }
+
     }
 
 

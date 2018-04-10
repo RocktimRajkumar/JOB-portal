@@ -2,12 +2,20 @@ package brdevelopers.com.jobvibe;
 
 
 import android.app.AlertDialog;;
-import android.app.Fragment;
+
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+
+import com.android.volley.Cache;
+import com.android.volley.Network;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
 import com.github.clans.fab.FloatingActionButton;
+
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -57,6 +65,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
     private static String course;
 
+    private RequestQueue mRequestQueue;
     private SearchView searchView;
 
     @Override
@@ -75,16 +84,32 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         floatskill = view.findViewById(R.id.skill);
         floatcompany = view.findViewById(R.id.company);
 
+
+// Instantiate the cache
+        Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
+
+// Set up the network to use HttpURLConnection as the HTTP client.
+        Network network = new BasicNetwork(new HurlStack());
+
+// Instantiate the RequestQueue with the cache and network.
+        mRequestQueue = new RequestQueue(cache, network);
+
+// Start the queue
+        mRequestQueue.start();
+
+
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
         //Receiving Degree and FOS from Home activity
-        Bundle bundle = getArguments();
-        String degree = bundle.getString("degree");
-        String FOS = bundle.getString("FOS");
 
+//        Bundle bundle = getArguments();
+//        String degree = bundle.getString("degree");
+//        String FOS = bundle.getString("FOS");
+        String degree=Home.getdegree;
+        String FOS=Home.getfos;
 
         floatlocation.setOnClickListener(this);
         floatskill.setOnClickListener(this);
@@ -213,7 +238,8 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
         };
 
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
+//        Volley.newRequestQueue(getActivity()).add(stringRequest);
+        mRequestQueue.add(stringRequest);
     }
 
     private void loadCourseJob(final List<Job_details> list, final String loc) {
@@ -310,11 +336,13 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
                     }
 
-
-                    recyclerAdapter = new RecyclerAdapter(getActivity(), list);
-                    recyclerView.setAdapter(recyclerAdapter);
+                    if(list!=null) {
+                        recyclerAdapter = new RecyclerAdapter(getActivity(), list);
+                        recyclerView.setAdapter(recyclerAdapter);
+                    }
                     progressBar.setVisibility(View.GONE);
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    if(getActivity()!=null)
+                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -348,8 +376,9 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
         };
 
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
+//        Volley.newRequestQueue(getActivity()).add(stringRequest);
 
+        mRequestQueue.add(stringRequest);
     }
 
 

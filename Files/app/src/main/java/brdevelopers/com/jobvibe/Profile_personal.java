@@ -1,11 +1,13 @@
 package brdevelopers.com.jobvibe;
 
 import android.app.DatePickerDialog;
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -211,7 +213,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
                     FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                     Profile_Educaion profile_educaion=new Profile_Educaion();
                     profile_educaion.setArguments(bundle);
-                    fragmentTransaction.replace(R.id.FL_profile,profile_educaion);
+//                    fragmentTransaction.replace(R.id.FL_profile,Profile_Educaion);
                     fragmentTransaction.commit();
 
 

@@ -283,4 +283,11 @@ public class Apply_Job extends AppCompatActivity {
 
         Volley.newRequestQueue(Apply_Job.this).add(stringRequest);
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+
+    }
 }

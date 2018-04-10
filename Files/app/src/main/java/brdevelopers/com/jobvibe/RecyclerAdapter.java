@@ -22,7 +22,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public RecyclerAdapter(Context context,List<Job_details> joblist)
     {
         this.context=context;
-        inflater=LayoutInflater.from(context);
+        if(context!=null)
+            inflater=LayoutInflater.from(context);
         this.joblist=joblist;
     }
 

@@ -2,7 +2,8 @@ package brdevelopers.com.jobvibe;
 
 
 import android.os.Bundle;
-import android.app.Fragment;
+;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -38,7 +39,7 @@ public class Viewed_Fragment extends Fragment {
     private String allJob = "http://103.230.103.142/jobportalapp/job.asmx/GetJobDetails";
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
-    private static RecyclerAdapter recyclerAdapter;
+    private RecyclerAdapter recyclerAdapter;
     private TextView tv_nojob;
 
     @Override

@@ -1,9 +1,11 @@
 package brdevelopers.com.jobvibe;
 
+
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
