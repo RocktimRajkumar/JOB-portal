@@ -17,6 +17,7 @@ public class DBManager extends SQLiteOpenHelper {
     private static String Viewed="Viewed";
     private static String Saved="Saved";
     private static String Notification="Notification";
+    private static String TableImage="TableImage";
 
     public DBManager(Context context){
         super(context,DBName,null,DBVersion);
@@ -27,6 +28,8 @@ public class DBManager extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE "+Viewed+"(Auto integer primary key AUTOINCREMENT,JOB_ID text,Cemail text)");
         db.execSQL("CREATE TABLE "+Saved+"(Auto integer primary key AUTOINCREMENT,JOB_ID text,Cemail text)");
         db.execSQL("CREATE TABLE "+Notification+"(Auto integer primary key AUTOINCREMENT,JOB_ID text,Cemail text,ViewedJob text)");
+        db.execSQL("CREATE TABLE "+TableImage+"(Auto integer primary key AUTOINCREMENT,Imgname text,Cemail text,Image blob)");
+
     }
 
     @Override
@@ -34,6 +37,7 @@ public class DBManager extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+Viewed);
         db.execSQL("DROP TABLE IF EXISTS "+Saved);
         db.execSQL("DROP TABLE IF EXISTS "+Notification);
+        db.execSQL("DROP TABLE IF EXISTS "+TableImage);
     }
 
     public boolean insertViewed(String jobid,String cemail){
@@ -101,6 +105,28 @@ public class DBManager extends SQLiteOpenHelper {
             return false;
     }
 
+    public boolean insertImage(String imgname,String cemail,byte[] image){
+
+        ContentValues cv=new ContentValues();
+        cv.put("Imgname",imgname);
+        cv.put("Cemail",cemail);
+        cv.put("Image",image);
+
+        long success=-1;
+        try{
+            SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
+            success=sqLiteDatabase.insert(Notification,null,cv);
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            success=-1;
+        }
+        if(success!=1)
+            return true;
+        else
+            return false;
+    }
+
     public boolean isViewedExists(String jobid,String cemail){
         SQLiteDatabase db=this.getReadableDatabase();
         Cursor cs=null;
@@ -127,6 +153,27 @@ public class DBManager extends SQLiteOpenHelper {
         Cursor cs=null;
         try{
             cs=db.rawQuery("Select * from "+Saved+" where Cemail='"+cemail+"' AND JOB_ID='"+jobid+"'",null);
+            if(cs.getCount()>0){
+                cs.close();
+                return true;
+            }
+            else{
+                cs.close();
+                return false;
+            }
+        }
+        catch (Exception ex){
+            cs.close();
+            Log.d("logcheck","is viewed "+ex);
+            return  false;
+        }
+    }
+
+    public boolean isImgExists(String cemail){
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cs=null;
+        try{
+            cs=db.rawQuery("Select * from "+TableImage+" where Cemail='"+cemail+"'",null);
             if(cs.getCount()>0){
                 cs.close();
                 return true;
@@ -263,6 +310,30 @@ public class DBManager extends SQLiteOpenHelper {
         return jobv;
     }
 
+    public byte[] getImage(String cemail){
+        SQLiteDatabase db=this.getReadableDatabase();
+        byte[] img=null;
+        Cursor cs=null;
+        try{
+            cs=db.rawQuery("Select * from "+TableImage+" where Cemail='"+cemail+"'",null);
+            if(cs.getCount()>0){
+
+                    img=cs.getBlob(3);
+
+
+
+            }
+            else
+              img=null;
+            cs.close();
+        }
+        catch (Exception ex){
+            cs.close();
+            Log.d("logcheck","error "+ex);
+        }
+        return img;
+    }
+
     public boolean updateNotificationView(String jobid, String cemail,String viewNotification){
 
         ContentValues cv=new ContentValues();
@@ -274,6 +345,28 @@ public class DBManager extends SQLiteOpenHelper {
         try{
             SQLiteDatabase database=this.getWritableDatabase();
             success=database.update(Notification,cv,"JOB_ID=? AND Cemail=?",new String[]{jobid,cemail});
+        }
+        catch (Exception ex){
+            success=-1;
+        }
+        if(success!=-1)
+            return true;
+        else
+            return false;
+
+    }
+
+    public boolean updateImage(String imgname, String cemail,byte[] img){
+
+        ContentValues cv=new ContentValues();
+        cv.put("Imgname",imgname);
+        cv.put("Cemail",cemail);
+        cv.put("Image",img);
+
+        long success=-1;
+        try{
+            SQLiteDatabase database=this.getWritableDatabase();
+            success=database.update(TableImage,cv,"Cemail=?",new String[]{cemail});
         }
         catch (Exception ex){
             success=-1;
