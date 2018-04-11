@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_onactivity" />
-                            <entry key="sourceFile" value="E:\Homepage\Buttons\stopwatch.svg" />
+                            <entry key="outputName" value="ic_edit" />
+                            <entry key="sourceFile" value="E:\Homepage\Buttons\pencil.svg" />
                           </map>
                         </option>
                       </PersistentState>

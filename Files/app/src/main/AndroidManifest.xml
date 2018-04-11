@@ -42,7 +42,7 @@
         <activity android:name=".EditActivity" />
         <activity android:name=".FAQ" />
         <activity android:name=".Terms" />
-        <activity android:name=".AboutUs"></activity>
+        <activity android:name=".AboutUs" />
     </application>
 
 </manifest>

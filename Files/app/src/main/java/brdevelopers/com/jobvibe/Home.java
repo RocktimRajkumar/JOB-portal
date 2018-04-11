@@ -1,8 +1,10 @@
 package brdevelopers.com.jobvibe;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -27,6 +29,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,15 +98,6 @@ public class Home extends AppCompatActivity
         tv_empname = (TextView) headerView.findViewById(R.id.TV_profileName);
         tv_empemail=(TextView)headerView.findViewById(R.id.TV_profileEmail);
         iv_profileImage=headerView.findViewById(R.id.imageView);
-
-        tv_empname.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent editProfile = new Intent(Home.this, EditActivity.class);
-                startActivity(editProfile);
-
-            }
-        });
 
         tv_empname.setText(name);
         tv_empemail.setText(canemail);
@@ -206,8 +201,9 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_setting) {
-            // Handle the camera action
+        if (id == R.id.nav_editProfile) {
+            Intent editProfile = new Intent(Home.this, EditActivity.class);
+            startActivity(editProfile);
         } else if (id == R.id.nav_faq) {
             Intent intent=new Intent(Home.this,FAQ.class);
             startActivity(intent);
@@ -218,6 +214,27 @@ public class Home extends AppCompatActivity
 
 
         } else if (id == R.id.nav_report) {
+            AlertDialog.Builder report=new AlertDialog.Builder(Home.this);
+            View reportView=getLayoutInflater().inflate(R.layout.problem_layout,null);
+            EditText problem=reportView.findViewById(R.id.ET_subject);
+
+            report.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(Home.this,"Report Successfully Sent",Toast.LENGTH_LONG).show();
+
+
+                }
+            });
+            report.setNegativeButton("Abort", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+            report.setView(reportView);
+            report.show();
+
 
         } else if (id == R.id.nav_share) {
 
