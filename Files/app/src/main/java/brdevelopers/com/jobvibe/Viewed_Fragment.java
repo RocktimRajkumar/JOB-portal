@@ -89,6 +89,8 @@ public class Viewed_Fragment extends Fragment {
         else {
             progressBar.setVisibility(View.GONE);
             tv_nojob.setVisibility(View.VISIBLE);
+            if(getActivity()!=null)
+            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
 
         return view;
@@ -174,6 +176,7 @@ public class Viewed_Fragment extends Fragment {
                     recyclerAdapter=new RecyclerAdapter(getActivity(),listjob);
                     recyclerView.setAdapter(recyclerAdapter);
                     progressBar.setVisibility(View.GONE);
+                    if(getActivity()!=null)
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 

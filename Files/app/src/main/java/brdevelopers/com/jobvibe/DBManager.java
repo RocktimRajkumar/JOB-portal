@@ -28,7 +28,7 @@ public class DBManager extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE "+Viewed+"(Auto integer primary key AUTOINCREMENT,JOB_ID text,Cemail text)");
         db.execSQL("CREATE TABLE "+Saved+"(Auto integer primary key AUTOINCREMENT,JOB_ID text,Cemail text)");
         db.execSQL("CREATE TABLE "+Notification+"(Auto integer primary key AUTOINCREMENT,JOB_ID text,Cemail text,ViewedJob text)");
-        db.execSQL("CREATE TABLE "+TableImage+"(Auto integer primary key AUTOINCREMENT,Imgname text,Cemail text,Image blob)");
+        db.execSQL("CREATE TABLE "+TableImage+"(Auto integer primary key AUTOINCREMENT,Cemail text,Image blob not null)");
 
     }
 
@@ -105,17 +105,16 @@ public class DBManager extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean insertImage(String imgname,String cemail,byte[] image){
+    public boolean insertImage(String cemail,byte[] image){
 
         ContentValues cv=new ContentValues();
-        cv.put("Imgname",imgname);
         cv.put("Cemail",cemail);
         cv.put("Image",image);
 
         long success=-1;
         try{
             SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
-            success=sqLiteDatabase.insert(Notification,null,cv);
+            success=sqLiteDatabase.insert(TableImage,null,cv);
         }
         catch (Exception ex){
             ex.printStackTrace();
@@ -317,11 +316,9 @@ public class DBManager extends SQLiteOpenHelper {
         try{
             cs=db.rawQuery("Select * from "+TableImage+" where Cemail='"+cemail+"'",null);
             if(cs.getCount()>0){
-
-                    img=cs.getBlob(3);
-
-
-
+                while(cs.moveToNext()) {
+                    img=cs.getBlob(2);
+                }
             }
             else
               img=null;
@@ -356,10 +353,9 @@ public class DBManager extends SQLiteOpenHelper {
 
     }
 
-    public boolean updateImage(String imgname, String cemail,byte[] img){
+    public boolean updateImage(String cemail,byte[] img){
 
         ContentValues cv=new ContentValues();
-        cv.put("Imgname",imgname);
         cv.put("Cemail",cemail);
         cv.put("Image",img);
 
