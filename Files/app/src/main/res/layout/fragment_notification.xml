@@ -3,17 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/bluehead">
+    android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/RV_job"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fadeScrollbars="true">
+   <ListView
+       android:id="@+id/notifyjob"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
 
 
-    </android.support.v7.widget.RecyclerView>
+
+   </ListView>
+
 
     <ProgressBar
         android:id="@+id/progressbar"
@@ -21,6 +21,18 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/NotificationJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No New Notification"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/label"
+        android:textStyle="bold"
+        android:textColor="@color/orange"
         android:visibility="gone"/>
 
 </RelativeLayout>

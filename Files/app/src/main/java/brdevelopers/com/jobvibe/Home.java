@@ -1,24 +1,31 @@
 package brdevelopers.com.jobvibe;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+
 import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,13 +35,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +58,7 @@ public class Home extends AppCompatActivity
    private boolean onbackpressed=false;
    private TabLayout tabLayout;
    private ViewPager viewPager;
+   final int REQUEST_CODE_GALLERY=999;
 
 
     @Override
@@ -99,6 +108,24 @@ public class Home extends AppCompatActivity
         tv_empemail=(TextView)headerView.findViewById(R.id.TV_profileEmail);
         iv_profileImage=headerView.findViewById(R.id.imageView);
 
+        iv_profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ActivityCompat.requestPermissions(Home.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},REQUEST_CODE_GALLERY);
+
+            }
+        });
+
+        tv_empname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editProfile = new Intent(Home.this, EditActivity.class);
+                startActivity(editProfile);
+
+            }
+        });
+
         tv_empname.setText(name);
         tv_empemail.setText(canemail);
 
@@ -111,6 +138,90 @@ public class Home extends AppCompatActivity
         iv_notification.setImageResource(R.drawable.ic_notification);
         tv_notification.setTextColor(Color.rgb(0, 150, 136));
 
+        loadProfilePic();
+    }
+
+    private void loadProfilePic() {
+
+        DBManager db=new DBManager(this);
+        byte[] byteimg=db.getImage(Home.canemail);
+        if(byteimg!=null){
+            Bitmap bitimg=BitmapFactory.decodeByteArray(byteimg, 0, byteimg.length);
+            try{
+                iv_profileImage.setImageBitmap(bitimg);
+            }
+            catch (Exception ex)
+            {
+                Log.d("logcheck","exception "+ex);
+            }
+        }
+    }
+
+    //Permission menu for access gallery or camera
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if(requestCode==REQUEST_CODE_GALLERY){
+            if(grantResults.length>0 && grantResults[0]== PackageManager.PERMISSION_GRANTED){
+
+                Intent intent=new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent,REQUEST_CODE_GALLERY);
+            }
+            else{
+                Toast.makeText(this, "You don't have permission to access file!.", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    //Setting image to image View after permission granted
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode==REQUEST_CODE_GALLERY && resultCode==RESULT_OK && data!=null) {
+
+            try {
+                Uri uri = data.getData();
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                iv_profileImage.setImageBitmap(bitmap);
+                addImgToDb(bitmap);
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+
+    //Adding image to database
+    private void addImgToDb(Bitmap bitmap) {
+
+
+        byte[] profieimg=imageViewtoByte(iv_profileImage);
+        DBManager db=new DBManager(this);
+        boolean bol=db.isImgExists(Home.canemail);
+        if(!bol){
+            db.insertImage(Home.canemail,profieimg);
+        }
+        else if(bol){
+            db.updateImage(Home.canemail,profieimg);
+        }
+
+    }
+
+
+    //Converting image to byte
+    private byte[] imageViewtoByte(ImageView iv_profileImage) {
+
+        Bitmap bitmap=((BitmapDrawable)iv_profileImage.getDrawable()).getBitmap();
+        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,80,byteArrayOutputStream);
+        byte[] bytearray=byteArrayOutputStream.toByteArray();
+        return bytearray;
     }
 
     private void setterViewPager(ViewPager viewPager) {
@@ -145,34 +256,24 @@ public class Home extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         }
        else if(!onbackpressed){
-            Log.d("logcheck","backpressed");
-            Toast toast = new Toast(Home.this);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
 
-            LayoutInflater inf = getLayoutInflater();
+            View v=findViewById(android.R.id.content);
+            Snackbar.make(v,"Press back again to exit "+Html.fromHtml("&#9995;"),Snackbar.LENGTH_SHORT).show();
 
-            View layoutview = inf.inflate(R.layout.custom_toast, (ViewGroup)findViewById(R.id.CustomToast_Parent));
-            TextView tf = layoutview.findViewById(R.id.CustomToast);
-            tf.setText("Press back again to exit " + Html.fromHtml("&#9995;"));
-            toast.setView(layoutview);
-            toast.show();
             onbackpressed=true;
         }
         else{
-            Log.d("logcheck","back super");
             super.onBackPressed();
         }
         new CountDownTimer(3000,1000){
 
             @Override
             public void onTick(long millisUntilFinished) {
-                Log.d("logcheck","on countdown timer ontick");
+
             }
 
             @Override
             public void onFinish() {
-                Log.d("logcheck","on countdown timer onfinish");
                 onbackpressed=false;
             }
         }.start();
@@ -252,6 +353,7 @@ public class Home extends AppCompatActivity
 
             Intent login=new Intent(Home.this,Login.class);
             startActivity(login);
+            finish();
 
         }
 

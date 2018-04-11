@@ -141,6 +141,7 @@ public class Applied_Fragment extends Fragment {
                     e.printStackTrace();
                     Log.d("LogCheck", "" + e);
                     progressBar.setVisibility(View.GONE);
+                    if(getActivity()!=null)
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
@@ -183,6 +184,7 @@ public class Applied_Fragment extends Fragment {
                 Log.d("LogCheck", response);
 
                 progressBar.setVisibility(View.VISIBLE);
+                if(getActivity()!=null)
                 getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 
@@ -206,6 +208,7 @@ public class Applied_Fragment extends Fragment {
 
 
                     progressBar.setVisibility(View.GONE);
+                    if(getActivity()!=null)
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 } catch (JSONException e) {
@@ -246,6 +249,7 @@ public class Applied_Fragment extends Fragment {
     private void jobidjob(final String jobid) {
 
         progressBar.setVisibility(View.VISIBLE);
+        if(getActivity()!=null)
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, idjob, new Response.Listener<String>() {
             @Override
@@ -325,6 +329,7 @@ public class Applied_Fragment extends Fragment {
                     else
                         recyclerAdapter.filter(list);
                     progressBar.setVisibility(View.GONE);
+                    if(getActivity()!=null)
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 

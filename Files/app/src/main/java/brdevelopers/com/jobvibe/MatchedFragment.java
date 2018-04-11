@@ -67,6 +67,9 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
     private RequestQueue mRequestQueue;
     private SearchView searchView;
+    boolean[] checkedItemscom;
+    boolean[] checkedItemsskill;
+    boolean[] checkedItemsloc;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,6 +86,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         floatlocation = view.findViewById(R.id.location);
         floatskill = view.findViewById(R.id.skill);
         floatcompany = view.findViewById(R.id.company);
+
 
 
 // Instantiate the cache
@@ -195,6 +199,13 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
                         jblocation.add(jlocation.toLowerCase());
 
+                    }
+
+                    checkedItemsloc = new boolean[jblocation.size()];
+                    int i = 0;
+                    for (String s : jblocation) {
+                        checkedItemsloc[i] = false;
+                        i++;
                     }
 
                     list = new ArrayList<>();
@@ -330,6 +341,22 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
                         if(!jdbms.isEmpty())
                             jbskill.add(jdbms.toLowerCase());
 
+
+                    }
+
+                    checkedItemscom = new boolean[jbcompany.size()];
+                    int k = 0;
+                    for (String s : jbcompany) {
+                        checkedItemscom[k] = false;
+                        k++;
+                    }
+
+
+                    checkedItemsskill = new boolean[jbskill.size()];
+                    int l = 0;
+                    for (String s : jbskill) {
+                        checkedItemsskill[l] = false;
+                        l++;
                     }
 
                     if(list!=null) {
@@ -398,24 +425,18 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
         // add a checkbox list
         final String[] company = jbcompany.toArray(new String[0]);
-        boolean[] checkedItems = new boolean[jbcompany.size()];
-        int i = 0;
-        for (String s : jbcompany) {
-            checkedItems[i] = false;
-            i++;
-        }
-
+//        boolean[] checkedItems = new boolean[jbcompany.size()];
 
         final List<String> newCompany = new ArrayList<>();
 
-        builder.setMultiChoiceItems(company, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setMultiChoiceItems(company, checkedItemscom, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 // user checked or unchecked a box
                 if (isChecked)
                     newCompany.add(company[which]);
                 else
-                    newCompany.remove(which);
+                    newCompany.remove(company[which]);
             }
         });
 
@@ -424,7 +445,16 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // user clicked OK
-
+                int i = 0;
+                for (String s : jblocation) {
+                    checkedItemsloc[i] = false;
+                    i++;
+                }
+                i=0;
+                for(String s:jbskill){
+                    checkedItemsskill[i]=false;
+                    i++;
+                }
                 if (newCompany.size() != 0)
                     loadNewCompanyJob(newCompany);
 
@@ -446,17 +476,11 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
         // add a checkbox list
         final String[] skill = jbskill.toArray(new String[0]);
-        final boolean[] checkedItems = new boolean[jbskill.size()];
-        int i = 0;
-        for (String s : jbskill) {
-            checkedItems[i] = false;
-            i++;
-        }
-
+//        final boolean[] checkedItems = new boolean[jbskill.size()];
 
         final List<String> newSkill = new ArrayList<>();
 
-        builder.setMultiChoiceItems(skill, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setMultiChoiceItems(skill, checkedItemsskill, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 // user checked or unchecked a box
@@ -464,7 +488,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
                     newSkill.add(skill[which]);
 
                 else
-                    newSkill.remove(which);
+                    newSkill.remove(skill[which]);
 
             }
         });
@@ -474,6 +498,16 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // user clicked OK
+                int i = 0;
+                for (String s : jbcompany) {
+                    checkedItemscom[i] = false;
+                    i++;
+                }
+                i=0;
+                for(String s:jblocation){
+                    checkedItemsloc[i]=false;
+                    i++;
+                }
                 if (newSkill.size() != 0)
                     loadNewSkillJob(newSkill);
 
@@ -495,23 +529,18 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
         // add a checkbox list
         final String[] location = jblocation.toArray(new String[0]);
-        final boolean[] checkedItems = new boolean[jblocation.size()];
-        int i = 0;
-        for (String s : jblocation) {
-            checkedItems[i] = false;
-            i++;
-        }
+
 
         final List<String> newLocation = new ArrayList<>();
 
-        builder.setMultiChoiceItems(location, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setMultiChoiceItems(location, checkedItemsloc, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 // user checked or unchecked a box
                 if (isChecked)
                     newLocation.add(location[which]);
                 else
-                    newLocation.remove(which);
+                    newLocation.remove(location[which]);
 
             }
         });
@@ -521,6 +550,18 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // user clicked OK
+
+                int i = 0;
+                for (String s : jbcompany) {
+                    checkedItemscom[i] = false;
+                    i++;
+                }
+                i=0;
+                for(String s:jbskill){
+                    checkedItemsskill[i]=false;
+                    i++;
+                }
+
                 if (newLocation.size() != 0)
                     loadNewLocationJob(newLocation);
 
