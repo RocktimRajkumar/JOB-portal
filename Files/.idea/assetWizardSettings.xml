@@ -19,11 +19,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="10" />
-                            <entry key="outputName" value="ic_notify" />
-                            <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="E:\Homepage\Buttons\turn-notifications-on-button.svg" />
-                            <entry key="width" value="10" />
+                            <entry key="outputName" value="ic_walkin" />
+                            <entry key="sourceFile" value="E:\Homepage\Buttons\businessman-silhouette-walking-with-suitcase.svg" />
                           </map>
                         </option>
                       </PersistentState>

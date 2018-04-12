@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:background="@color/gray">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/TV_jobtitle"
@@ -22,6 +22,7 @@
             android:textColor="@color/bluehead"
             android:textStyle="bold"
             android:text="Android Developer"
+            android:drawableRight="@drawable/ic_walkin"
             android:paddingBottom="2dp"/>
 
         <TextView
@@ -32,18 +33,29 @@
             android:textSize="@dimen/label"
             android:textStyle="bold"
             android:text="Tata Consultancy Services"
+            android:drawableRight="@drawable/ic_written"
+            android:drawableLeft="@drawable/ic_vcompany"
+            android:drawablePadding="2dp"
             android:textColor="@color/black"
             android:paddingBottom="2dp"/>
+
 
         <TextView
             android:id="@+id/TV_location"
             android:layout_below="@+id/TV_companyname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/pofileTV"
+            android:textSize="@dimen/label"
             android:textStyle="bold"
             android:text="Kolkata,India"
+            android:drawableRight="@drawable/ic_online"
+            android:drawableLeft="@drawable/ic_vloc"
+            android:drawablePadding="2dp"
             android:paddingBottom="2dp"/>
+
+
+
+
 
     </RelativeLayout>
 
