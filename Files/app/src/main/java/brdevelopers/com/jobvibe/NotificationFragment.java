@@ -1,9 +1,12 @@
 package brdevelopers.com.jobvibe;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompatSideChannelService;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
@@ -12,7 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -60,6 +65,23 @@ public class NotificationFragment extends Fragment {
         progressBar=view.findViewById(R.id.progressbar);
         tv_nojob=view.findViewById(R.id.NotificationJob);
         listView=view.findViewById(R.id.notifyjob);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder report=new AlertDialog.Builder(getActivity());
+                View reportView=getLayoutInflater().inflate(R.layout.notify_dialog,null);
+
+                report.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                report.setView(reportView);
+                report.show();
+            }
+        });
 
         // Instantiate the cache
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
