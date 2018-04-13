@@ -213,7 +213,7 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
                     FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                     Profile_Educaion profile_educaion=new Profile_Educaion();
                     profile_educaion.setArguments(bundle);
-//                    fragmentTransaction.replace(R.id.FL_profile,Profile_Educaion);
+                    fragmentTransaction.replace(R.id.FL_profile,profile_educaion);
                     fragmentTransaction.commit();
 
 

@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:padding="8dp"
-    android:layout_marginBottom="4dp">
+    android:layout_marginBottom="4dp"
+    android:id="@+id/LL_jobnotify"
+    android:background="@color/gray">
 
     <ImageView
         android:layout_width="60dp"

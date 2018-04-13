@@ -121,8 +121,6 @@ public class Home extends AppCompatActivity
         tv_empname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent editProfile = new Intent(Home.this, EditActivity.class);
-                startActivity(editProfile);
 
             }
         });
@@ -375,7 +373,7 @@ public class Home extends AppCompatActivity
             iv_notification.setImageResource(R.drawable.ic_notification);
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
 
-            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            toolbar.setTitle(R.string.title_activity_home);
 
             tabLayout.setVisibility(View.VISIBLE);
             tabLayout.setupWithViewPager(viewPager);

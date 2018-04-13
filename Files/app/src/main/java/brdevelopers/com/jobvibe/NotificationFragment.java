@@ -3,6 +3,7 @@ package brdevelopers.com.jobvibe;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -68,6 +70,9 @@ public class NotificationFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DBManager dbupdate=new DBManager(getActivity());
+
+                boolean bol=dbupdate.updateNotificationView(listjob.get(position).getJbid(),Home.canemail,"1");
                 AlertDialog.Builder report=new AlertDialog.Builder(getActivity());
                 View reportView=getLayoutInflater().inflate(R.layout.notify_dialog,null);
 
@@ -80,6 +85,9 @@ public class NotificationFragment extends Fragment {
 
                 report.setView(reportView);
                 report.show();
+                arrayList=new ArrayList<>();
+                arrayList=dbupdate.getNotificationData(Home.canemail);
+                checkAndProceed();
             }
         });
 
@@ -95,47 +103,48 @@ public class NotificationFragment extends Fragment {
 // Start the queue
         mRequestQueue.start();
 
-        if (Util.isNetworkConnected(getActivity())) {
-
-            DBManager dbManager=new DBManager(getActivity());
-            arrayList=dbManager.getNotificationData(Home.canemail);
-
-            listjob=new ArrayList<>();
-            if(arrayList!=null){
-                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-
-                tv_nojob.setVisibility(View.GONE);
-                for (JobActivity jobActivity : arrayList) {
-                    loadNotifyJob(jobActivity.getJobid());
-                }
-
-            }
-            else {
-                progressBar.setVisibility(View.GONE);
-                tv_nojob.setVisibility(View.VISIBLE);
-            }
-
-        } else {
-            Toast toast = new Toast(getActivity());
-            toast.setDuration(Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
-
-            LayoutInflater inf = getActivity().getLayoutInflater();
-
-            View layoutview = inf.inflate(R.layout.custom_toast, (ViewGroup) getActivity().findViewById(R.id.CustomToast_Parent));
-            TextView tf = layoutview.findViewById(R.id.CustomToast);
-            tf.setText("No Internet Connection " + Html.fromHtml("&#9995;"));
-            toast.setView(layoutview);
-            toast.show();
-
-            progressBar.setVisibility(View.GONE);
-            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        }
-
-
+        DBManager dbManager = new DBManager(getActivity());
+        arrayList = dbManager.getNotificationData(Home.canemail);
+        checkAndProceed();
         return view;
     }
+        public void checkAndProceed() {
+            if (Util.isNetworkConnected(getActivity())) {
+
+
+                listjob = new ArrayList<>();
+                if (arrayList != null) {
+                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+
+                    tv_nojob.setVisibility(View.GONE);
+                    for (JobActivity jobActivity : arrayList) {
+                        loadNotifyJob(jobActivity.getJobid());
+                    }
+
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    tv_nojob.setVisibility(View.VISIBLE);
+                }
+
+            } else {
+                Toast toast = new Toast(getActivity());
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
+
+                LayoutInflater inf = getActivity().getLayoutInflater();
+
+                View layoutview = inf.inflate(R.layout.custom_toast, (ViewGroup) getActivity().findViewById(R.id.CustomToast_Parent));
+                TextView tf = layoutview.findViewById(R.id.CustomToast);
+                tf.setText("No Internet Connection " + Html.fromHtml("&#9995;"));
+                toast.setView(layoutview);
+                toast.show();
+
+                progressBar.setVisibility(View.GONE);
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+
+        }
 
 
     private void loadNotifyJob(final String jobid) {
@@ -155,10 +164,12 @@ public class NotificationFragment extends Fragment {
 
                     JSONObject jobobject=jsonObject.getJSONObject("Jobdetails");
 
+                    String jobid=jobobject.getString("jid");
                     String jtitle=jobobject.getString("jobtitle");
                     String jcname=jobobject.getString("cname");
 
                     Job_details job_details=new Job_details();
+                    job_details.setJbid(jobid);
                     job_details.setJbtitle(jtitle);
                     job_details.setJbcompnayname(jcname);
 
@@ -227,8 +238,21 @@ public class NotificationFragment extends Fragment {
             View v=inf.inflate(R.layout.notifyrow,parent,false);
             TextView jtitle=v.findViewById(R.id.jobtitle);
             TextView jcompany=v.findViewById(R.id.jobcompany);
+            LinearLayout linerjob_notify=v.findViewById(R.id.LL_jobnotify);
+
+
+            for(JobActivity jobActivity: arrayList){
+                if(jobActivity.getJobid().equals(listjob.get(position).getJbid()) && jobActivity.getViewedjob().equals("1")){
+                    linerjob_notify.setBackgroundColor(Color.WHITE);
+                }
+                else if(jobActivity.getJobid().equals(listjob.get(position).getJbid()) && jobActivity.getViewedjob().equals("0"))
+                    linerjob_notify.setBackgroundColor(Color.rgb(231, 229, 231));
+
+            }
+
             jtitle.setText(listjob.get(position).getJbtitle());
             jcompany.setText(listjob.get(position).getJbcompnayname());
+
 
             return v;
         }
