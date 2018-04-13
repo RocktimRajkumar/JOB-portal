@@ -57,7 +57,8 @@ public class Home extends AppCompatActivity
    private boolean onbackpressed=false;
    private TabLayout tabLayout;
    private ViewPager viewPager;
-   final int REQUEST_CODE_GALLERY=999;
+   private final int REQUEST_CODE_GALLERY=999;
+   private Toolbar toolbar;
 
 
     @Override
@@ -78,7 +79,7 @@ public class Home extends AppCompatActivity
         tabLayout.setupWithViewPager(viewPager);
         setterViewPager(viewPager);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         iv_home.setOnClickListener(this);
@@ -351,6 +352,8 @@ public class Home extends AppCompatActivity
             iv_notification.setImageResource(R.drawable.ic_notification);
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
 
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
+
             tabLayout.setVisibility(View.VISIBLE);
             tabLayout.setupWithViewPager(viewPager);
             setterViewPager(viewPager);
@@ -362,6 +365,8 @@ public class Home extends AppCompatActivity
             tv_home.setTextColor(Color.rgb(0, 150, 136));
             iv_notification.setImageResource(R.drawable.ic_notification);
             tv_notification.setTextColor(Color.rgb(0, 150, 136));
+
+            toolbar.setTitle(R.string.title_activity_activity);
 
             tabLayout.setVisibility(View.VISIBLE);
             tabLayout.setupWithViewPager(viewPager);
@@ -375,6 +380,8 @@ public class Home extends AppCompatActivity
             tv_home.setTextColor(Color.rgb(0, 150, 136));
             iv_activity.setImageResource(R.drawable.ic_activity);
             tv_activity.setTextColor(Color.rgb(0, 150, 136));
+
+            toolbar.setTitle(R.string.title_activity_notification);
 
             tabLayout.setVisibility(View.GONE);
             setterViewPagerNotification(viewPager);
