@@ -105,18 +105,41 @@ public class Recommended extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         getActivity().getMenuInflater().inflate(R.menu.home, menu);
         inflater.inflate(R.menu.searchfile, menu);
         final MenuItem myactionmenu=menu.findItem(R.id.search);
         searchView=(SearchView)myactionmenu.getActionView();
 
-        searchView.setQueryHint(Html.fromHtml("<font color = #ffffff>" + getResources().getString(R.string.search_title) + "</font>"));
+        Home.toolbar.setNavigationIcon(Home.drawable);
+
+        searchView.setQueryHint(Html.fromHtml("<font color = #000>" + getResources().getString(R.string.search_title) + "</font>"));
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Home.toolbar.setNavigationIcon(null);
+                menu.getItem(0).setVisible(false);
+
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                Home.toolbar.setNavigationIcon(Home.drawable);
+                menu.getItem(0).setVisible(true);
+                return false;
+            }
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
+                Home.toolbar.setNavigationIcon(Home.drawable);
+                menu.getItem(0).setVisible(true);
 
                 if(searchView.isIconified())
                     searchView.setIconified(true);
@@ -131,6 +154,7 @@ public class Recommended extends Fragment implements View.OnClickListener {
                 return false;
             }
         });
+
 
     }
 

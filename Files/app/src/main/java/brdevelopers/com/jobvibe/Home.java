@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -60,7 +61,8 @@ public class Home extends AppCompatActivity
    private TabLayout tabLayout;
    private ViewPager viewPager;
    private final int REQUEST_CODE_GALLERY=999;
-   private Toolbar toolbar;
+   public static Toolbar toolbar;
+   public static Drawable drawable;
    private LinearLayout layoutHome,layoutActivity,layoutNotify;
 
 
@@ -87,6 +89,7 @@ public class Home extends AppCompatActivity
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         iv_home.setOnClickListener(this);
         iv_activity.setOnClickListener(this);
@@ -142,6 +145,8 @@ public class Home extends AppCompatActivity
         tv_home.setVisibility(View.VISIBLE);
         iv_activity.setImageResource(R.drawable.ic_activity);
         iv_notification.setImageResource(R.drawable.ic_notification);
+
+        drawable=toolbar.getNavigationIcon();
 
         loadProfilePic();
     }
