@@ -37,6 +37,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +61,7 @@ public class Home extends AppCompatActivity
    private ViewPager viewPager;
    private final int REQUEST_CODE_GALLERY=999;
    private Toolbar toolbar;
+   private LinearLayout layoutHome,layoutActivity,layoutNotify;
 
 
     @Override
@@ -75,6 +77,9 @@ public class Home extends AppCompatActivity
         tv_notification=findViewById(R.id.TV_notification);
         tabLayout=findViewById(R.id.TL_tab);
         viewPager=findViewById(R.id.VP_view);
+        layoutHome=findViewById(R.id.layoutHome);
+        layoutActivity=findViewById(R.id.layoutActivity);
+        layoutNotify=findViewById(R.id.layoutNotification);
 
 
         tabLayout.setupWithViewPager(viewPager);
@@ -89,6 +94,9 @@ public class Home extends AppCompatActivity
         tv_home.setOnClickListener(this);
         tv_activity.setOnClickListener(this);
         tv_notification.setOnClickListener(this);
+        layoutHome.setOnClickListener(this);
+        layoutActivity.setOnClickListener(this);
+        layoutNotify.setOnClickListener(this);
 
         canemail=getIntent().getStringExtra("emailid");
         name=getIntent().getStringExtra("name");
@@ -320,6 +328,15 @@ public class Home extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
+            Intent share=new Intent(Intent.ACTION_SEND);
+            share.setType("text/plain");
+            String body="Download Job Vibe!";
+            String sub="The best Job Portal app in India.";
+            share.putExtra(Intent.EXTRA_TEXT,body);
+            share.putExtra(Intent.EXTRA_SUBJECT,sub);
+//            share.putExtra(Intent.EXTRA_TEXT," app link here");
+            startActivity(Intent.createChooser(share,"Share Using"));
+
         }
         else if (id == R.id.nav_about) {
             Intent intent=new Intent(Home.this,AboutUs.class);
@@ -349,7 +366,7 @@ public class Home extends AppCompatActivity
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.IV_home || v.getId() == R.id.TV_home) {
+        if (v.getId() == R.id.IV_home || v.getId() == R.id.TV_home || v.getId()==R.id.layoutHome) {
             iv_home.setImageResource(R.drawable.ic_onhome);
             tv_home.setVisibility(View.VISIBLE);
             tv_activity.setVisibility(View.GONE);
@@ -363,7 +380,7 @@ public class Home extends AppCompatActivity
             tabLayout.setupWithViewPager(viewPager);
             setterViewPager(viewPager);
 
-        } else if (v.getId() == R.id.IV_activity || v.getId() == R.id.TV_activity) {
+        } else if (v.getId() == R.id.IV_activity || v.getId() == R.id.TV_activity || v.getId()==R.id.layoutActivity) {
             iv_activity.setImageResource(R.drawable.ic_onactivity);
             tv_activity.setVisibility(View.VISIBLE);
             tv_notification.setVisibility(View.GONE);
@@ -378,7 +395,7 @@ public class Home extends AppCompatActivity
             setterViewPagerActivity(viewPager);
 
 
-        } else if (v.getId() == R.id.IV_notification || v.getId() == R.id.TV_notification) {
+        } else if (v.getId() == R.id.IV_notification || v.getId() == R.id.TV_notification || v.getId()==R.id.layoutNotification) {
             iv_notification.setImageResource(R.drawable.ic_onnotification);
             tv_notification.setVisibility(View.VISIBLE);
             tv_home.setVisibility(View.GONE);
