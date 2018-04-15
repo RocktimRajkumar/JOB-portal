@@ -1,23 +1,46 @@
 package brdevelopers.com.jobvibe;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
     private LayoutInflater inflater;
     private List<Job_details> joblist= Collections.emptyList();
     private Context context;
+    private String applyjob="http://103.230.103.142/jobportalapp/job.asmx/ApplyJob";
+    private View vv;
+    int apply=0;
 
     public RecyclerAdapter(Context context,List<Job_details> joblist)
     {
@@ -31,6 +54,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view=inflater.inflate(R.layout.job_row,parent,false);
+        vv=view;
         MyViewHolder holder=new MyViewHolder(view,context);
         return holder;
     }
@@ -54,25 +78,75 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         notifyDataSetChanged();
     }
 
+    public void setApplyvalue(int n){
+        apply=n;
+    }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView jobtitle;
         TextView jobcompany;
         TextView joblocation;
+        TextView applybtn;
 
         Context context;
         Job_details job_details;
 
-        public MyViewHolder(View itemView, Context context) {
+        public MyViewHolder(View itemView, final Context context) {
             super(itemView);
             this.context=context;
 
             itemView.setOnClickListener(this);
 
+
             jobtitle=itemView.findViewById(R.id.TV_jobtitle);
             jobcompany=itemView.findViewById(R.id.TV_companyname);
             joblocation=itemView.findViewById(R.id.TV_location);
+            applybtn=itemView.findViewById(R.id.TV_applybtn);
+
+            if(apply==1){
+
+                applybtn.setVisibility(View.GONE);
+            }
+
+            applybtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder report=new AlertDialog.Builder(context);
+
+                    report.setMessage("Are you sure you want to apply for this Job?");
+
+                    report.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            if (Util.isNetworkConnected(context)) {
+                                applyJob();
+                            } else {
+                                Toast toast = new Toast(context);
+                                toast.setDuration(Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
+
+                                LayoutInflater inf = inflater;
+
+                                View layoutview = inf.inflate(R.layout.custom_toast, (ViewGroup) vv.findViewById(R.id.CustomToast_Parent));
+                                TextView tf = layoutview.findViewById(R.id.CustomToast);
+                                tf.setText("No Internet Connection " + Html.fromHtml("&#9995;"));
+                                toast.setView(layoutview);
+                                toast.show();
+
+                            }
+                        }
+                    });
+                    report.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+                    report.show();
+                }
+            });
         }
 
 
@@ -117,6 +191,96 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             intent.putExtra("email",job_details.getJbemail());
 
             this.context.startActivity(intent);
+        }
+
+
+        private void applyJob() {
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, applyjob, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    Log.d("LogCheck", response);
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+
+                        String success=jsonObject.getString("Sucess");
+                        if(success.equals("1"))
+                        {
+                            DBManager db=new DBManager(context);
+                            db.insertNotifcation(job_details.getJbid(),Home.canemail,"0");
+
+                            android.support.v7.app.AlertDialog.Builder message= new android.support.v7.app.AlertDialog.Builder(context);
+
+                            View v=inflater.inflate(R.layout.success_layout,null);
+                            message.setView(v);
+                            TextView okay=(TextView) v.findViewById(R.id.TV_okay);
+                            final android.support.v7.app.AlertDialog dialog = message.create();
+
+
+                            okay.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            dialog.show();
+
+                        }
+                        else{
+                            Toast toast=new Toast(context);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
+
+                            LayoutInflater inf=inflater;
+
+                            View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)vv.findViewById(R.id.CustomToast_Parent));
+                            TextView tf=layoutview.findViewById(R.id.CustomToast);
+                            tf.setText("You haved already applied for this job. "+ Html.fromHtml(" &#x1f604;"));
+                            toast.setView(layoutview);
+                            toast.show();
+                        }
+
+//                        progressBar.setVisibility(View.GONE);
+//                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.d("LogCheck", "" + e);
+//                        progressBar.setVisibility(View.GONE);
+//                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                    }
+
+                }
+            },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("LogCheck", "" + error);
+                            Toast.makeText(context, "" + error, Toast.LENGTH_SHORT).show();
+//                            progressBar.setVisibility(View.GONE);
+//                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        }
+                    }) {
+
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    HashMap<String, String> jobHash = new HashMap<>();
+                    jobHash.put("cemail", Home.canemail);
+                    jobHash.put("eemail",job_details.getJbemail());
+                    jobHash.put("jobid",job_details.getJbid());
+
+                    return jobHash;
+                }
+
+            };
+
+            Volley.newRequestQueue(context).add(stringRequest);
         }
     }
 }

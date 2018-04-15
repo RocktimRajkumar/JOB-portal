@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Applied_Fragment">
+    tools:context=".Applied_Fragment"
+    android:id="@+id/fragment_applied">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/RV_job"

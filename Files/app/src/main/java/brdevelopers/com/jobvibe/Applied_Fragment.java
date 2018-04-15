@@ -324,6 +324,7 @@ public class Applied_Fragment extends Fragment {
 
                     if(bol) {
                         recyclerAdapter = new RecyclerAdapter(getActivity(), list);
+                        recyclerAdapter.setApplyvalue(1);
                         recyclerView.setAdapter(recyclerAdapter);
                     }
                     else

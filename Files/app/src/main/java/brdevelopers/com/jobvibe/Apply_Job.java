@@ -1,5 +1,7 @@
 package brdevelopers.com.jobvibe;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -204,7 +206,6 @@ public class Apply_Job extends AppCompatActivity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
                 applyJob();
             }
         });
@@ -242,16 +243,25 @@ public class Apply_Job extends AppCompatActivity {
                         DBManager db=new DBManager(Apply_Job.this);
                         db.insertNotifcation(jobid,Home.canemail,"0");
 
+                        AlertDialog.Builder message= new AlertDialog.Builder(Apply_Job.this);
 
-                        Toast toast=new Toast(Apply_Job.this);
-                        toast.setDuration(Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER,0,0);
+                        View v=getLayoutInflater().inflate(R.layout.success_layout,null);
+                        message.setView(v);
+                        TextView okay=(TextView) v.findViewById(R.id.TV_okay);
+                        final AlertDialog dialog = message.create();
 
-                        LayoutInflater inf=getLayoutInflater();
 
-                        View layoutview=inf.inflate(R.layout.toast_apply_job,(ViewGroup)findViewById(R.id.CustomToast_Parent));
-                        toast.setView(layoutview);
-                        toast.show();
+                        okay.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                Log.d("logcheck","Button is clicked");
+                                dialog.dismiss();
+                            }
+                        });
+
+                        dialog.show();
+
                     }
                     else{
                         Toast toast=new Toast(Apply_Job.this);
