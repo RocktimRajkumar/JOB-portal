@@ -336,6 +336,15 @@ public class Home extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
+            Intent share=new Intent(Intent.ACTION_SEND);
+            share.setType("text/plain");
+            String body="Download Job Vibe!";
+            String sub="The best Job Portal app in India.";
+            share.putExtra(Intent.EXTRA_TEXT,body);
+            share.putExtra(Intent.EXTRA_SUBJECT,sub);
+//            share.putExtra(Intent.EXTRA_TEXT," app link here");
+            startActivity(Intent.createChooser(share,"Share Using"));
+
         }
         else if (id == R.id.nav_about) {
             Intent intent=new Intent(Home.this,AboutUs.class);
