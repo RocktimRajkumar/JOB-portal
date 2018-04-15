@@ -40,10 +40,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="@color/colorPrimary"
         android:padding="2dp">
 
         <LinearLayout
+            android:id="@+id/layoutHome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -63,11 +64,12 @@
                 android:layout_height="wrap_content"
                 android:text="Home"
                 android:visibility="gone"
-                android:textColor="@color/colorAccent"/>
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layoutActivity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -88,11 +90,12 @@
                 android:layout_height="wrap_content"
                 android:text="Activity"
                 android:visibility="gone"
-                android:textColor="@color/colorAccent"/>
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layoutNotification"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -113,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:text="Notification"
                 android:visibility="gone"
-                android:textColor="@color/colorAccent"/>
+                android:textColor="@color/white"/>
         </LinearLayout>
 
     </LinearLayout>
