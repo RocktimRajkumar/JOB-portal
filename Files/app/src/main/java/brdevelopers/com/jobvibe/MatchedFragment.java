@@ -178,6 +178,39 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+
+                progressBar.setVisibility(View.VISIBLE);
+
+                if (Util.isNetworkConnected(getActivity())) {
+                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    loadAlljob();
+                } else {
+                    Toast toast = new Toast(getActivity());
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
+
+                    LayoutInflater inf = getActivity().getLayoutInflater();
+
+                    View layoutview = inf.inflate(R.layout.custom_toast, (ViewGroup) getActivity().findViewById(R.id.CustomToast_Parent));
+                    TextView tf = layoutview.findViewById(R.id.CustomToast);
+                    tf.setText("No Internet Connection " + Html.fromHtml("&#9995;"));
+                    toast.setView(layoutview);
+                    toast.show();
+
+                    progressBar.setVisibility(View.GONE);
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void loadAlljob() {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, allJob, new Response.Listener<String>() {

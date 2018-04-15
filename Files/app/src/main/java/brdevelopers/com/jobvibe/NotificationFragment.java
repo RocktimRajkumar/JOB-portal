@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -271,5 +272,21 @@ public class NotificationFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         getActivity().getMenuInflater().inflate(R.menu.home, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+
+                progressBar.setVisibility(View.VISIBLE);
+                DBManager dbManager = new DBManager(getActivity());
+                arrayList = dbManager.getNotificationData(Home.canemail);
+                checkAndProceed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

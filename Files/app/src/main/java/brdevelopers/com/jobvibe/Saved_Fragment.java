@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -204,6 +205,37 @@ public class Saved_Fragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         getActivity().getMenuInflater().inflate(R.menu.home, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+
+                progressBar.setVisibility(View.VISIBLE);
+                DBManager dbManager=new DBManager(getActivity());
+                arrayList=dbManager.getSavedData(Home.canemail);
+
+                listjob=new ArrayList<>();
+                if(arrayList!=null){
+
+                    tv_nojob.setVisibility(View.GONE);
+                    for (JobActivity jobActivity : arrayList) {
+                        loadalViewedJob(jobActivity.getJobid());
+                    }
+
+                }
+                else {
+                    progressBar.setVisibility(View.GONE);
+                    tv_nojob.setVisibility(View.VISIBLE);
+                    if(getActivity()!=null)
+                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }
