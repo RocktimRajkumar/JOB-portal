@@ -371,7 +371,7 @@ public class Home extends AppCompatActivity
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.IV_home || v.getId() == R.id.TV_home || v.getId()==R.id.layoutHome) {
+        if (v.getId()==R.id.layoutHome) {
             iv_home.setImageResource(R.drawable.ic_onhome);
             tv_home.setVisibility(View.VISIBLE);
             tv_activity.setVisibility(View.GONE);
@@ -385,7 +385,7 @@ public class Home extends AppCompatActivity
             tabLayout.setupWithViewPager(viewPager);
             setterViewPager(viewPager);
 
-        } else if (v.getId() == R.id.IV_activity || v.getId() == R.id.TV_activity || v.getId()==R.id.layoutActivity) {
+        } else if ( v.getId()==R.id.layoutActivity) {
             iv_activity.setImageResource(R.drawable.ic_onactivity);
             tv_activity.setVisibility(View.VISIBLE);
             tv_notification.setVisibility(View.GONE);
@@ -400,7 +400,7 @@ public class Home extends AppCompatActivity
             setterViewPagerActivity(viewPager);
 
 
-        } else if (v.getId() == R.id.IV_notification || v.getId() == R.id.TV_notification || v.getId()==R.id.layoutNotification) {
+        } else if (v.getId()==R.id.layoutNotification) {
             iv_notification.setImageResource(R.drawable.ic_onnotification);
             tv_notification.setVisibility(View.VISIBLE);
             tv_home.setVisibility(View.GONE);

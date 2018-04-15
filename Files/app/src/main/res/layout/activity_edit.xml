@@ -3,14 +3,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="brdevelopers.com.jobvibe.Profile">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="brdevelopers.com.jobvibe.Profile"
+    android:background="@color/gray">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_arrow_black"/>
+
+        <LinearLayout
+            android:id="@+id/LL_info"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="50dp"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="Bijoy Dutta"
+                android:gravity="center"
+                android:textSize="@dimen/jobDetailLabel"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="bijoy10dutta@gmail.com"
+                android:gravity="center"
+                android:textSize="@dimen/label"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:src="@drawable/face"
+            android:scaleType="centerCrop"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FFFFFF"/>
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/LL_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@id/frameLayout"
         android:gravity="center"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:elevation="5dp">
 
         <TextView
             android:id="@+id/TV_editPersonal"
@@ -19,8 +80,7 @@
             android:layout_weight="1"
             android:text="Personal Details"
             android:textSize="@dimen/headlabel"
-            android:padding="4dp"
-            android:onClick="loadEdit"
+            android:padding="7dp"
             android:gravity="center"/>
 
         <TextView
@@ -32,8 +92,7 @@
             android:textSize="@dimen/headlabel"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/TV_personal"
-            android:padding="4dp"
-            android:onClick="loadEdit"
+            android:padding="7dp"
             android:gravity="center"/>
 
 
@@ -43,7 +102,10 @@
         android:id="@+id/FL_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/LL_edit">
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/LL_edit"
+        android:background="@color/white">
 
 
     </FrameLayout>
