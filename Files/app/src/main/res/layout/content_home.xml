@@ -48,7 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_gravity="center">
 
             <ImageView
                 android:id="@+id/IV_home"
@@ -61,7 +62,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Home"
-                android:textColor="@color/button"/>
+                android:visibility="gone"
+                android:textColor="@color/colorAccent"/>
 
         </LinearLayout>
 
@@ -70,7 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_gravity="center">
 
             <ImageView
                 android:id="@+id/IV_activity"
@@ -84,7 +87,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Activity"
-                android:textColor="@color/button"/>
+                android:visibility="gone"
+                android:textColor="@color/colorAccent"/>
 
         </LinearLayout>
 
@@ -93,7 +97,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_gravity="center">
 
             <ImageView
                 android:id="@+id/IV_notification"
@@ -107,7 +112,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Notification"
-                android:textColor="@color/button"/>
+                android:visibility="gone"
+                android:textColor="@color/colorAccent"/>
         </LinearLayout>
 
     </LinearLayout>
