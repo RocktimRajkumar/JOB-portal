@@ -3,11 +3,6 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
-        <entry key="imageWizard">
-          <value>
-            <PersistentState />
-          </value>
-        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -21,6 +16,12 @@
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="outputName" value="ic_office" />
                             <entry key="sourceFile" value="C:\Users\End User\Downloads\tradecenter.svg" />
+
+                            <entry key="height" value="15" />
+                            <entry key="outputName" value="ic_vloc" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="E:\Homepage\Buttons\gps.svg" />
+                            <entry key="width" value="15" />
                           </map>
                         </option>
                       </PersistentState>

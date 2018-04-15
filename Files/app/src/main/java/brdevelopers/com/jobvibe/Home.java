@@ -336,11 +336,13 @@ public class Home extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_about) {
+        }
+        else if (id == R.id.nav_about) {
             Intent intent=new Intent(Home.this,AboutUs.class);
             startActivity(intent);
 
-        }else if(id==R.id.nav_logout){
+        }
+        else if(id==R.id.nav_logout){
 
             SharedPreferences sharedPreferences=getSharedPreferences("Data",MODE_PRIVATE);
             SharedPreferences.Editor editor=sharedPreferences.edit();

@@ -229,4 +229,6 @@ public class Viewed_Fragment extends Fragment {
         getActivity().getMenuInflater().inflate(R.menu.home, menu);
 
     }
+
+
 }
