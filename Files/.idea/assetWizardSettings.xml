@@ -80,7 +80,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/F:/Android/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_arrow_back_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/F:/Android/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_autorenew_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -90,11 +90,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="height" value="30" />
-                            <entry key="outputName" value="ic_back_arrow_black" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_update" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="E:\Homepage\Buttons\gps.svg" />
-                            <entry key="width" value="30" />
                           </map>
                         </option>
                       </PersistentState>
