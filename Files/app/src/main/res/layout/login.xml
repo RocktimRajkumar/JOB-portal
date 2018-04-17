@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/busy"/>
+        android:src="@drawable/table"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/IV_logoText"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
         android:layout_centerHorizontal="true">
@@ -93,7 +93,7 @@
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:layout_below="@+id/RL_login"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
         android:layout_marginRight="50dp"
         android:layout_marginLeft="50dp"
@@ -111,10 +111,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/TV_loginbutton"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="Don't have a account? Create New!"
         android:textStyle="bold|italic"
         android:gravity="center"
+        android:textSize="16sp"
         android:textColor="@color/white"/>
 
     <ProgressBar
