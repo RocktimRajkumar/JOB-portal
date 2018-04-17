@@ -299,14 +299,16 @@ public class Home extends AppCompatActivity
         if (id == R.id.nav_editProfile) {
             Intent editProfile = new Intent(Home.this, EditActivity.class);
             startActivity(editProfile);
+            finish();
         } else if (id == R.id.nav_faq) {
             Intent intent=new Intent(Home.this,FAQ.class);
             startActivity(intent);
+            finish();
 
         } else if (id == R.id.nav_terms) {
             Intent intent=new Intent(Home.this,Terms.class);
             startActivity(intent);
-
+            finish();
 
         } else if (id == R.id.nav_report) {
             AlertDialog.Builder report=new AlertDialog.Builder(Home.this);
@@ -346,6 +348,7 @@ public class Home extends AppCompatActivity
         else if (id == R.id.nav_about) {
             Intent intent=new Intent(Home.this,AboutUs.class);
             startActivity(intent);
+            finish();
 
         }
         else if(id==R.id.nav_logout){

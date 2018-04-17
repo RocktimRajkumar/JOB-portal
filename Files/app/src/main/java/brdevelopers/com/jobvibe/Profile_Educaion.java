@@ -186,6 +186,7 @@ public class Profile_Educaion extends Fragment {
                 profile.putExtra("getdegree",getdegree);
                 profile.putExtra("getfos",getfos);
                 startActivity(profile);
+                getActivity().finish();
             }
         }, new Response.ErrorListener() {
             @Override

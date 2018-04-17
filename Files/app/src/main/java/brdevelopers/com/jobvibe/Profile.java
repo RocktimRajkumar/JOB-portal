@@ -19,7 +19,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Profile extends AppCompatActivity implements View.OnClickListener{
+public class Profile extends AppCompatActivity {
 
     public static TextView tv_personal,tv_education;
     private boolean onbackpressed=false;
@@ -30,36 +30,13 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.profile);
         tv_personal=findViewById(R.id.TV_personal);
         tv_education=findViewById(R.id.TV_education);
-        tv_personal.setOnClickListener(this);
-        tv_education.setOnClickListener(this);
+
         tv_personal.setBackgroundColor(Color.rgb(255,87,34));
         tv_personal.setTextColor(Color.rgb(255, 255, 255));
         loadFragmentProfile(new Profile_personal());
 
     }
 
-    @Override
-    public void onClick(View v) {
-        if(v.getId()==R.id.TV_personal)
-        {
-
-            tv_personal.setBackgroundColor(Color.rgb(255,87,34));
-            tv_personal.setTextColor(Color.rgb(255, 255, 255));
-            tv_education.setBackgroundColor(Color.rgb(255, 255, 255));
-            tv_education.setTextColor(Color.rgb(0,0,0));
-            loadFragmentProfile(new Profile_personal());
-        }
-        else if(v.getId()==R.id.TV_education)
-        {
-
-            tv_education.setBackgroundColor(Color.rgb(255,87,34));
-            tv_education.setTextColor(Color.rgb(255, 255, 255));
-            tv_personal.setBackgroundColor(Color.rgb(255, 255, 255));
-            tv_personal.setTextColor(Color.rgb(0,0,0));
-            loadFragmentProfile(new Profile_Educaion());
-        }
-
-    }
 
     @Override
     public void onBackPressed() {

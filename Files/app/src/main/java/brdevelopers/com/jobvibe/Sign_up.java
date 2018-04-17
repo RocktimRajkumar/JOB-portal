@@ -44,7 +44,7 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
 
     private TextInputLayout til_password,til_cpassword,til_email;
     private TextInputEditText et_password,et_cpassword,et_email;
-    TextView tv_signup;
+    TextView tv_signup,tv_toLogin;
     private int i_password=0,i_cpassword=0,i_email=0;
 
     private String getCandidateDetails="http://103.230.103.142/jobportalapp/job.asmx/GetCandidateDetails";
@@ -59,6 +59,7 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
         et_password=findViewById(R.id.ET_password);
         et_cpassword=findViewById(R.id.ET_cpassword);
         tv_signup=findViewById(R.id.TV_signbutton);
+        tv_toLogin=findViewById(R.id.TV_backtoLogin);
         et_email=findViewById(R.id.ET_email);
         til_email=findViewById(R.id.TIL_email);
 
@@ -66,6 +67,7 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
         et_cpassword.addTextChangedListener(this);
         et_email.addTextChangedListener(this);
         tv_signup.setOnClickListener(this);
+        tv_toLogin.setOnClickListener(this);
 
     }
 
@@ -201,6 +203,8 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
     @Override
     public void onClick(View v) {
 
+        if(v.getId()==R.id.TV_signbutton){
+
         if (i_email == 0)
             et_email.requestFocus();
         else if (i_password == 0)
@@ -262,13 +266,12 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
                 }
 
 
-                int TIMMES=300;
+                int TIMMES = 300;
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(i_password==1 && i_email==1 &&i_cpassword==1)
-                        {
-                            if(Util.isNetworkConnected(Sign_up.this)) {
+                        if (i_password == 1 && i_email == 1 && i_cpassword == 1) {
+                            if (Util.isNetworkConnected(Sign_up.this)) {
                                 Intent profile = new Intent(Sign_up.this, Profile.class);
                                 String email = et_email.getText().toString();
                                 String password = et_password.getText().toString();
@@ -276,27 +279,33 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
                                 profile.putExtra("password", password);
                                 startActivity(profile);
                                 finish();
-                            }
-                            else{
-                                Toast toast=new Toast(Sign_up.this);
+                            } else {
+                                Toast toast = new Toast(Sign_up.this);
                                 toast.setDuration(Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL,0,0);
+                                toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
 
-                                LayoutInflater inf=getLayoutInflater();
+                                LayoutInflater inf = getLayoutInflater();
 
-                                View layoutview=inf.inflate(R.layout.custom_toast,(ViewGroup)findViewById(R.id.CustomToast_Parent));
-                                TextView tf=layoutview.findViewById(R.id.CustomToast);
-                                tf.setText("No Internet Connection "+ Html.fromHtml("&#9995;"));
+                                View layoutview = inf.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.CustomToast_Parent));
+                                TextView tf = layoutview.findViewById(R.id.CustomToast);
+                                tf.setText("No Internet Connection " + Html.fromHtml("&#9995;"));
                                 toast.setView(layoutview);
                                 toast.show();
                             }
                         }
                     }
-                },TIMMES);
+                }, TIMMES);
 
 
             }
         }, TIMMER);
+
+    }
+        if(v.getId()== R.id.TV_backtoLogin){
+            Intent intent=new Intent(Sign_up.this,Login.class);
+            startActivity(intent);
+            finish();
+        }
 
     }
 

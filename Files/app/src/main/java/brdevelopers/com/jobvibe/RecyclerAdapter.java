@@ -1,5 +1,6 @@
 package brdevelopers.com.jobvibe;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -191,6 +192,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             intent.putExtra("email",job_details.getJbemail());
 
             this.context.startActivity(intent);
+            ((Activity)context).finish();
         }
 
 

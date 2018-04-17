@@ -112,24 +112,38 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/TV_signbutton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/signup"
-        android:layout_below="@+id/RL_login"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginRight="52dp"
-        android:layout_marginLeft="52dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:elevation="10dp"
-        android:background="@drawable/signup_btn_bg"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="@dimen/label"
-        android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/TV_signbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/signup"
+            android:layout_below="@+id/RL_login"
+            android:layout_marginTop="25dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="52dp"
+            android:layout_marginLeft="52dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:elevation="10dp"
+            android:background="@drawable/signup_btn_bg"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="@dimen/label"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/TV_backtoLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:padding="15dp"
+            android:text="Or Login"
+            android:textStyle="bold|italic"
+            android:textSize="@dimen/label"
+            android:textColor="@color/white"
+            android:background="@drawable/tologinbg"/>
 
     </RelativeLayout>
 
