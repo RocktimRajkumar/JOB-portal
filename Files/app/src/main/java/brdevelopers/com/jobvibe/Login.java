@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,7 +42,7 @@ public class Login extends AppCompatActivity implements TextWatcher,View.OnClick
 
 
    private TextInputLayout til_password,til_email;
-   private EditText et_email, et_password;
+   private TextInputEditText et_email, et_password;
    private TextView tv_btnlogin,tv_createnew;
    private ProgressBar progressBar;
    private int i_email=0,i_password=0;

@@ -15,11 +15,6 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp">
 
-        <ImageView
-            android:id="@+id/IV_back_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_back_arrow_black"/>
 
         <LinearLayout
             android:id="@+id/LL_info"
@@ -59,6 +54,12 @@
             android:scaleType="centerCrop"
             app:civ_border_width="2dp"
             app:civ_border_color="#FFFFFF"/>
+
+        <ImageView
+            android:id="@+id/IV_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_arrow_black"/>
 
     </FrameLayout>
 

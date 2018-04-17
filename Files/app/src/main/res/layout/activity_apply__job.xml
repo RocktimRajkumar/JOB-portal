@@ -18,12 +18,16 @@
         android:layout_width="match_parent"
         android:layout_below="@id/IV_back"
         android:layout_height="150dp"
-        android:background="@drawable/headingbg"
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:elevation="5dp">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/headingbg"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/TV_jobtitle"

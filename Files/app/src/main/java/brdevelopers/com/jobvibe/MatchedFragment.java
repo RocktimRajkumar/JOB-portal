@@ -4,6 +4,8 @@ package brdevelopers.com.jobvibe;
 import android.app.AlertDialog;;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -149,18 +151,41 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         getActivity().getMenuInflater().inflate(R.menu.home, menu);
         inflater.inflate(R.menu.searchfile, menu);
         final MenuItem myactionmenu=menu.findItem(R.id.search);
         searchView=(SearchView)myactionmenu.getActionView();
 
-        searchView.setQueryHint(Html.fromHtml("<font color = #ffffff>" + getResources().getString(R.string.search_title) + "</font>"));
+        Home.toolbar.setNavigationIcon(Home.drawable);
+
+        searchView.setQueryHint(Html.fromHtml("<font color = #000>" + getResources().getString(R.string.search_title) + "</font>"));
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Home.toolbar.setNavigationIcon(null);
+                menu.getItem(0).setVisible(false);
+
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                Home.toolbar.setNavigationIcon(Home.drawable);
+                menu.getItem(0).setVisible(true);
+                return false;
+            }
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
+                Home.toolbar.setNavigationIcon(Home.drawable);
+                menu.getItem(0).setVisible(true);
 
                 if(searchView.isIconified())
                     searchView.setIconified(true);
@@ -176,6 +201,39 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+
+                progressBar.setVisibility(View.VISIBLE);
+
+                if (Util.isNetworkConnected(getActivity())) {
+                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    loadAlljob();
+                } else {
+                    Toast toast = new Toast(getActivity());
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
+
+                    LayoutInflater inf = getActivity().getLayoutInflater();
+
+                    View layoutview = inf.inflate(R.layout.custom_toast, (ViewGroup) getActivity().findViewById(R.id.CustomToast_Parent));
+                    TextView tf = layoutview.findViewById(R.id.CustomToast);
+                    tf.setText("No Internet Connection " + Html.fromHtml("&#9995;"));
+                    toast.setView(layoutview);
+                    toast.show();
+
+                    progressBar.setVisibility(View.GONE);
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void loadAlljob() {

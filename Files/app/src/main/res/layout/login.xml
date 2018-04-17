@@ -3,9 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:style="http://schemas.android.com/tools"
     android:background="@drawable/loginbackground"
     android:focusable="true"
     android:focusableInTouchMode="true">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/table"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_log_in">
 
     <ImageView
         android:id="@+id/IV_logoText"
@@ -20,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/IV_logoText"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
         android:layout_centerHorizontal="true">
@@ -30,10 +42,12 @@
             android:id="@+id/TIL_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintTextAppearance="@style/TextLabel"
+            app:hintTextAppearance="@style/mytext"
+            android:textColorHint="@color/white"
             app:errorEnabled="true">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
+                style="@style/Widget.AppCompat.EditText.TextEdit"
                 android:id="@+id/ET_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,7 +55,8 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:inputType="textEmailAddress"
-                android:textSize="@dimen/label"/>
+                android:textSize="@dimen/label"
+                android:textColorHighlight="#fff"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -52,10 +67,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/TIL_email"
-            app:hintTextAppearance="@style/TextLabel"
+            app:hintTextAppearance="@style/mytext"
+            android:textColorHint="@color/white"
             app:errorEnabled="true">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
+                style="@style/Widget.AppCompat.EditText.TextEdit"
                 android:id="@+id/ET_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +80,8 @@
                 android:inputType="textPassword"
                 android:paddingTop="9dp"
                 android:paddingBottom="9dp"
-                android:textSize="@dimen/label"/>
+                android:textSize="@dimen/label"
+                android:textColorHighlight="#fff"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -74,7 +92,7 @@
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:layout_below="@+id/RL_login"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
         android:layout_marginRight="50dp"
         android:layout_marginLeft="50dp"
@@ -92,10 +110,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/TV_loginbutton"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="Don't have a account? Create New!"
         android:textStyle="bold|italic"
         android:gravity="center"
+        android:textSize="16sp"
         android:textColor="@color/white"/>
 
     <ProgressBar
@@ -105,6 +124,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:visibility="gone"/>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>
