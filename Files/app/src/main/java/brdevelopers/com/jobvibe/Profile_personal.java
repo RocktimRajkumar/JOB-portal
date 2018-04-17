@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -70,6 +71,11 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         View view=inflater.inflate(R.layout.profile_personal,container,false);
+
+        Profile.tv_personal.setBackgroundColor(Color.rgb(255,87,34));
+        Profile.tv_personal.setTextColor(Color.rgb(255, 255, 255));
+        Profile.tv_education.setBackgroundColor(Color.rgb(255, 255, 255));
+        Profile.tv_education.setTextColor(Color.rgb(0,0,0));
 
         //Binding view to references
         et_email= view.findViewById(R.id.ET_email);
@@ -328,8 +334,8 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
 
                     //Converting hashmap to string array
                     String[] clistString = clist.values().toArray(new String[0]);
-                    ArrayAdapter<String> arrayAdapterCourse=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,clistString);
-                    degree.setAdapter(arrayAdapterCourse);
+                        ArrayAdapter<String> arrayAdapterCourse = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, clistString);
+                        degree.setAdapter(arrayAdapterCourse);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -413,8 +419,10 @@ public class Profile_personal extends Fragment implements View.OnClickListener, 
                     }
 
                     String[] fosmapString = fosmap.values().toArray(new String[0]);
-                    ArrayAdapter<String> arrayAdapterCourse=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,fosmapString);
-                    fos.setAdapter(arrayAdapterCourse);
+
+                        ArrayAdapter<String> arrayAdapterCourse = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, fosmapString);
+                        fos.setAdapter(arrayAdapterCourse);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();

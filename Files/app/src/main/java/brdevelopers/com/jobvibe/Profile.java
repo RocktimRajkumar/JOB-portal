@@ -5,37 +5,54 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Profile extends AppCompatActivity {
+public class Profile extends AppCompatActivity implements View.OnClickListener{
 
-    TextView tv_personal,tv_education;
+    public static TextView tv_personal,tv_education;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
         tv_personal=findViewById(R.id.TV_personal);
         tv_education=findViewById(R.id.TV_education);
-
+        tv_personal.setOnClickListener(this);
+        tv_education.setOnClickListener(this);
+        tv_personal.setBackgroundColor(Color.rgb(255,87,34));
+        tv_personal.setTextColor(Color.rgb(255, 255, 255));
         loadFragmentProfile(new Profile_personal());
 
     }
 
-
-    public void loadProfile(View view)
-    {
-        if(view.getId()==R.id.TV_editPersonal)
+    @Override
+    public void onClick(View v) {
+        if(v.getId()==R.id.TV_personal)
         {
+
+            tv_personal.setBackgroundColor(Color.rgb(255,87,34));
+            tv_personal.setTextColor(Color.rgb(255, 255, 255));
+            tv_education.setBackgroundColor(Color.rgb(255, 255, 255));
+            tv_education.setTextColor(Color.rgb(0,0,0));
             loadFragmentProfile(new Profile_personal());
         }
-        else if(view.getId()==R.id.TV_editEducation)
+        else if(v.getId()==R.id.TV_education)
         {
+
+            tv_education.setBackgroundColor(Color.rgb(255,87,34));
+            tv_education.setTextColor(Color.rgb(255, 255, 255));
+            tv_personal.setBackgroundColor(Color.rgb(255, 255, 255));
+            tv_personal.setTextColor(Color.rgb(0,0,0));
             loadFragmentProfile(new Profile_Educaion());
         }
+
     }
 
     private void loadFragmentProfile(Fragment fragment) {
@@ -53,4 +70,6 @@ public class Profile extends AppCompatActivity {
         ft.commit();
 
     }
+
+
 }

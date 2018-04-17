@@ -138,10 +138,12 @@ public class Edit_PersonalFragment extends Fragment implements View.OnClickListe
                     mm=c.get(Calendar.MONTH);
                     yy=c.get(Calendar.YEAR);
 
-                    String[] date=dob.split("/");
-                    Log.d("logcheck","hjfjf"+date[0]+date[1]+date[2]);
+                    if(dob.length()>4) {
+                        String[] date = dob.split("/");
+                        Log.d("logcheck", "hjfjf" + date[0] + date[1] + date[2]);
 
-                    calculateAge(dd,mm,yy,Integer.parseInt(date[0]),Integer.parseInt(date[1]),Integer.parseInt(date[2]));
+                        calculateAge(dd, mm, yy, Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+                    }
 
                     et_email.setText(email);
                     et_name.setText(name);

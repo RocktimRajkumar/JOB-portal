@@ -3,6 +3,7 @@ package brdevelopers.com.jobvibe;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -47,6 +48,10 @@ public class Profile_Educaion extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.profile_education,container,false);
+        Profile.tv_education.setBackgroundColor(Color.rgb(255,87,34));
+        Profile.tv_education.setTextColor(Color.rgb(255, 255, 255));
+        Profile.tv_personal.setBackgroundColor(Color.rgb(255, 255, 255));
+        Profile.tv_personal.setTextColor(Color.rgb(0,0,0));
 
         Bundle bundle=getArguments();
         emailid= bundle.getString("email");
@@ -115,6 +120,7 @@ public class Profile_Educaion extends Fragment {
             }
         });
         return view;
+
     }
 
     //Sending Data to EditCandidateEducationalDetails

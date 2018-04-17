@@ -2,117 +2,116 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/gray">
 
-    <LinearLayout
-        android:id="@+id/LL_titleBar"
-        android:layout_width="match_parent"
+
+    <ImageView
+        android:id="@+id/IV_back"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:background="@color/button"
-        android:orientation="horizontal">
+        android:src="@drawable/ic_back_arrow_black"/>
+
+    <RelativeLayout
+        android:id="@+id/RL_heading"
+        android:layout_width="match_parent"
+        android:layout_below="@id/IV_back"
+        android:layout_height="150dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:elevation="5dp">
 
         <ImageView
-            android:id="@+id/IV_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="10dp"
-            android:src="@drawable/ic_backarrow"/>
-
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Job Detail"
-            android:paddingLeft="25sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="25sp"/>
+            android:src="@drawable/headingbg"
+            android:scaleType="centerCrop"/>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/TV_jobtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mobile App Development"
+            android:gravity="center"
+            android:textSize="@dimen/jobtitle"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginTop="24dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"/>
+
+        <TextView
+            android:id="@+id/TV_companyname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TV_jobtitle"
+            android:text="Wipro"
+            android:gravity="center"
+            android:textSize="@dimen/label"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/TV_dateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TV_companyname"
+            android:text="Last Date of Application : "
+            android:layout_marginLeft="68dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="3dp"
+            android:textSize="@dimen/pofileET"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
+
+        <TextView
+            android:id="@+id/TV_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TV_companyname"
+            android:layout_toRightOf="@+id/TV_dateLabel"
+            android:text=" 12/02/1997"
+            android:paddingTop="6dp"
+            android:paddingBottom="3dp"
+            android:textSize="@dimen/pofileET"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/splitLine"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/colorAccent"
+        android:layout_below="@+id/RL_heading"
+        android:elevation="5dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/LL_titleBar"
-        android:layout_above="@id/LL_buttons">
+        android:layout_above="@id/LL_buttons"
+        android:layout_below="@id/splitLine">
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
-
-
-                <RelativeLayout
-                    android:id="@+id/RL_heading"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@drawable/headingbg"
-                    android:layout_marginTop="5dp"
-                    android:elevation="1dp">
-
-                    <TextView
-                        android:id="@+id/TV_jobtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mobile App Development"
-                        android:gravity="center"
-                        android:textSize="@dimen/jobtitle"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:layout_marginTop="24dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="3dp"/>
-
-                    <TextView
-                        android:id="@+id/TV_companyname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/TV_jobtitle"
-                        android:text="Wipro"
-                        android:gravity="center"
-                        android:textSize="@dimen/label"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="3dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"/>
-
-                    <TextView
-                        android:id="@+id/TV_dateLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/TV_companyname"
-                        android:text="Last Date of Application : "
-                        android:layout_marginLeft="68dp"
-                        android:paddingTop="6dp"
-                        android:paddingBottom="3dp"
-                        android:textSize="@dimen/pofileET"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"/>
-
-
-                    <TextView
-                        android:id="@+id/TV_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/TV_companyname"
-                        android:layout_toRightOf="@+id/TV_dateLabel"
-                        android:text=" 12/02/1997"
-                        android:paddingTop="6dp"
-                        android:paddingBottom="3dp"
-                        android:textSize="@dimen/pofileET"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"/>
-
-                </RelativeLayout>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:elevation="5dp">
 
 
                 <RelativeLayout
                     android:id="@+id/RL_primaryDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/RL_heading"
                     android:layout_marginTop="5dp"
                     android:paddingTop="5dp"
                     android:background="@color/white"
@@ -123,7 +122,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Location"
-                        android:textColor="@color/joblabel"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/label"
                         android:textStyle="bold" />
 
@@ -143,7 +142,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/TV_locationLabel"
                         android:text="Salary  "
-                        android:textColor="@color/joblabel"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/label"
                         android:textStyle="bold" />
 
@@ -163,7 +162,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/TV_salaryLabel"
                         android:text="Selection Process "
-                        android:textColor="@color/joblabel"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/label"
                         android:textStyle="bold" />
 
@@ -183,7 +182,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/TV_selection"
                         android:text="Eligible For "
-                        android:textColor="@color/joblabel"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/label"
                         android:textStyle="bold" />
 
@@ -204,7 +203,7 @@
                         android:layout_below="@+id/TV_eligible"
                         android:paddingBottom="5dp"
                         android:text="Prefered Skills "
-                        android:textColor="@color/joblabel"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/label"
                         android:textStyle="bold" />
 
@@ -253,7 +252,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/TV_description"
                     android:text="About the Job  "
-                    android:textColor="@color/joblabel"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/label"
                     android:textStyle="bold" />
 
@@ -276,7 +275,7 @@
                     android:layout_below="@+id/TV_about"
                     android:paddingBottom="5dp"
                     android:text="Company Profile "
-                    android:textColor="@color/joblabel"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/label"
                     android:textStyle="bold"/>
 
@@ -324,7 +323,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/TV_contactHeader"
                     android:text="Website "
-                    android:textColor="@color/joblabel"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/label"
                     android:textStyle="bold" />
 
@@ -346,7 +345,7 @@
                     android:layout_below="@+id/TV_url"
                     android:paddingBottom="5dp"
                     android:text="E-mail "
-                    android:textColor="@color/joblabel"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/label"
                     android:textStyle="bold" />
 

@@ -79,7 +79,6 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:paddingTop="9dp"
-                android:textStyle="bold"
                 android:paddingBottom="9dp"
                 android:textSize="@dimen/label"
                 android:textColorHighlight="#fff"/>

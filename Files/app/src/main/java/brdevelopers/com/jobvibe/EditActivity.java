@@ -30,6 +30,11 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     TextView tv_personal,tv_education;
     ImageView profileimg;
     private final int REQUEST_CODE_GALLERY=999;
+    ImageView iv_back;
+    public String emailh=Home.canemail;
+    public String name=Home.name;
+    public String degree=Home.getdegree;
+    public String fos=Home.getfos;
 
 
     @Override
@@ -38,6 +43,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_edit);
         tv_personal=findViewById(R.id.TV_editPersonal);
         tv_education=findViewById(R.id.TV_editEducation);
+        iv_back=findViewById(R.id.IV_back_arrow);
         profileimg=findViewById(R.id.imageView);
 
 
@@ -51,6 +57,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
         tv_personal.setOnClickListener(this);
         tv_education.setOnClickListener(this);
+        iv_back.setOnClickListener(this);
         tv_personal.setBackgroundColor(Color.rgb(255,87,34));
         tv_personal.setTextColor(Color.rgb(255, 255, 255));
         loadFragmentEdit(new Edit_PersonalFragment());
@@ -161,6 +168,15 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
             tv_personal.setTextColor(Color.rgb(0,0,0));
             loadFragmentEdit(new Edit_EducationFragment());
 
+        }
+        else if(view.getId()==R.id.IV_back_arrow){
+            Intent intent=new Intent(EditActivity.this, Home.class);
+            intent.putExtra("emailid",emailh);
+            intent.putExtra("name",name);
+            intent.putExtra("getdegree",degree);
+            intent.putExtra("getfos",fos);
+            startActivity(intent);
+            finish();
         }
     }
 
