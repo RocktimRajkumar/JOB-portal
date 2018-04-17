@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -42,7 +43,7 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
 
 
     private TextInputLayout til_password,til_cpassword,til_email;
-    private EditText et_password,et_cpassword,et_email;
+    private TextInputEditText et_password,et_cpassword,et_email;
     TextView tv_signup;
     private int i_password=0,i_cpassword=0,i_email=0;
 

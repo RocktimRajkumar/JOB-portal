@@ -8,6 +8,17 @@
     android:focusableInTouchMode="true">
 
     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/busy"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_log_in">
+
+    <ImageView
         android:id="@+id/IV_logoText"
         android:layout_width="260dp"
         android:layout_height="120dp"
@@ -30,10 +41,12 @@
             android:id="@+id/TIL_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintTextAppearance="@style/TextLabel"
-            app:errorEnabled="true">
+            app:errorEnabled="true"
+            android:textColorHint="@color/white"
+            app:hintTextAppearance="@style/mytext">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
+                style="@style/Widget.AppCompat.EditText.TextEdit"
                 android:id="@+id/ET_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,7 +54,8 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:inputType="textEmailAddress"
-                android:textSize="@dimen/label"/>
+                android:textSize="@dimen/label"
+                android:textColorHighlight="@color/white"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -52,10 +66,12 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@+id/TIL_email"
-          app:hintTextAppearance="@style/TextLabel"
-          app:errorEnabled="true">
+          app:errorEnabled="true"
+          android:textColorHint="@color/white"
+          app:hintTextAppearance="@style/mytext">
 
-          <EditText
+          <android.support.design.widget.TextInputEditText
+              style="@style/Widget.AppCompat.EditText.TextEdit"
               android:id="@+id/ET_password"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -63,7 +79,8 @@
               android:inputType="textPassword"
               android:paddingTop="9dp"
               android:paddingBottom="9dp"
-              android:textSize="@dimen/label"/>
+              android:textSize="@dimen/label"
+              android:textColorHighlight="@color/white"/>
 
       </android.support.design.widget.TextInputLayout>
 
@@ -72,10 +89,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/TIL_password"
-            app:hintTextAppearance="@style/TextLabel"
-            app:errorEnabled="true">
+            android:textColorHint="@color/white"
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/mytext">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
+                style="@style/Widget.AppCompat.EditText.TextEdit"
                 android:id="@+id/ET_cpassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,7 +102,8 @@
                 android:inputType="textPassword"
                 android:paddingTop="9dp"
                 android:paddingBottom="9dp"
-                android:textSize="@dimen/label"/>
+                android:textSize="@dimen/label"
+                android:textColorHighlight="@color/white"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -110,6 +130,8 @@
         android:textStyle="bold"
         android:textSize="@dimen/label"
         android:gravity="center"/>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>
