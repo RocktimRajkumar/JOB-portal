@@ -30,8 +30,8 @@
         android:id="@+id/VP_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/AL_appbar">
-
+        android:layout_below="@+id/AL_appbar"
+        android:layout_above="@+id/RL_buttons">
 
     </android.support.v4.view.ViewPager>
 
