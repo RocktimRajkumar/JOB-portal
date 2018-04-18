@@ -8,6 +8,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -107,14 +108,16 @@
 
     <TextView
         android:id="@+id/crete_new"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/TV_loginbutton"
-        android:layout_marginTop="30dp"
-        android:text="Don't have a account? Create New!"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:padding="15dp"
+        android:text="Or Signup"
         android:textStyle="bold|italic"
-        android:gravity="center"
-        android:textSize="16sp"
+        android:textSize="@dimen/label"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/tosignupbg"
         android:textColor="@color/white"/>
 
     <ProgressBar

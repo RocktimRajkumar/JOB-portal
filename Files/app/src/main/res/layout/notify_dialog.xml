@@ -5,40 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/LL_titleBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:background="@color/button"
-        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="25sp"
-            android:gravity="center"/>
-
-    </LinearLayout>
 
     <ImageView
         android:id="@+id/IV_bell"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="100dp"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/LL_titleBar"
-        android:src="@drawable/ic_notification" />
+        android:src="@drawable/notification" />
 
     <LinearLayout
         android:id="@+id/LL_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/IV_bell"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="20dp"
         android:orientation="vertical">
 
@@ -59,6 +42,21 @@
             android:text="Your application has been registered. You'll be notified with further information."
             android:textColor="@color/black"
             android:textSize="@dimen/label"/>
+
+        <TextView
+            android:id="@+id/TV_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:padding="8dp"
+            android:text="Okay"
+            android:textSize="@dimen/label"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@color/ok_button"
+            android:elevation="5dp"/>
 
 
 
