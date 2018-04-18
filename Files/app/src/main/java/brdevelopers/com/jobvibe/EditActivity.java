@@ -176,6 +176,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("getdegree",degree);
             intent.putExtra("getfos",fos);
             startActivity(intent);
+            overridePendingTransition(R.anim.topttobottom,R.anim.bottomtotop);
             finish();
         }
     }
@@ -188,5 +189,16 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent=new Intent(EditActivity.this,Home.class);
+        intent.putExtra("emailid",emailh);
+        intent.putExtra("name",name);
+        intent.putExtra("getdegree",degree);
+        intent.putExtra("getfos",fos);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.topttobottom,R.anim.bottomtotop);
+    }
 }

@@ -27,8 +27,22 @@ public class FAQ extends AppCompatActivity {
                 intent.putExtra("getdegree",degree);
                 intent.putExtra("getfos",fos);
                 startActivity(intent);
+                overridePendingTransition(R.anim.topttobottom,R.anim.bottomtotop);
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent=new Intent(FAQ.this,Home.class);
+        intent.putExtra("emailid",email);
+        intent.putExtra("name",name);
+        intent.putExtra("getdegree",degree);
+        intent.putExtra("getfos",fos);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.topttobottom,R.anim.bottomtotop);
     }
 }
