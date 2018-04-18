@@ -115,6 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:padding="3dp"
                     android:paddingTop="5dp"
                     android:background="@color/white"
                     android:elevation="3dp">
@@ -124,8 +125,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Location"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/label"
+                        android:textColor="@color/lightgrey"
+                        android:textSize="@dimen/headlabel"
                         android:textStyle="bold" />
 
                     <TextView
@@ -135,7 +136,8 @@
                         android:layout_marginLeft="80dp"
                         android:layout_toRightOf="@+id/TV_locationLabel"
                         android:text="Kolkata"
-                        android:textSize="@dimen/label"
+                        android:textSize="@dimen/headlabel"
+                        android:textColor="@color/darkgrey"
                         android:textStyle="bold" />
 
                     <TextView
@@ -144,8 +146,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/TV_locationLabel"
                         android:text="Salary  "
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/label"
+                        android:textColor="@color/lightgrey"
+                        android:textSize="@dimen/headlabel"
                         android:textStyle="bold" />
 
                     <TextView
@@ -155,7 +157,8 @@
                         android:layout_alignLeft="@+id/TV_location"
                         android:layout_below="@+id/TV_location"
                         android:text="25000"
-                        android:textSize="@dimen/label"
+                        android:textSize="@dimen/headlabel"
+                        android:textColor="@color/darkgrey"
                         android:textStyle="bold" />
 
                     <TextView
@@ -164,8 +167,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/TV_salaryLabel"
                         android:text="Selection Process "
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/label"
+                        android:textColor="@color/lightgrey"
+                        android:textSize="@dimen/headlabel"
                         android:textStyle="bold" />
 
                     <TextView
@@ -175,7 +178,8 @@
                         android:layout_alignLeft="@+id/TV_location"
                         android:layout_below="@+id/TV_salary"
                         android:text="walk-in, written, online"
-                        android:textSize="@dimen/label"
+                        android:textSize="@dimen/headlabel"
+                        android:textColor="@color/darkgrey"
                         android:textStyle="bold" />
 
                     <TextView
@@ -184,8 +188,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/TV_selection"
                         android:text="Eligible For "
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/label"
+                        android:textColor="@color/lightgrey"
+                        android:textSize="@dimen/headlabel"
                         android:textStyle="bold" />
 
                     <TextView
@@ -195,7 +199,8 @@
                         android:layout_alignLeft="@+id/TV_location"
                         android:layout_below="@+id/TV_selection"
                         android:text="mca,bca,btech"
-                        android:textSize="@dimen/label"
+                        android:textSize="@dimen/headlabel"
+                        android:textColor="@color/darkgrey"
                         android:textStyle="bold" />
 
                     <TextView
@@ -205,8 +210,8 @@
                         android:layout_below="@+id/TV_eligible"
                         android:paddingBottom="5dp"
                         android:text="Prefered Skills "
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/label"
+                        android:textColor="@color/lightgrey"
+                        android:textSize="@dimen/headlabel"
                         android:textStyle="bold" />
 
                     <TextView
@@ -217,7 +222,8 @@
                         android:layout_below="@+id/TV_eligible"
                         android:paddingBottom="5dp"
                         android:text="java,android."
-                        android:textSize="@dimen/label"
+                        android:textSize="@dimen/headlabel"
+                        android:textColor="@color/darkgrey"
                         android:textStyle="bold" />
 
                     <View
@@ -235,6 +241,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/RL_primaryDetails"
+                android:padding="3dp"
                 android:paddingTop="5dp"
                 android:background="@color/white"
                 android:elevation="3dp">
@@ -254,8 +261,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/TV_description"
                     android:text="About the Job  "
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/label"
+                    android:textColor="@color/lightgrey"
+                    android:textSize="@dimen/headlabel"
                     android:textStyle="bold" />
 
                 <TextView
@@ -266,7 +273,8 @@
                     android:layout_toRightOf="@+id/TV_aboutLabel"
                     android:layout_marginLeft="25dp"
                     android:text="Android App Developement"
-                    android:textSize="@dimen/label"
+                    android:textSize="@dimen/headlabel"
+                    android:textColor="@color/darkgrey"
                     android:textStyle="bold" />
 
 
@@ -277,8 +285,8 @@
                     android:layout_below="@+id/TV_about"
                     android:paddingBottom="5dp"
                     android:text="Company Profile "
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/label"
+                    android:textColor="@color/lightgrey"
+                    android:textSize="@dimen/headlabel"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -288,8 +296,9 @@
                     android:layout_below="@id/TV_about"
                     android:layout_alignLeft="@+id/TV_about"
                     android:paddingBottom="5dp"
+                    android:textColor="@color/darkgrey"
                     android:text="Wipro is one of the most reputed compant in India."
-                    android:textSize="@dimen/label"
+                    android:textSize="@dimen/headlabel"
                     android:textStyle="bold" />
                 <View
                     android:id="@+id/splitLine2"
@@ -306,6 +315,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/RL_description"
+                android:padding="3dp"
                 android:paddingTop="5dp"
                 android:background="@color/white"
                 android:elevation="3dp">
@@ -325,8 +335,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/TV_contactHeader"
                     android:text="Website "
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/label"
+                    android:textColor="@color/lightgrey"
+                    android:textSize="@dimen/headlabel"
                     android:textStyle="bold" />
 
                 <TextView
@@ -337,7 +347,8 @@
                     android:layout_toRightOf="@+id/TV_urlLabel"
                     android:layout_marginLeft="77dp"
                     android:text="www.wipro.com"
-                    android:textSize="@dimen/label"
+                    android:textSize="@dimen/headlabel"
+                    android:textColor="@color/darkgrey"
                     android:textStyle="bold" />
 
                 <TextView
@@ -347,8 +358,8 @@
                     android:layout_below="@+id/TV_url"
                     android:paddingBottom="5dp"
                     android:text="E-mail "
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/label"
+                    android:textColor="@color/lightgrey"
+                    android:textSize="@dimen/headlabel"
                     android:textStyle="bold" />
 
                 <TextView
@@ -359,7 +370,8 @@
                     android:layout_alignLeft="@+id/TV_url"
                     android:paddingBottom="5dp"
                     android:text="wiproindia@wipro.com"
-                    android:textSize="@dimen/label"
+                    android:textSize="@dimen/headlabel"
+                    android:textColor="@color/darkgrey"
                     android:textStyle="bold" />
 
                 <View
