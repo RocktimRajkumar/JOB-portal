@@ -304,6 +304,7 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
         if(v.getId()== R.id.TV_backtoLogin){
             Intent intent=new Intent(Sign_up.this,Login.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.lefttoright,R.anim.righttoleft);
             finish();
         }
 
