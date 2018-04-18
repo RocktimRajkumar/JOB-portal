@@ -85,16 +85,21 @@ public class NotificationFragment extends Fragment {
                 boolean bol=dbupdate.updateNotificationView(listjob.get(position).getJbid(),Home.canemail,"1");
                 AlertDialog.Builder report=new AlertDialog.Builder(getActivity());
                 View reportView=getLayoutInflater().inflate(R.layout.notify_dialog,null);
+                report.setView(reportView);
+                TextView okay=(TextView) reportView.findViewById(R.id.TV_ok);
+                final AlertDialog dialog = report.create();
 
-                report.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+
+                okay.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
+                    public void onClick(View v) {
+
+                        Log.d("logcheck","Button is clicked");
+                        dialog.dismiss();
                     }
                 });
 
-                report.setView(reportView);
-                report.show();
+                dialog.show();
                 arrayList=new ArrayList<>();
                 arrayList=dbupdate.getNotificationData(Home.canemail);
                 checkAndProceed();
