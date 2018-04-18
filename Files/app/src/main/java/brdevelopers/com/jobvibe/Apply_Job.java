@@ -219,6 +219,7 @@ public class Apply_Job extends AppCompatActivity {
                 intent.putExtra("getdegree",degree);
                 intent.putExtra("getfos",fos);
                 startActivity(intent);
+                overridePendingTransition(R.anim.topttobottom,R.anim.bottomtotop);
                 finish();
 
 
@@ -318,8 +319,15 @@ public class Apply_Job extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
-        super.onBackPressed();
 
+        super.onBackPressed();
+        Intent intent=new Intent(Apply_Job.this,Home.class);
+        intent.putExtra("emailid",emailh);
+        intent.putExtra("name",name);
+        intent.putExtra("getdegree",degree);
+        intent.putExtra("getfos",fos);
+        startActivity(intent);
+        overridePendingTransition(R.anim.topttobottom,R.anim.bottomtotop);
+        finish();
     }
 }
