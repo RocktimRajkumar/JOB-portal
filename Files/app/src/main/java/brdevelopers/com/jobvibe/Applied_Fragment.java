@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,7 +57,7 @@ public class Applied_Fragment extends Fragment {
     private String cemail;
     private RecyclerView recyclerView;
     private RecyclerAdapter recyclerAdapter;
-    private boolean bol=true;
+    private ImageView iv_nojob;
 
     private RequestQueue mRequestQueue;
 
@@ -72,6 +73,7 @@ public class Applied_Fragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_applied_,container,false);
         recyclerView=view.findViewById(R.id.RV_job);
         progressBar = view.findViewById(R.id.progressbar);
+        iv_nojob=view.findViewById(R.id.IV_nojob);
 
 
 
@@ -94,9 +96,12 @@ public class Applied_Fragment extends Fragment {
 
         cemail=Home.canemail;
 
+        iv_nojob.setVisibility(View.VISIBLE);
+
         if(Util.isNetworkConnected(getActivity())) {
-            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             loadAlljob();
+
         }
         else{
             Toast toast=new Toast(getActivity());
@@ -111,7 +116,7 @@ public class Applied_Fragment extends Fragment {
             toast.setView(layoutview);
             toast.show();
             progressBar.setVisibility(View.GONE);
-            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
 
         return view;
@@ -151,8 +156,8 @@ public class Applied_Fragment extends Fragment {
                     e.printStackTrace();
                     Log.d("LogCheck", "" + e);
                     progressBar.setVisibility(View.GONE);
-                    if(getActivity()!=null)
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                    if(getActivity()!=null)
+//                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
             }
@@ -163,7 +168,7 @@ public class Applied_Fragment extends Fragment {
                         Log.d("LogCheck", "" + error);
                         Toast.makeText(getActivity(), "" + error, Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 }) {
 
@@ -194,8 +199,8 @@ public class Applied_Fragment extends Fragment {
                 Log.d("LogCheck", response);
 
                 progressBar.setVisibility(View.VISIBLE);
-                if(getActivity()!=null)
-                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                if(getActivity()!=null)
+//                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 
                 try {
@@ -211,21 +216,23 @@ public class Applied_Fragment extends Fragment {
                         String canemail=resobject.getString("cemail");
                         String jobid=resobject.getString("jid");
 
-                        if(canemail.equals(cemail))
+                        if(canemail.equals(cemail)) {
                             jobidjob(jobid);
+
+                        }
 
                     }
 
 
                     progressBar.setVisibility(View.GONE);
-                    if(getActivity()!=null)
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                    if(getActivity()!=null)
+//                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("LogCheck", "" + e);
                     progressBar.setVisibility(View.GONE);
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
             }
@@ -236,7 +243,7 @@ public class Applied_Fragment extends Fragment {
                         Log.d("LogCheck", "" + error);
                         Toast.makeText(getActivity(), "" + error, Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 }) {
 
@@ -259,8 +266,8 @@ public class Applied_Fragment extends Fragment {
     private void jobidjob(final String jobid) {
 
         progressBar.setVisibility(View.VISIBLE);
-        if(getActivity()!=null)
-        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//        if(getActivity()!=null)
+//        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, idjob, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -269,6 +276,7 @@ public class Applied_Fragment extends Fragment {
 
                 try {
                     JSONObject jsonObject=new JSONObject(response);
+
 
                         JSONObject jobobject=jsonObject.getJSONObject("Jobdetails");
 
@@ -332,23 +340,22 @@ public class Applied_Fragment extends Fragment {
 
                         list.add(job_details);
 
-                    if(bol) {
+
                         recyclerAdapter = new RecyclerAdapter(getActivity(), list);
                         recyclerAdapter.setApplyvalue(1);
                         recyclerView.setAdapter(recyclerAdapter);
-                    }
-                    else
-                        recyclerAdapter.filter(list);
-                    progressBar.setVisibility(View.GONE);
-                    if(getActivity()!=null)
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                        iv_nojob.setVisibility(View.GONE);
+
+//                    if(getActivity()!=null)
+//                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("LogCheck",""+e);
                     progressBar.setVisibility(View.GONE);
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
             }
@@ -359,7 +366,7 @@ public class Applied_Fragment extends Fragment {
                         Log.d("LogCheck",""+error);
                         Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 }){
 
@@ -392,7 +399,7 @@ public class Applied_Fragment extends Fragment {
 
                 progressBar.setVisibility(View.VISIBLE);
                 if(Util.isNetworkConnected(getActivity())) {
-                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     loadAlljob();
                 }
                 else{
@@ -408,7 +415,7 @@ public class Applied_Fragment extends Fragment {
                     toast.setView(layoutview);
                     toast.show();
                     progressBar.setVisibility(View.GONE);
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
                 return true;

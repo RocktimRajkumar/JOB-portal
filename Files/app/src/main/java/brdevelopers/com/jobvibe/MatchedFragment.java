@@ -31,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +66,8 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
     private HashSet<String> jbcompany = new HashSet<>();
     private HashSet<String> jbskill = new HashSet<>();
 
+    private ImageView nojob;
+
     private static String course;
 
     private RequestQueue mRequestQueue;
@@ -88,6 +91,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         floatlocation = view.findViewById(R.id.location);
         floatskill = view.findViewById(R.id.skill);
         floatcompany = view.findViewById(R.id.company);
+        nojob=view.findViewById(R.id.IV_nojob);
 
 
 
@@ -315,115 +319,121 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
                 Log.d("LogCheck", response);
 
+
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("JobList");
-
-                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                        JSONObject jobobject = jsonArray.getJSONObject(i);
-
-                        String jid = jobobject.getString("jid");
-                        String jtitle = jobobject.getString("jobtitle");
-                        String jlocation = jobobject.getString("location");
-                        String jldapply = jobobject.getString("ldapply");
-                        String jcname = jobobject.getString("cname");
-                        String jurl = jobobject.getString("url");
-                        String jsalary = jobobject.getString("salary");
-                        String jbca = jobobject.getString("bca");
-                        String jmca = jobobject.getString("mca");
-                        String jcse = jobobject.getString("cse");
-                        String jit = jobobject.getString("it");
-                        String jee = jobobject.getString("ee");
-                        String jece = jobobject.getString("ece");
-                        String jcivil = jobobject.getString("civil");
-                        String jmba = jobobject.getString("mba");
-                        String jasp = jobobject.getString("asp");
-                        String jphp = jobobject.getString("php");
-                        String jjava = jobobject.getString("java");
-                        String jios = jobobject.getString("ios");
-                        String jandroid = jobobject.getString("android");
-                        String jdbms = jobobject.getString("dbms");
-                        String jwrittentest = jobobject.getString("writtentest");
-                        String jwalkin = jobobject.getString("walkin");
-                        String jonline = jobobject.getString("online");
-                        String jdescription = jobobject.getString("jobdescription");
-                        String jcompanyprofile = jobobject.getString("companyprofile");
-                        String jemail = jobobject.getString("email");
+                    String success=jsonObject.getString("Sucess");
 
 
-                        Job_details job_details = new Job_details();
-                        job_details.setJbid(jid);
-                        job_details.setJbtitle(jtitle);
-                        job_details.setJblocation(jlocation);
-                        job_details.setJbldapply(jldapply);
-                        job_details.setJbcompnayname(jcname);
-                        job_details.setJburl(jurl);
-                        job_details.setJbsalary(jsalary);
-                        job_details.setJbbca(jbca);
-                        job_details.setJbmca(jmca);
-                        job_details.setJbcse(jcse);
-                        job_details.setJbit(jit);
-                        job_details.setJbee(jee);
-                        job_details.setJbece(jece);
-                        job_details.setJbcivil(jcivil);
-                        job_details.setJbmba(jmba);
-                        job_details.setJbasp(jasp);
-                        job_details.setJbphp(jphp);
-                        job_details.setJbjava(jjava);
-                        job_details.setJbios(jios);
-                        job_details.setJbandroid(jandroid);
-                        job_details.setJbdbms(jdbms);
-                        job_details.setJbwrittentest(jwrittentest);
-                        job_details.setJbwalking(jwalkin);
-                        job_details.setJbonline(jonline);
-                        job_details.setJbdescription(jdescription);
-                        job_details.setJbcompanyprofile(jcompanyprofile);
-                        job_details.setJbemail(jemail);
+                        JSONArray jsonArray = jsonObject.getJSONArray("JobList");
 
-                        list.add(job_details);
+                        for (int i = 0; i < jsonArray.length(); i++) {
 
-                        if (!jcname.isEmpty())
-                            jbcompany.add(jcname.toLowerCase());
+                            JSONObject jobobject = jsonArray.getJSONObject(i);
 
-                        if(!jasp.isEmpty())
-                            jbskill.add(jasp.toLowerCase());
-                        if(!jphp.isEmpty())
-                            jbskill.add(jphp.toLowerCase());
-                        if(!jjava.isEmpty())
-                            jbskill.add(jjava.toLowerCase());
-                        if(!jios.isEmpty())
-                             jbskill.add(jios.toLowerCase());
-                        if(!jandroid.isEmpty())
-                             jbskill.add(jandroid.toLowerCase());
-                        if(!jdbms.isEmpty())
-                            jbskill.add(jdbms.toLowerCase());
+                            String jid = jobobject.getString("jid");
+                            String jtitle = jobobject.getString("jobtitle");
+                            String jlocation = jobobject.getString("location");
+                            String jldapply = jobobject.getString("ldapply");
+                            String jcname = jobobject.getString("cname");
+                            String jurl = jobobject.getString("url");
+                            String jsalary = jobobject.getString("salary");
+                            String jbca = jobobject.getString("bca");
+                            String jmca = jobobject.getString("mca");
+                            String jcse = jobobject.getString("cse");
+                            String jit = jobobject.getString("it");
+                            String jee = jobobject.getString("ee");
+                            String jece = jobobject.getString("ece");
+                            String jcivil = jobobject.getString("civil");
+                            String jmba = jobobject.getString("mba");
+                            String jasp = jobobject.getString("asp");
+                            String jphp = jobobject.getString("php");
+                            String jjava = jobobject.getString("java");
+                            String jios = jobobject.getString("ios");
+                            String jandroid = jobobject.getString("android");
+                            String jdbms = jobobject.getString("dbms");
+                            String jwrittentest = jobobject.getString("writtentest");
+                            String jwalkin = jobobject.getString("walkin");
+                            String jonline = jobobject.getString("online");
+                            String jdescription = jobobject.getString("jobdescription");
+                            String jcompanyprofile = jobobject.getString("companyprofile");
+                            String jemail = jobobject.getString("email");
 
 
-                    }
+                            Job_details job_details = new Job_details();
+                            job_details.setJbid(jid);
+                            job_details.setJbtitle(jtitle);
+                            job_details.setJblocation(jlocation);
+                            job_details.setJbldapply(jldapply);
+                            job_details.setJbcompnayname(jcname);
+                            job_details.setJburl(jurl);
+                            job_details.setJbsalary(jsalary);
+                            job_details.setJbbca(jbca);
+                            job_details.setJbmca(jmca);
+                            job_details.setJbcse(jcse);
+                            job_details.setJbit(jit);
+                            job_details.setJbee(jee);
+                            job_details.setJbece(jece);
+                            job_details.setJbcivil(jcivil);
+                            job_details.setJbmba(jmba);
+                            job_details.setJbasp(jasp);
+                            job_details.setJbphp(jphp);
+                            job_details.setJbjava(jjava);
+                            job_details.setJbios(jios);
+                            job_details.setJbandroid(jandroid);
+                            job_details.setJbdbms(jdbms);
+                            job_details.setJbwrittentest(jwrittentest);
+                            job_details.setJbwalking(jwalkin);
+                            job_details.setJbonline(jonline);
+                            job_details.setJbdescription(jdescription);
+                            job_details.setJbcompanyprofile(jcompanyprofile);
+                            job_details.setJbemail(jemail);
 
-                    checkedItemscom = new boolean[jbcompany.size()];
-                    int k = 0;
-                    for (String s : jbcompany) {
-                        checkedItemscom[k] = false;
-                        k++;
-                    }
+                            list.add(job_details);
+
+                            if (!jcname.isEmpty())
+                                jbcompany.add(jcname.toLowerCase());
+
+                            if (!jasp.isEmpty())
+                                jbskill.add(jasp.toLowerCase());
+                            if (!jphp.isEmpty())
+                                jbskill.add(jphp.toLowerCase());
+                            if (!jjava.isEmpty())
+                                jbskill.add(jjava.toLowerCase());
+                            if (!jios.isEmpty())
+                                jbskill.add(jios.toLowerCase());
+                            if (!jandroid.isEmpty())
+                                jbskill.add(jandroid.toLowerCase());
+                            if (!jdbms.isEmpty())
+                                jbskill.add(jdbms.toLowerCase());
 
 
-                    checkedItemsskill = new boolean[jbskill.size()];
-                    int l = 0;
-                    for (String s : jbskill) {
-                        checkedItemsskill[l] = false;
-                        l++;
-                    }
+                        }
 
-                    if(list!=null) {
-                        recyclerAdapter = new RecyclerAdapter(getActivity(), list);
-                        recyclerView.setAdapter(recyclerAdapter);
-                    }
-                    progressBar.setVisibility(View.GONE);
-                    if(getActivity()!=null)
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        checkedItemscom = new boolean[jbcompany.size()];
+                        int k = 0;
+                        for (String s : jbcompany) {
+                            checkedItemscom[k] = false;
+                            k++;
+                        }
+
+
+                        checkedItemsskill = new boolean[jbskill.size()];
+                        int l = 0;
+                        for (String s : jbskill) {
+                            checkedItemsskill[l] = false;
+                            l++;
+                        }
+
+                        if (list != null) {
+                            recyclerAdapter = new RecyclerAdapter(getActivity(), list);
+                            recyclerView.setAdapter(recyclerAdapter);
+                        }
+                        nojob.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
+                        if (getActivity() != null)
+                            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -487,6 +497,13 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
         final List<String> newCompany = new ArrayList<>();
 
+        int a=0;
+        for(boolean bolu:checkedItemscom){
+            if(bolu)
+                newCompany.add(company[a]);
+            a++;
+        }
+
         builder.setMultiChoiceItems(company, checkedItemscom, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
@@ -515,6 +532,8 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
                 }
                 if (newCompany.size() != 0)
                     loadNewCompanyJob(newCompany);
+                else
+                    recyclerAdapter.filter(list);
 
             }
         });
@@ -537,6 +556,13 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 //        final boolean[] checkedItems = new boolean[jbskill.size()];
 
         final List<String> newSkill = new ArrayList<>();
+
+        int a=0;
+        for(boolean bolu:checkedItemsskill){
+            if(bolu)
+                newSkill.add(skill[a]);
+            a++;
+        }
 
         builder.setMultiChoiceItems(skill, checkedItemsskill, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
@@ -568,6 +594,10 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
                 }
                 if (newSkill.size() != 0)
                     loadNewSkillJob(newSkill);
+                else {
+                    recyclerAdapter.filter(list);
+                    nojob.setVisibility(View.GONE);
+                }
 
             }
         });
@@ -590,6 +620,13 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
 
         final List<String> newLocation = new ArrayList<>();
+
+        int a=0;
+        for(boolean bolu:checkedItemsloc){
+            if(bolu)
+                newLocation.add(location[a]);
+            a++;
+        }
 
         builder.setMultiChoiceItems(location, checkedItemsloc, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
@@ -622,6 +659,10 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
                 if (newLocation.size() != 0)
                     loadNewLocationJob(newLocation);
+                else {
+                    recyclerAdapter.filter(list);
+                    nojob.setVisibility(View.GONE);
+                }
 
             }
         });
@@ -636,22 +677,39 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
     private void loadNewSkillJob(List<String> newSkilllist) {
 
         List<Job_details> skilllist = new ArrayList<>();
+        int i=0;
 
         for(String newSkill:newSkilllist){
             for(Job_details job_details:list){
 
                 if(job_details.getJbasp().equalsIgnoreCase(newSkill)){
+                    i=1;
                     skilllist.add(job_details);
+                    nojob.setVisibility(View.GONE);
                 } else if (job_details.getJbphp().equalsIgnoreCase(newSkill)) {
+                    i=1;
                     skilllist.add(job_details);
+                    nojob.setVisibility(View.GONE);
                 } else if (job_details.getJbjava().equalsIgnoreCase(newSkill)) {
+                    i=1;
                     skilllist.add(job_details);
+                    nojob.setVisibility(View.GONE);
                 } else if (job_details.getJbios().equalsIgnoreCase(newSkill)) {
+                    i=1;
                     skilllist.add(job_details);
+                    nojob.setVisibility(View.GONE);
                 } else if (job_details.getJbandroid().equalsIgnoreCase(newSkill)) {
+                    i=1;
                     skilllist.add(job_details);
+                    nojob.setVisibility(View.GONE);
                 } else if (job_details.getJbdbms().equalsIgnoreCase(newSkill)) {
+                    i=1;
                     skilllist.add(job_details);
+                    nojob.setVisibility(View.GONE);
+                }
+                else if(i==0) {
+                    nojob.setVisibility(View.VISIBLE);
+                    nojob.setVisibility(View.GONE);
                 }
             }
         }
@@ -662,12 +720,17 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
     private void loadNewCompanyJob(List<String> newCompanylist) {
 
         List<Job_details> companylist = new ArrayList<>();
+        int i=0;
 
         for (String newCompany : newCompanylist) {
             for (Job_details job_details : list) {
                 if (job_details.getJbcompnayname().equalsIgnoreCase(newCompany)) {
+                    i=1;
                     companylist.add(job_details);
+                    nojob.setVisibility(View.GONE);
                 }
+                else if(i==0)
+                    nojob.setVisibility(View.VISIBLE);
             }
         }
         recyclerAdapter.filter(companylist);
@@ -677,12 +740,17 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
     private void loadNewLocationJob(List<String> newLocation) {
 
         List<Job_details> locationlist = new ArrayList<>();
+        int i=0;
 
         for (String newLoc : newLocation) {
             for (Job_details job_details : list) {
                 if (job_details.getJblocation().equalsIgnoreCase(newLoc)) {
+                    i=1;
                     locationlist.add(job_details);
+                    nojob.setVisibility(View.GONE);
                 }
+                else if(i==0)
+                    nojob.setVisibility(View.VISIBLE);
             }
         }
         recyclerAdapter.filter(locationlist);
@@ -691,6 +759,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
     public void searchFilter(String query)
     {
+        int i=0;
         query=query.toLowerCase();
         final List<Job_details> newlist=new ArrayList<>();
 
@@ -699,8 +768,12 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
             final String name=job.getJbtitle().toLowerCase();
             if(name.startsWith(query))
             {
+                i=1;
+                nojob.setVisibility(View.GONE);
                 newlist.add(job);
             }
+            else if(i==0)
+                nojob.setVisibility(View.VISIBLE);
         }
         recyclerAdapter.filter(newlist);
     }

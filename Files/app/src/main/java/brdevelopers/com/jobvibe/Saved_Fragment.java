@@ -15,14 +15,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Cache;
+import com.android.volley.Network;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -44,7 +51,8 @@ public class Saved_Fragment extends Fragment {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private RecyclerAdapter recyclerAdapter;
-    private TextView tv_nojob;
+    private ImageView iv_nojob;
+    private RequestQueue mRequestQueue;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +66,7 @@ public class Saved_Fragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_saved,container,false);
         recyclerView = view.findViewById(R.id.RV_job);
         progressBar=view.findViewById(R.id.progressbar);
-        tv_nojob=view.findViewById(R.id.TV_nojob);
+        iv_nojob=view.findViewById(R.id.IV_nojob);
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
@@ -67,20 +75,32 @@ public class Saved_Fragment extends Fragment {
         DBManager dbManager=new DBManager(getActivity());
         arrayList=dbManager.getSavedData(Home.canemail);
 
+
+// Instantiate the cache
+        Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
+
+// Set up the network to use HttpURLConnection as the HTTP client.
+        Network network = new BasicNetwork(new HurlStack());
+
+// Instantiate the RequestQueue with the cache and network.
+        mRequestQueue = new RequestQueue(cache, network);
+
+// Start the queue
+        mRequestQueue.start();
+
         listjob=new ArrayList<>();
         if(arrayList!=null){
 
-            tv_nojob.setVisibility(View.GONE);
+            iv_nojob.setVisibility(View.GONE);
             for (JobActivity jobActivity : arrayList) {
                 loadalViewedJob(jobActivity.getJobid());
             }
 
+
         }
         else {
             progressBar.setVisibility(View.GONE);
-            tv_nojob.setVisibility(View.VISIBLE);
-            if(getActivity()!=null)
-            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            iv_nojob.setVisibility(View.VISIBLE);
         }
 
         return view;
@@ -94,7 +114,6 @@ public class Saved_Fragment extends Fragment {
 
                 Log.d("LogCheck",response);
                 progressBar.setVisibility(View.VISIBLE);
-                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 
                 try {
@@ -165,14 +184,12 @@ public class Saved_Fragment extends Fragment {
                     recyclerAdapter=new RecyclerAdapter(getActivity(),listjob);
                     recyclerView.setAdapter(recyclerAdapter);
                     progressBar.setVisibility(View.GONE);
-                    if(getActivity()!=null)
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("LogCheck",""+e);
                     progressBar.setVisibility(View.GONE);
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
             }
@@ -183,7 +200,6 @@ public class Saved_Fragment extends Fragment {
                         Log.d("LogCheck",""+error);
                         Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 }){
 
@@ -198,7 +214,8 @@ public class Saved_Fragment extends Fragment {
 
         };
 
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
+//        Volley.newRequestQueue(getActivity()).add(stringRequest);
+        mRequestQueue.add(stringRequest);
     }
 
     @Override
@@ -220,7 +237,7 @@ public class Saved_Fragment extends Fragment {
                 listjob=new ArrayList<>();
                 if(arrayList!=null){
 
-                    tv_nojob.setVisibility(View.GONE);
+                    iv_nojob.setVisibility(View.GONE);
                     for (JobActivity jobActivity : arrayList) {
                         loadalViewedJob(jobActivity.getJobid());
                     }
@@ -228,9 +245,7 @@ public class Saved_Fragment extends Fragment {
                 }
                 else {
                     progressBar.setVisibility(View.GONE);
-                    tv_nojob.setVisibility(View.VISIBLE);
-                    if(getActivity()!=null)
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    iv_nojob.setVisibility(View.VISIBLE);
                 }
                 return true;
             default:

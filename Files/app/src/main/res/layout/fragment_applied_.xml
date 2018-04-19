@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Applied_Fragment"
-    android:id="@+id/fragment_applied">
+    android:id="@+id/fragment_applied"
+    android:background="@color/gray">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/RV_job"
@@ -14,16 +15,13 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <TextView
-        android:id="@+id/JOb_apply"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="No job Applied"
-        android:layout_centerHorizontal="true"
+    <ImageView
+        android:id="@+id/IV_nojob"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:src="@drawable/nojobapplied"
         android:layout_centerVertical="true"
-        android:textSize="@dimen/label"
-        android:textStyle="bold"
-        android:textColor="@color/orange"
+        android:layout_centerHorizontal="true"
         android:visibility="gone"/>
 
     <ProgressBar

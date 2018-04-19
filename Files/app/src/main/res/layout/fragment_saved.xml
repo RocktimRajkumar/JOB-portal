@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Viewed_Fragment">
+    tools:context=".Viewed_Fragment"
+    android:background="@color/gray">
 
 
     <android.support.v7.widget.RecyclerView
@@ -21,16 +22,14 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
 
-    <TextView
-        android:id="@+id/TV_nojob"
+
+    <ImageView
+        android:id="@+id/IV_nojob"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No job Saved"
-        android:layout_centerHorizontal="true"
+        android:layout_height="200dp"
+        android:src="@drawable/nojobsaved"
         android:layout_centerVertical="true"
-        android:textSize="@dimen/label"
-        android:textStyle="bold"
-        android:textColor="@color/orange"
+        android:layout_centerHorizontal="true"
         android:visibility="gone"/>
 
 </RelativeLayout>

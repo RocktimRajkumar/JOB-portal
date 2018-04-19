@@ -23,9 +23,11 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,8 +61,9 @@ public class NotificationFragment extends Fragment {
     private List<Job_details> listjob;
     private String allJob = "http://103.230.103.142/jobportalapp/job.asmx/GetJobDetails";
     private ProgressBar progressBar;
-    private TextView tv_nojob;
+    private ImageView iv_nojob;
     private ListView listView;
+    private RelativeLayout relativeNotify;
 
     private RequestQueue mRequestQueue;
 
@@ -75,8 +78,9 @@ public class NotificationFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_notification,container,false);
 
         progressBar=view.findViewById(R.id.progressbar);
-        tv_nojob=view.findViewById(R.id.NotificationJob);
+        iv_nojob=view.findViewById(R.id.NotificationJob);
         listView=view.findViewById(R.id.notifyjob);
+        relativeNotify=view.findViewById(R.id.RL__notify);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -132,14 +136,14 @@ public class NotificationFragment extends Fragment {
                     getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 
-                    tv_nojob.setVisibility(View.GONE);
+                    iv_nojob.setVisibility(View.GONE);
                     for (JobActivity jobActivity : arrayList) {
                         loadNotifyJob(jobActivity.getJobid());
                     }
 
                 } else {
                     progressBar.setVisibility(View.GONE);
-                    tv_nojob.setVisibility(View.VISIBLE);
+                    iv_nojob.setVisibility(View.VISIBLE);
                 }
 
             } else {
@@ -193,6 +197,7 @@ public class NotificationFragment extends Fragment {
 
                     listView.setAdapter(new NotificationJob());
                     progressBar.setVisibility(View.GONE);
+                    relativeNotify.setBackgroundColor(Color.argb(182,231,229,231));
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 
