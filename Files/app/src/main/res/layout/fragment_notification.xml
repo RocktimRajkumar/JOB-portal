@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RL__notify"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
    <ListView
        android:id="@+id/notifyjob"
@@ -23,16 +25,12 @@
         android:layout_centerVertical="true"
         android:visibility="visible"/>
 
-    <TextView
+    <ImageView
         android:id="@+id/NotificationJob"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No New Notification"
+        android:src="@drawable/no_notification_yet"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="@dimen/label"
-        android:textStyle="bold"
-        android:textColor="@color/orange"
-        android:visibility="gone"/>
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

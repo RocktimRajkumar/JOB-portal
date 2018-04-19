@@ -161,7 +161,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
         @Override
         public void onClick(View v) {
-
             Intent intent=new Intent(this.context,Apply_Job.class);
             intent.putExtra("jobid",job_details.getJbid());
             intent.putExtra("jobtitle",job_details.getJbtitle());
@@ -190,8 +189,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             intent.putExtra("jobdescription",job_details.getJbdescription());
             intent.putExtra("cprofile",job_details.getJbcompanyprofile());
             intent.putExtra("email",job_details.getJbemail());
-
             this.context.startActivity(intent);
+            ((Activity)context).overridePendingTransition(R.anim.topttobottom,R.anim.bottomtotop);
             ((Activity)context).finish();
         }
 

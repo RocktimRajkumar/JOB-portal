@@ -15,6 +15,14 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <ImageView
+        android:id="@+id/IV_nojob"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:src="@drawable/nojobfound"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 
     <ProgressBar
         android:id="@+id/progressbar"
@@ -100,5 +108,6 @@
             fab:fab_colorNormal="@color/colorAccent"/>
 
     </com.github.clans.fab.FloatingActionMenu>
+
 
 </RelativeLayout>

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fab="http://schemas.android.com/apk/res-auto">
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:background="@color/gray">
 
 
     <android.support.v7.widget.RecyclerView
@@ -12,6 +13,15 @@
         android:fadeScrollbars="true">
 
     </android.support.v7.widget.RecyclerView>
+
+    <ImageView
+        android:id="@+id/IV_nojob"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:src="@drawable/nojobviewed"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 
     <ProgressBar
         android:id="@+id/progressbar"

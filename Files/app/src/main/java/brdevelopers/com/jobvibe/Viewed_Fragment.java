@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +51,7 @@ public class Viewed_Fragment extends Fragment {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private RecyclerAdapter recyclerAdapter;
-    private TextView tv_nojob;
+    private ImageView iv_nojob;
 
     private RequestQueue mRequestQueue;
 
@@ -66,7 +67,7 @@ public class Viewed_Fragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_viewed,container,false);
         recyclerView = view.findViewById(R.id.RV_job);
         progressBar=view.findViewById(R.id.progressbar);
-        tv_nojob=view.findViewById(R.id.TV_nojob);
+        iv_nojob=view.findViewById(R.id.IV_nojob);
 
 // Instantiate the cache
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
@@ -90,17 +91,18 @@ public class Viewed_Fragment extends Fragment {
         listjob=new ArrayList<>();
         if(arrayList!=null){
 
-            tv_nojob.setVisibility(View.GONE);
+
+
+            iv_nojob.setVisibility(View.GONE);
             for (JobActivity jobActivity : arrayList) {
                 loadalViewedJob(jobActivity.getJobid());
             }
 
+
         }
         else {
             progressBar.setVisibility(View.GONE);
-            tv_nojob.setVisibility(View.VISIBLE);
-            if(getActivity()!=null)
-            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            iv_nojob.setVisibility(View.VISIBLE);
         }
 
         return view;
@@ -114,8 +116,7 @@ public class Viewed_Fragment extends Fragment {
 
                 Log.d("LogCheck",response);
                 progressBar.setVisibility(View.VISIBLE);
-                if(getActivity()!=null)
-                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
 
 
                 try {
@@ -186,15 +187,13 @@ public class Viewed_Fragment extends Fragment {
                     recyclerAdapter=new RecyclerAdapter(getActivity(),listjob);
                     recyclerView.setAdapter(recyclerAdapter);
                     progressBar.setVisibility(View.GONE);
-                    if(getActivity()!=null)
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("LogCheck",""+e);
                     progressBar.setVisibility(View.GONE);
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
             }
@@ -205,7 +204,6 @@ public class Viewed_Fragment extends Fragment {
                         Log.d("LogCheck",""+error);
                         Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 }){
 
@@ -246,7 +244,7 @@ public class Viewed_Fragment extends Fragment {
                 listjob=new ArrayList<>();
                 if(arrayList!=null){
 
-                    tv_nojob.setVisibility(View.GONE);
+                    iv_nojob.setVisibility(View.GONE);
                     for (JobActivity jobActivity : arrayList) {
                         loadalViewedJob(jobActivity.getJobid());
                     }
@@ -254,9 +252,8 @@ public class Viewed_Fragment extends Fragment {
                 }
                 else {
                     progressBar.setVisibility(View.GONE);
-                    tv_nojob.setVisibility(View.VISIBLE);
-                    if(getActivity()!=null)
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    iv_nojob.setVisibility(View.VISIBLE);
+
                 }
                 return true;
             default:
