@@ -48,10 +48,12 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
+            android:layout_width="95dp"
             android:layout_height="95dp"
             android:src="@drawable/face"
             android:scaleType="centerCrop"
+            android:layout_gravity="center"
+            android:layout_marginBottom="35dp"
             app:civ_border_width="2dp"
             app:civ_border_color="#FFFFFF"/>
 

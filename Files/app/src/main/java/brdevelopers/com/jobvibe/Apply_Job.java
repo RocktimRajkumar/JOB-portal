@@ -190,11 +190,19 @@ public class Apply_Job extends AppCompatActivity {
                 boolean bolsaved = db.isSavedExists(jobid, Home.canemail);
                 if (bolsaved) {
                     db.deleteSaved(jobid, Home.canemail);
-                    Toast.makeText(Apply_Job.this, "Job Unsaved", Toast.LENGTH_SHORT).show();
+                    View view =getLayoutInflater().inflate(R.layout.unsave_toast,(ViewGroup)findViewById(R.id.root));
+                    Toast toast=new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(view);
+                    toast.show();
                     saveimg.setImageResource(R.drawable.starwhite);
                 } else {
                     db.insertData(jobid, Home.canemail);
-                    Toast.makeText(Apply_Job.this, "Job Saved", Toast.LENGTH_SHORT).show();
+                    View view =getLayoutInflater().inflate(R.layout.save_toast,(ViewGroup)findViewById(R.id.root));
+                    Toast toast=new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(view);
+                    toast.show();
                     saveimg.setImageResource(R.drawable.starblue);
                 }
             }
