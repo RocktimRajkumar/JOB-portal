@@ -85,6 +85,14 @@ public class Recommended extends Fragment implements View.OnClickListener {
         floatskill.setOnClickListener(this);
         floatcompany.setOnClickListener(this);
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                floatingActionMenu.close(true);
+            }
+        });
+
         if(Util.isNetworkConnected(getActivity())) {
             getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             loadalljob();
@@ -125,13 +133,11 @@ public class Recommended extends Fragment implements View.OnClickListener {
             public void onClick(View v) {
                 Home.toolbar.setNavigationIcon(null);
                 menu.getItem(0).setVisible(false);
-                floatingActionMenu.hideMenu(true);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        floatingActionMenu.showMenu(true);
-                    }
-                },TIMMER);
+                boolean bol=floatingActionMenu.isOpened();
+                if(bol){
+                    floatingActionMenu.close(true);
+                }
+
             }
         });
 
@@ -140,7 +146,10 @@ public class Recommended extends Fragment implements View.OnClickListener {
             public boolean onClose() {
                 Home.toolbar.setNavigationIcon(Home.drawable);
                 menu.getItem(0).setVisible(true);
-                floatingActionMenu.showMenu(true);
+                boolean bol=floatingActionMenu.isOpened();
+                if(bol){
+                    floatingActionMenu.close(true);
+                }
                 return false;
             }
         });
