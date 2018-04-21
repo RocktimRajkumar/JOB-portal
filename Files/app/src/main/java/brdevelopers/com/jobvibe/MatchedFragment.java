@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 
 import com.android.volley.Cache;
@@ -28,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -42,7 +44,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
+import com.github.clans.fab.FloatingActionMenu;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,8 +67,9 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
     private HashSet<String> jblocation = new HashSet<>();
     private HashSet<String> jbcompany = new HashSet<>();
     private HashSet<String> jbskill = new HashSet<>();
-
     private ImageView nojob;
+    private FloatingActionMenu floatingActionMenu;
+    private static int TIMMER=250;
 
     private static String course;
 
@@ -92,7 +95,16 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         floatskill = view.findViewById(R.id.skill);
         floatcompany = view.findViewById(R.id.company);
         nojob=view.findViewById(R.id.IV_nojob);
+        floatingActionMenu=view.findViewById(R.id.menu);
 
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                   floatingActionMenu.close(true);
+            }
+        });
 
 
 // Instantiate the cache
@@ -154,8 +166,9 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
     }
 
 
+
     @Override
-    public void onCreateOptionsMenu(final Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         getActivity().getMenuInflater().inflate(R.menu.home, menu);
         inflater.inflate(R.menu.searchfile, menu);
@@ -171,15 +184,24 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
             public void onClick(View v) {
                 Home.toolbar.setNavigationIcon(null);
                 menu.getItem(0).setVisible(false);
+                boolean bol=floatingActionMenu.isOpened();
+                if(bol){
+                    floatingActionMenu.close(true);
+                }
 
             }
         });
+
 
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
                 Home.toolbar.setNavigationIcon(Home.drawable);
                 menu.getItem(0).setVisible(true);
+                boolean bol=floatingActionMenu.isOpened();
+                if(bol){
+                    floatingActionMenu.close(true);
+                }
                 return false;
             }
         });
@@ -190,6 +212,10 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
                 Home.toolbar.setNavigationIcon(Home.drawable);
                 menu.getItem(0).setVisible(true);
+                boolean bol=floatingActionMenu.isOpened();
+                if(bol){
+                    floatingActionMenu.close(true);
+                }
 
                 if(searchView.isIconified())
                     searchView.setIconified(true);
@@ -200,6 +226,10 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                boolean bol=floatingActionMenu.isOpened();
+                if(bol){
+                    floatingActionMenu.close(true);
+                }
                   searchFilter(newText);
                 return false;
             }
@@ -530,10 +560,23 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
                     checkedItemsskill[i]=false;
                     i++;
                 }
-                if (newCompany.size() != 0)
+
+                boolean bol=floatingActionMenu.isOpened();
+                if(bol){
+                    floatingActionMenu.close(true);
+                }
+
+                if (newCompany.size() != 0) {
+                    floatcompany.setLabelTextColor(Color.RED);
+                    floatskill.setLabelTextColor(Color.WHITE);
+                    floatlocation.setLabelTextColor(Color.WHITE);
                     loadNewCompanyJob(newCompany);
-                else
+                }
+                else {
+                    floatcompany.setLabelTextColor(Color.WHITE);
                     recyclerAdapter.filter(list);
+                    nojob.setVisibility(View.GONE);
+                }
 
             }
         });
@@ -592,9 +635,20 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
                     checkedItemsloc[i]=false;
                     i++;
                 }
-                if (newSkill.size() != 0)
+
+                boolean bol=floatingActionMenu.isOpened();
+                if(bol){
+                    floatingActionMenu.close(true);
+                }
+
+                if (newSkill.size() != 0) {
+                    floatcompany.setLabelTextColor(Color.WHITE);
+                    floatskill.setLabelTextColor(Color.RED);
+                    floatlocation.setLabelTextColor(Color.WHITE);
                     loadNewSkillJob(newSkill);
+                }
                 else {
+                    floatskill.setLabelTextColor(Color.WHITE);
                     recyclerAdapter.filter(list);
                     nojob.setVisibility(View.GONE);
                 }
@@ -657,9 +711,20 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
                     i++;
                 }
 
-                if (newLocation.size() != 0)
+
+                boolean bol=floatingActionMenu.isOpened();
+                if(bol){
+                    floatingActionMenu.close(true);
+                }
+
+                if (newLocation.size() != 0) {
+                    floatcompany.setLabelTextColor(Color.WHITE);
+                    floatskill.setLabelTextColor(Color.WHITE);
+                    floatlocation.setLabelTextColor(Color.RED);
                     loadNewLocationJob(newLocation);
+                }
                 else {
+                    floatlocation.setLabelTextColor(Color.WHITE);
                     recyclerAdapter.filter(list);
                     nojob.setVisibility(View.GONE);
                 }
