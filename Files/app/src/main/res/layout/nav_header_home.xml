@@ -14,9 +14,10 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
+        android:layout_width="95dp"
         android:layout_height="95dp"
         android:src="@drawable/face"
+        android:layout_gravity="center"
         android:scaleType="centerCrop"/>
 
     <TextView

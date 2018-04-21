@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,6 +54,8 @@ public class Recommended extends Fragment implements View.OnClickListener {
     private HashSet<String> jblocation=new HashSet<>();
     private HashSet<String> jbcompany=new HashSet<>();
     private HashSet<String> jbskill=new HashSet<>();
+    private FloatingActionMenu floatingActionMenu;
+    private static int TIMMER=250;
 
     private SearchView searchView;
 
@@ -72,6 +75,7 @@ public class Recommended extends Fragment implements View.OnClickListener {
         floatlocation=view.findViewById(R.id.location);
         floatskill=view.findViewById(R.id.skill);
         floatcompany=view.findViewById(R.id.company);
+        floatingActionMenu=view.findViewById(R.id.menu);
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
@@ -121,7 +125,13 @@ public class Recommended extends Fragment implements View.OnClickListener {
             public void onClick(View v) {
                 Home.toolbar.setNavigationIcon(null);
                 menu.getItem(0).setVisible(false);
-
+                floatingActionMenu.hideMenu(true);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        floatingActionMenu.showMenu(true);
+                    }
+                },TIMMER);
             }
         });
 
@@ -130,6 +140,7 @@ public class Recommended extends Fragment implements View.OnClickListener {
             public boolean onClose() {
                 Home.toolbar.setNavigationIcon(Home.drawable);
                 menu.getItem(0).setVisible(true);
+                floatingActionMenu.showMenu(true);
                 return false;
             }
         });
