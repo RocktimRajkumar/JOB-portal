@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -61,6 +63,8 @@ public class Applied_Fragment extends Fragment {
 
     private RequestQueue mRequestQueue;
 
+    private Animation animShow, animHide;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,15 +98,19 @@ public class Applied_Fragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        initAnimation();
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if(dy>0) {
+                    Home.layoutbottom.startAnimation(animHide);
                     Home.layoutbottom.setVisibility(View.GONE);
                 }
                 else if(dy<0){
+                    Home.layoutbottom.startAnimation(animShow);
                     Home.layoutbottom.setVisibility(View.VISIBLE);
 
                 }
@@ -135,6 +143,12 @@ public class Applied_Fragment extends Fragment {
         }
 
         return view;
+    }
+
+    private void initAnimation()
+    {
+        animShow = AnimationUtils.loadAnimation( getActivity(), R.anim.view_show);
+        animHide = AnimationUtils.loadAnimation( getActivity(), R.anim.view_hide);
     }
 
     private void loadAlljob() {

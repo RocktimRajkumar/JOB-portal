@@ -17,9 +17,13 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -64,6 +68,9 @@ public class NotificationFragment extends Fragment {
     private ImageView iv_nojob;
     private ListView listView;
     private RelativeLayout relativeNotify;
+    int mLastFirstVisibleItem=0;
+    int mLastVisibleItemCount=0;
+    private Animation animShow, animHide;
 
     private RequestQueue mRequestQueue;
 
@@ -81,6 +88,7 @@ public class NotificationFragment extends Fragment {
         iv_nojob=view.findViewById(R.id.NotificationJob);
         listView=view.findViewById(R.id.notifyjob);
         relativeNotify=view.findViewById(R.id.RL__notify);
+        initAnimation();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -111,6 +119,31 @@ public class NotificationFragment extends Fragment {
         });
 
 
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (mLastFirstVisibleItem > firstVisibleItem) {
+//                    Home.layoutbottom.setVisibility(View.VISIBLE);
+                    Log.e("logcheck", "scrolling upmh");
+                } else if (mLastFirstVisibleItem < firstVisibleItem) {
+                    Home.layoutbottom.startAnimation(animHide);
+                    Home.layoutbottom.setVisibility(View.GONE);
+                    Log.e("logcheck", "scrolling down");
+                } else if (mLastVisibleItemCount < visibleItemCount) {
+//                    Home.layoutbottom.setVisibility(View.GONE);
+                    Log.e("logcheck", "scrolling downim");
+                } else if (mLastVisibleItemCount > visibleItemCount) {
+                    Home.layoutbottom.startAnimation(animShow);
+                    Home.layoutbottom.setVisibility(View.VISIBLE);
+                    Log.e("logcheck", "scrolling up");
+                }
+                mLastFirstVisibleItem = firstVisibleItem;
+                mLastVisibleItemCount = visibleItemCount;
+            }
+
+            public void onScrollStateChanged(AbsListView listView, int scrollState) {
+            }
+        });
 
         // Instantiate the cache
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
@@ -167,6 +200,11 @@ public class NotificationFragment extends Fragment {
 
         }
 
+    private void initAnimation()
+    {
+        animShow = AnimationUtils.loadAnimation( getActivity(), R.anim.view_show);
+        animHide = AnimationUtils.loadAnimation( getActivity(), R.anim.view_hide);
+    }
 
     private void loadNotifyJob(final String jobid) {
 

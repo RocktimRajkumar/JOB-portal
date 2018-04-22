@@ -32,6 +32,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -76,6 +78,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
     boolean[] checkedItemscom;
     boolean[] checkedItemsskill;
     boolean[] checkedItemsloc;
+    private Animation animShow, animHide;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,6 +98,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         nojob=view.findViewById(R.id.IV_nojob);
         floatingActionMenu=view.findViewById(R.id.menu);
 
+        initAnimation();
 //        Hiding the bottom layout and floating button when scroll down and show when scroll up
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -103,10 +107,12 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if(dy>0) {
+                    Home.layoutbottom.startAnimation(animHide);
                     Home.layoutbottom.setVisibility(View.GONE);
                     floatingActionMenu.hideMenu(true);
                 }
                 else if(dy<0){
+                    Home.layoutbottom.startAnimation(animShow);
                     Home.layoutbottom.setVisibility(View.VISIBLE);
                     floatingActionMenu.showMenu(true);
 
@@ -183,7 +189,11 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
-
+    private void initAnimation()
+    {
+        animShow = AnimationUtils.loadAnimation( getActivity(), R.anim.view_show);
+        animHide = AnimationUtils.loadAnimation( getActivity(), R.anim.view_hide);
+    }
 
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
