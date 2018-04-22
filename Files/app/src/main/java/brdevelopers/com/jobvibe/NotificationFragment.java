@@ -110,6 +110,8 @@ public class NotificationFragment extends Fragment {
             }
         });
 
+
+
         // Instantiate the cache
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
 

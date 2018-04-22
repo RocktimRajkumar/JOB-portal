@@ -94,6 +94,21 @@ public class Applied_Fragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy>0) {
+                    Home.layoutbottom.setVisibility(View.GONE);
+                }
+                else if(dy<0){
+                    Home.layoutbottom.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
+
         cemail=Home.canemail;
 
         iv_nojob.setVisibility(View.VISIBLE);

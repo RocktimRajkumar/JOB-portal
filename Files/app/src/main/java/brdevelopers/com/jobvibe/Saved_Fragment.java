@@ -72,6 +72,21 @@ public class Saved_Fragment extends Fragment {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy>0) {
+                    Home.layoutbottom.setVisibility(View.GONE);
+                }
+                else if(dy<0){
+                    Home.layoutbottom.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
+
         DBManager dbManager=new DBManager(getActivity());
         arrayList=dbManager.getSavedData(Home.canemail);
 
