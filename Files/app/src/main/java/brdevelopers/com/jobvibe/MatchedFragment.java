@@ -1,11 +1,10 @@
 package brdevelopers.com.jobvibe;
 
 
-import android.app.AlertDialog;;
+import android.app.AlertDialog;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -44,7 +43,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.github.clans.fab.FloatingActionMenu;
 
 import org.json.JSONArray;
@@ -70,7 +68,6 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
     private HashSet<String> jbskill = new HashSet<>();
     private ImageView nojob;
     private FloatingActionMenu floatingActionMenu;
-    private static int TIMMER=250;
 
     private static String course;
 
@@ -98,15 +95,35 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         nojob=view.findViewById(R.id.IV_nojob);
         floatingActionMenu=view.findViewById(R.id.menu);
 
+//        Hiding the bottom layout and floating button when scroll down and show when scroll up
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                   floatingActionMenu.close(true);
+                if(dy>0) {
+                    Home.layoutbottom.setVisibility(View.GONE);
+                    floatingActionMenu.hideMenu(true);
+                }
+                else if(dy<0){
+                    Home.layoutbottom.setVisibility(View.VISIBLE);
+                    floatingActionMenu.showMenu(true);
+
+                }
             }
         });
 
+//        closing the floating menu when touch on Parent layout(Relative Layout)
+
+        view.findViewById(R.id.matchedRoot).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(floatingActionMenu.isOpened())
+                    floatingActionMenu.close(true);
+                return false;
+            }
+        });
 
 // Instantiate the cache
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
@@ -775,7 +792,6 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
                 }
                 else if(i==0) {
                     nojob.setVisibility(View.VISIBLE);
-                    nojob.setVisibility(View.GONE);
                 }
             }
         }

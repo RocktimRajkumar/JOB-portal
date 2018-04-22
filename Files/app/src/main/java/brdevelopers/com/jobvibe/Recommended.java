@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,10 +17,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,10 +57,15 @@ public class Recommended extends Fragment implements View.OnClickListener {
     private HashSet<String> jblocation=new HashSet<>();
     private HashSet<String> jbcompany=new HashSet<>();
     private HashSet<String> jbskill=new HashSet<>();
+    private ImageView nojob;
     private FloatingActionMenu floatingActionMenu;
-    private static int TIMMER=250;
 
     private SearchView searchView;
+
+    boolean[] checkedItemscom;
+    boolean[] checkedItemsskill;
+    boolean[] checkedItemsloc;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,7 +83,39 @@ public class Recommended extends Fragment implements View.OnClickListener {
         floatlocation=view.findViewById(R.id.location);
         floatskill=view.findViewById(R.id.skill);
         floatcompany=view.findViewById(R.id.company);
+        nojob=view.findViewById(R.id.IV_nojob);
         floatingActionMenu=view.findViewById(R.id.menu);
+
+
+//        Hiding the bottom layout and floating button when scroll down and show when scroll up
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy>0) {
+                    Home.layoutbottom.setVisibility(View.GONE);
+                    floatingActionMenu.hideMenu(true);
+                }
+                else if(dy<0){
+                    Home.layoutbottom.setVisibility(View.VISIBLE);
+                    floatingActionMenu.showMenu(true);
+
+                }
+            }
+        });
+
+//        closing the floating menu when touch on Parent layout(Relative Layout)
+
+        view.findViewById(R.id.recommendedRoot).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(floatingActionMenu.isOpened())
+                    floatingActionMenu.close(true);
+                return false;
+            }
+        });
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
@@ -87,13 +125,6 @@ public class Recommended extends Fragment implements View.OnClickListener {
         floatskill.setOnClickListener(this);
         floatcompany.setOnClickListener(this);
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                floatingActionMenu.close(true);
-            }
-        });
 
         if(Util.isNetworkConnected(getActivity())) {
             getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -315,6 +346,28 @@ public class Recommended extends Fragment implements View.OnClickListener {
 
                     }
 
+                    checkedItemsloc = new boolean[jblocation.size()];
+                    int i = 0;
+                    for (String s : jblocation) {
+                        checkedItemsloc[i] = false;
+                        i++;
+                    }
+
+                    checkedItemscom = new boolean[jbcompany.size()];
+                    int k = 0;
+                    for (String s : jbcompany) {
+                        checkedItemscom[k] = false;
+                        k++;
+                    }
+
+
+                    checkedItemsskill = new boolean[jbskill.size()];
+                    int l = 0;
+                    for (String s : jbskill) {
+                        checkedItemsskill[l] = false;
+                        l++;
+                    }
+
                     recyclerAdapter=new RecyclerAdapter(getActivity(),list);
                     recyclerView.setAdapter(recyclerAdapter);
                     progressBar.setVisibility(View.GONE);
@@ -378,24 +431,25 @@ public class Recommended extends Fragment implements View.OnClickListener {
 
         // add a checkbox list
         final String []company=jbcompany.toArray(new String[0]);
-        boolean[] checkedItems = new boolean[jbcompany.size()];
-        int i=0;
-        for (String s:jbcompany) {
-            checkedItems[i]=false;
-            i++;
+//        boolean[] checkedItems = new boolean[jbcompany.size()];
+        final List<String> newCompany = new ArrayList<>();
+        int a=0;
+        for(boolean bolu:checkedItemscom){
+            if(bolu)
+                newCompany.add(company[a]);
+            a++;
         }
 
 
-        final List<String> newCompany=new ArrayList<>();
 
-        builder.setMultiChoiceItems(company, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setMultiChoiceItems(company, checkedItemscom, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 // user checked or unchecked a box
                 if(isChecked)
                     newCompany.add(company[which]);
                 else
-                    newCompany.remove(which);
+                    newCompany.remove(company[which]);
             }
         });
 
@@ -404,9 +458,33 @@ public class Recommended extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // user clicked OK
+                int i = 0;
+                for (String s : jblocation) {
+                    checkedItemsloc[i] = false;
+                    i++;
+                }
+                i=0;
+                for(String s:jbskill){
+                    checkedItemsskill[i]=false;
+                    i++;
+                }
 
-                if(newCompany.size()!=0)
+                boolean bol=floatingActionMenu.isOpened();
+                if(bol){
+                    floatingActionMenu.close(true);
+                }
+
+                if (newCompany.size() != 0) {
+                    floatcompany.setLabelTextColor(Color.RED);
+                    floatskill.setLabelTextColor(Color.WHITE);
+                    floatlocation.setLabelTextColor(Color.WHITE);
                     loadNewCompanyJob(newCompany);
+                }
+                else {
+                    floatcompany.setLabelTextColor(Color.WHITE);
+                    recyclerAdapter.filter(list);
+                    nojob.setVisibility(View.GONE);
+                }
 
             }
         });
@@ -426,17 +504,17 @@ public class Recommended extends Fragment implements View.OnClickListener {
 
         // add a checkbox list
         final String []skill=jbskill.toArray(new String[0]);
-        final boolean[] checkedItems = new boolean[jbskill.size()];
-        int i=0;
-        for (String s:jbskill) {
-            checkedItems[i]=false;
-            i++;
+//        final boolean[] checkedItems = new boolean[jbskill.size()];
+        final List<String> newSkill = new ArrayList<>();
+
+        int a=0;
+        for(boolean bolu:checkedItemsskill){
+            if(bolu)
+                newSkill.add(skill[a]);
+            a++;
         }
 
-
-        final List<String> newSkill=new ArrayList<>();
-
-        builder.setMultiChoiceItems(skill, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setMultiChoiceItems(skill, checkedItemsskill, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 // user checked or unchecked a box
@@ -444,7 +522,7 @@ public class Recommended extends Fragment implements View.OnClickListener {
                     newSkill.add(skill[which]);
 
                 else
-                    newSkill.remove(which);
+                    newSkill.remove(skill[which]);
 
             }
         });
@@ -454,8 +532,33 @@ public class Recommended extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // user clicked OK
-                if(newSkill.size()!=0)
+                int i = 0;
+                for (String s : jbcompany) {
+                    checkedItemscom[i] = false;
+                    i++;
+                }
+                i=0;
+                for(String s:jblocation){
+                    checkedItemsloc[i]=false;
+                    i++;
+                }
+
+                boolean bol=floatingActionMenu.isOpened();
+                if(bol){
+                    floatingActionMenu.close(true);
+                }
+
+                if (newSkill.size() != 0) {
+                    floatcompany.setLabelTextColor(Color.WHITE);
+                    floatskill.setLabelTextColor(Color.RED);
+                    floatlocation.setLabelTextColor(Color.WHITE);
                     loadNewSkillJob(newSkill);
+                }
+                else {
+                    floatskill.setLabelTextColor(Color.WHITE);
+                    recyclerAdapter.filter(list);
+                    nojob.setVisibility(View.GONE);
+                }
 
             }
         });
@@ -475,23 +578,24 @@ public class Recommended extends Fragment implements View.OnClickListener {
 
         // add a checkbox list
         final String []location=jblocation.toArray(new String[0]);
-        final boolean[] checkedItems = new boolean[jblocation.size()];
-        int i=0;
-        for (String s:jblocation) {
-            checkedItems[i]=false;
-            i++;
+//        final boolean[] checkedItems = new boolean[jblocation.size()];
+        final List<String> newLocation = new ArrayList<>();
+
+        int a=0;
+        for(boolean bolu:checkedItemsloc){
+            if(bolu)
+                newLocation.add(location[a]);
+            a++;
         }
 
-        final List<String> newLocation=new ArrayList<>();
-
-        builder.setMultiChoiceItems(location, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setMultiChoiceItems(location, checkedItemsloc, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 // user checked or unchecked a box
                 if(isChecked)
                     newLocation.add(location[which]);
                 else
-                    newLocation.remove(which);
+                    newLocation.remove(location[which]);
 
             }
         });
@@ -501,8 +605,34 @@ public class Recommended extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // user clicked OK
-                if(newLocation.size()!=0)
+                int i = 0;
+                for (String s : jbcompany) {
+                    checkedItemscom[i] = false;
+                    i++;
+                }
+                i=0;
+                for(String s:jbskill){
+                    checkedItemsskill[i]=false;
+                    i++;
+                }
+
+
+                boolean bol=floatingActionMenu.isOpened();
+                if(bol){
+                    floatingActionMenu.close(true);
+                }
+
+                if (newLocation.size() != 0) {
+                    floatcompany.setLabelTextColor(Color.WHITE);
+                    floatskill.setLabelTextColor(Color.WHITE);
+                    floatlocation.setLabelTextColor(Color.RED);
                     loadNewLocationJob(newLocation);
+                }
+                else {
+                    floatlocation.setLabelTextColor(Color.WHITE);
+                    recyclerAdapter.filter(list);
+                    nojob.setVisibility(View.GONE);
+                }
 
 
             }
@@ -577,6 +707,7 @@ public class Recommended extends Fragment implements View.OnClickListener {
 
     public void searchFilter(String query)
     {
+        int i=0;
         query=query.toLowerCase();
         final List<Job_details> newlist=new ArrayList<>();
 
@@ -585,8 +716,12 @@ public class Recommended extends Fragment implements View.OnClickListener {
             final String name=job.getJbtitle().toLowerCase();
             if(name.startsWith(query))
             {
+                i=1;
+                nojob.setVisibility(View.GONE);
                 newlist.add(job);
             }
+            else if(i==0)
+                nojob.setVisibility(View.VISIBLE);
         }
         recyclerAdapter.filter(newlist);
     }

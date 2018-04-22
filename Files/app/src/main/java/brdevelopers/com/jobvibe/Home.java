@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 
@@ -63,6 +64,7 @@ public class Home extends AppCompatActivity
    private final int REQUEST_CODE_GALLERY=999;
    private Toolbar toolbar;
    private LinearLayout layoutHome,layoutActivity,layoutNotify;
+   public static LinearLayout layoutbottom;
 
 
     @Override
@@ -81,6 +83,7 @@ public class Home extends AppCompatActivity
         layoutHome=findViewById(R.id.layoutHome);
         layoutActivity=findViewById(R.id.layoutActivity);
         layoutNotify=findViewById(R.id.layoutNotification);
+        layoutbottom=findViewById(R.id.RL_buttons);
 
 
         tabLayout.setupWithViewPager(viewPager);
