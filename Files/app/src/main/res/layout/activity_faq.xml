@@ -200,7 +200,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="■ How do I Edit My Detials?"
+                android:text="■ How will I know about Information regarding selection process ?"
                 android:textSize="@dimen/label"
                 android:textColor="@color/bluehead"
                 android:textStyle="bold"/>
@@ -210,7 +210,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text=" ► You can edit or update you information by clicking on your profile section of the navigation drawer."
+                android:text=" ►Once you've successfully appied for a job using the Job Vibe app, team Job Vibe will notify you with all the information regarding the job you've applied for including the dates and location of the selection process. ."
                 android:textSize="@dimen/pofileTV"
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
@@ -221,7 +221,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="■ How do I Edit My Detials?"
+                android:text="■ What happens if I cannot make it to the selection process?"
                 android:textSize="@dimen/label"
                 android:textColor="@color/bluehead"
                 android:textStyle="bold"/>
@@ -231,7 +231,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text=" ► You can edit or update you information by clicking on your profile section of the navigation drawer."
+                android:text=" ► If you cannot make it to the selection process on the mentioned dates, it will be the Company who decides whether to give you another chance or not. You'll have to contact the Company directly on the contact details mentioned."
                 android:textSize="@dimen/pofileTV"
                 android:textColor="@color/black"
                 android:textStyle="bold"/>

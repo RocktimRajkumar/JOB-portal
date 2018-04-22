@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/black"
-                android:text="JobVibe is intended only to serve as a preliminary medium of contact and exchange of information for its users /members /visitors who have a bona fide intention to contact and/or be contacted for the purposes related to genuine existing job vacancies and for other career enhancement services." />
+                android:text="Job Vibe is intended only to serve as a preliminary medium of contact and exchange of information for its users /members /visitors who have a bona fide intention to contact and/or be contacted for the purposes related to genuine existing job vacancies and for other career enhancement services." />
 
             <TextView
                 android:layout_width="match_parent"
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/black"
-                android:text="Please read this page carefully. It contains the terms and conditions (the 'Terms and Conditions') governing your access to and use of the CareerBuilder Web Sites and the Services (as each are defined below) provided by JobVibe. If you do not accept these Terms and Conditions or you do not meet or comply with their provisions, you may not use the JobVibe application and Services. These Terms and Conditions are effective as of March 1, 2018." />
+                android:text="Please read this page carefully. It contains the terms and conditions (the 'Terms and Conditions') governing your access to and use of the CareerBuilder Web Sites and the Services (as each are defined below) provided by Job Vibe. If you do not accept these Terms and Conditions or you do not meet or comply with their provisions, you may not use the Job Vibe application and Services. These Terms and Conditions are effective as of March 1, 2018." />
 
             <TextView
                 android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/black"
-                android:text="These Terms and Conditions (as they may be amended from time to time by JobVibe), together with your Advertising and Candidate Search Service Agreement (if applicable), form a binding agreement (the 'Agreement') between you and JobVibe. Your access to or use of the JobVibe application and Services indicates your acceptance of these Terms and Conditions. You are agreeing to use the Services at your own risk." />
+                android:text="These Terms and Conditions (as they may be amended from time to time by Job Vibe), together with your Advertising and Candidate Search Service Agreement (if applicable), form a binding agreement (the 'Agreement') between you and Job Vibe. Your access to or use of the JobVibe application and Services indicates your acceptance of these Terms and Conditions. You are agreeing to use the Services at your own risk." />
 
             <TextView
                 android:layout_width="match_parent"
@@ -107,13 +107,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/black"
-                android:text=" You are responsible for maintaining the confidentiality of Your account, Profile and passwords, as applicable. You may not share Your password or other account access information with any other party, temporarily or permanently, and You shall be responsible for all uses of Your JobVibe services, registrations and passwords, whether or not authorized by You. You agree to immediately notify Monster of any unauthorized use of Your account, Profile, or passwords." />
+                android:text=" You are responsible for maintaining the confidentiality of Your account, Profile and passwords, as applicable. You may not share Your password or other account access information with any other party, temporarily or permanently, and You shall be responsible for all uses of Your Job Vibe services, registrations and passwords, whether or not authorized by You. You agree to immediately notify Monster of any unauthorized use of Your account, Profile, or passwords." />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="4. All JobVibe Users agree to not : "
+                android:text="4. All Job Vibe Users agree to not : "
                 android:textColor="@color/bluehead"
                 android:textSize="@dimen/label"
                 android:textStyle="bold" />
@@ -124,7 +124,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/black"
-                android:text="■ Take any action that imposes an unreasonable or disproportionately large load on any JobVibe's infrastructure. " />
+                android:text="■ Take any action that imposes an unreasonable or disproportionately large load on any Job Vibe's infrastructure. " />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -140,7 +140,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/black"
-                android:text="■ Violate or attempt to violate the security of any Monster Site including attempting to probe, scan or test the vulnerability of a system or network or to 	   breach security or authentication measures without proper authorization. " />
+                android:text="■ Violate or attempt to violate the security of any Monster Site including attempting to probe, scan or test the vulnerability of a system or network or to breach security or authentication measures without proper authorization. " />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -148,13 +148,13 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/black"
-                android:text="■ Reverse engineer or decompile any parts of any JobVibe application. " />
+                android:text="■ Reverse engineer or decompile any parts of any Job Vibe application. " />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text=" Violations of system or network security may result in civil and/or criminal liability. JobVibe team will investigate occurrences which may involve such violations and may involve, and cooperate with, law enforcement authorities in prosecuting Users who are involved in such violations."
+                android:text=" Violations of system or network security may result in civil and/or criminal liability. Job Vibe team will investigate occurrences which may involve such violations and may involve, and cooperate with, law enforcement authorities in prosecuting Users who are involved in such violations."
                 android:textSize="@dimen/label"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
