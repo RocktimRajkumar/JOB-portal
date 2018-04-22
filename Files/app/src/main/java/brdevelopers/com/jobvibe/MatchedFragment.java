@@ -18,6 +18,7 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.github.clans.fab.FloatingActionButton;
 
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +34,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -69,7 +73,6 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
     private HashSet<String> jbskill = new HashSet<>();
     private ImageView nojob;
     private FloatingActionMenu floatingActionMenu;
-    private static int TIMMER=250;
 
     private static String course;
 
@@ -97,15 +100,35 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         nojob=view.findViewById(R.id.IV_nojob);
         floatingActionMenu=view.findViewById(R.id.menu);
 
+//        Hiding the bottom layout and floating button when scroll down and show when scroll up
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                   floatingActionMenu.close(true);
+                if(dy>0) {
+                    Home.layoutbottom.setVisibility(View.GONE);
+                    floatingActionMenu.hideMenu(true);
+                }
+                else if(dy<0){
+                    Home.layoutbottom.setVisibility(View.VISIBLE);
+                    floatingActionMenu.showMenu(true);
+
+                }
             }
         });
 
+//        closing the floating menu when touch on Parent layout(Relative Layout)
+
+        view.findViewById(R.id.matchedRoot).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(floatingActionMenu.isOpened())
+                    floatingActionMenu.close(true);
+                return false;
+            }
+        });
 
 // Instantiate the cache
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
