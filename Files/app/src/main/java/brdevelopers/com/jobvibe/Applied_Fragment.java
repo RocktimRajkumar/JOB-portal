@@ -63,6 +63,8 @@ public class Applied_Fragment extends Fragment {
 
     private RequestQueue mRequestQueue;
 
+    private int scroll=0;
+
     private Animation animShow, animHide;
 
     @Override
@@ -106,12 +108,18 @@ public class Applied_Fragment extends Fragment {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if(dy>0) {
-                    Home.layoutbottom.startAnimation(animHide);
-                    Home.layoutbottom.setVisibility(View.GONE);
+                    if(scroll==0) {
+                        scroll=1;
+                        Home.layoutbottom.startAnimation(animHide);
+                        Home.layoutbottom.setVisibility(View.GONE);
+                    }
                 }
                 else if(dy<0){
-                    Home.layoutbottom.startAnimation(animShow);
-                    Home.layoutbottom.setVisibility(View.VISIBLE);
+                    if(scroll==1) {
+                        scroll=0;
+                        Home.layoutbottom.startAnimation(animShow);
+                        Home.layoutbottom.setVisibility(View.VISIBLE);
+                    }
 
                 }
             }

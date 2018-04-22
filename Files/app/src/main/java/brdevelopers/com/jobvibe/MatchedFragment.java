@@ -70,6 +70,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
     private HashSet<String> jbskill = new HashSet<>();
     private ImageView nojob;
     private FloatingActionMenu floatingActionMenu;
+    private int scroll=0;
 
     private static String course;
 
@@ -106,15 +107,22 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+
                 if(dy>0) {
-                    Home.layoutbottom.startAnimation(animHide);
-                    Home.layoutbottom.setVisibility(View.GONE);
-                    floatingActionMenu.hideMenu(true);
+                    if(scroll==0) {
+                        scroll = 1;
+                        Home.layoutbottom.startAnimation(animHide);
+                        Home.layoutbottom.setVisibility(View.GONE);
+                        floatingActionMenu.hideMenu(true);
+                    }
                 }
                 else if(dy<0){
-                    Home.layoutbottom.startAnimation(animShow);
-                    Home.layoutbottom.setVisibility(View.VISIBLE);
-                    floatingActionMenu.showMenu(true);
+                    if(scroll==1) {
+                        scroll=0;
+                        Home.layoutbottom.startAnimation(animShow);
+                        Home.layoutbottom.setVisibility(View.VISIBLE);
+                        floatingActionMenu.showMenu(true);
+                    }
 
                 }
             }

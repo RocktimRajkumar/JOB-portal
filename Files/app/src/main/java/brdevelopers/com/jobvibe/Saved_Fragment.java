@@ -57,6 +57,7 @@ public class Saved_Fragment extends Fragment {
     private RequestQueue mRequestQueue;
 
     private Animation animShow, animHide;
+    private int scroll=0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,12 +85,18 @@ public class Saved_Fragment extends Fragment {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if(dy>0) {
-                    Home.layoutbottom.startAnimation(animHide);
-                    Home.layoutbottom.setVisibility(View.GONE);
+                    if(scroll==0) {
+                        scroll=1;
+                        Home.layoutbottom.startAnimation(animHide);
+                        Home.layoutbottom.setVisibility(View.GONE);
+                    }
                 }
                 else if(dy<0){
-                    Home.layoutbottom.startAnimation(animShow);
-                    Home.layoutbottom.setVisibility(View.VISIBLE);
+                    if(scroll==1) {
+                        scroll=0;
+                        Home.layoutbottom.startAnimation(animShow);
+                        Home.layoutbottom.setVisibility(View.VISIBLE);
+                    }
 
                 }
             }
