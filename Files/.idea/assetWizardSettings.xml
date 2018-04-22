@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/F:/Android/plugins/android/lib/android.jar!/images/material_design_icons/notification/ic_do_not_disturb_on_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/F:/Android/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_search_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -34,7 +34,8 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_unsave" />
+                            <entry key="outputName" value="search" />
+                            <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\Uchiha Itachi" />
                           </map>
                         </option>

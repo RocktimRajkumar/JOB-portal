@@ -32,6 +32,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -192,19 +193,20 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         final MenuItem myactionmenu=menu.findItem(R.id.search);
         searchView=(SearchView)myactionmenu.getActionView();
 
-        Home.toolbar.setNavigationIcon(Home.drawable);
+
 
         searchView.setQueryHint(Html.fromHtml("<font color = #000>" + getResources().getString(R.string.search_title) + "</font>"));
 
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Home.toolbar.setNavigationIcon(null);
-                menu.getItem(0).setVisible(false);
+
                 boolean bol=floatingActionMenu.isOpened();
                 if(bol){
                     floatingActionMenu.close(true);
                 }
+                searchView.setBackgroundResource(R.drawable.searchview_bg);
+                ((EditText)searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(Color.BLACK);
 
             }
         });
@@ -213,8 +215,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                Home.toolbar.setNavigationIcon(Home.drawable);
-                menu.getItem(0).setVisible(true);
+
                 boolean bol=floatingActionMenu.isOpened();
                 if(bol){
                     floatingActionMenu.close(true);
@@ -227,7 +228,7 @@ public class MatchedFragment extends Fragment implements View.OnClickListener {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-                Home.toolbar.setNavigationIcon(Home.drawable);
+//                Home.toolbar.setNavigationIcon(Home.drawable);
                 menu.getItem(0).setVisible(true);
                 boolean bol=floatingActionMenu.isOpened();
                 if(bol){
