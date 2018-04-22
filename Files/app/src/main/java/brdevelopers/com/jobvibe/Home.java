@@ -61,8 +61,7 @@ public class Home extends AppCompatActivity
    private TabLayout tabLayout;
    private ViewPager viewPager;
    private final int REQUEST_CODE_GALLERY=999;
-   public static Toolbar toolbar;
-   public static Drawable drawable;
+   private Toolbar toolbar;
    private LinearLayout layoutHome,layoutActivity,layoutNotify;
 
 
@@ -145,8 +144,6 @@ public class Home extends AppCompatActivity
         tv_home.setVisibility(View.VISIBLE);
         iv_activity.setImageResource(R.drawable.ic_activity);
         iv_notification.setImageResource(R.drawable.ic_notification);
-
-        drawable=toolbar.getNavigationIcon();
 
         loadProfilePic();
     }
