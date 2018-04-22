@@ -394,23 +394,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         android:orientation="horizontal"
-        android:background="@color/gray">
+        android:background="@color/colorPrimary">
 
         <LinearLayout
             android:id="@+id/LL_save"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:gravity="center"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
             android:elevation="5dp"
-            android:background="@drawable/apply_button_back">
+            android:background="@color/white">
 
             <ImageView
                 android:id="@+id/IV_save"
@@ -427,22 +425,19 @@
                 android:gravity="center"
                 android:textColor="@color/bluehead"
                 android:textStyle="bold"
-                android:textSize="@dimen/label"
-                />
+                android:textSize="@dimen/label" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/LL_apply"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
             android:elevation="5dp"
-            android:background="@color/bluehead"
+            android:background="@color/colorAccent"
             android:gravity="center">
 
             <TextView
@@ -454,8 +449,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="@dimen/label"
-               />
+                android:textSize="@dimen/label"/>
 
         </LinearLayout>
 
