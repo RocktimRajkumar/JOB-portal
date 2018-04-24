@@ -1,6 +1,6 @@
 # JOB-portal
 ## Job Vibe 
-![Sample Portfolio](https://github.com/Rocktim53/JOB-portal/blob/master/jvtie.png)
+ ![Sample Portfolio](https://github.com/Rocktim53/JOB-portal/blob/master/jvtie.png)
 
  # PROJECT DESCRIPTION
  # ===================
