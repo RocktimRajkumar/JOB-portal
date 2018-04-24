@@ -33,7 +33,7 @@ After this process is completed, the user will be asked to fill some more blanks
  ![Sample Portfolio](https://github.com/Rocktim53/JOB-portal/blob/master/screenshots/screenshot/Signup.png)
 
  # Addition Information
- ![Sample Portfolio](https://github.com/Rocktim53/JOB-portal/blob/master/screenshots/screenshot/ProfilePersonal.png)
+ ![Sample Portfolio](https://github.com/Rocktim53/JOB-portal/blob/master/screenshots/screenshot/Addition_Information.png)
 
 
 
