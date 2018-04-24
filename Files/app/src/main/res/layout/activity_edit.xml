@@ -25,6 +25,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/TV_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
@@ -35,6 +36,7 @@
                 android:textColor="@color/white"/>
 
             <TextView
+                android:id="@+id/TV_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
