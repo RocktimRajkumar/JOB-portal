@@ -2,6 +2,6 @@
 
     <solid android:color="@android:color/white" />
 
-    <stroke android:width="2dp" android:color="@color/colorAccent"/>
+    <stroke android:width="3dp" android:color="@color/bluehead"/>
 
 </shape>
