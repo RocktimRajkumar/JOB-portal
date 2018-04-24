@@ -1,5 +1,5 @@
 # JOB-portal
-##Job Vibe 
+## Job Vibe 
 ![Sample Portfolio](https://github.com/Rocktim53/JOB-portal/blob/master/jvtie.png)
 
  # PROJECT DESCRIPTION
@@ -22,12 +22,14 @@
 ## LogIn
 The 'Login' activity is added in order to verify the credentials of an authorized user. The user needs to enter proper
 credentials to access the rest of the functionalities.
+
  ![Sample Portfolio](https://github.com/Rocktim53/JOB-portal/blob/master/screenshots/screenshot/Login.png)
 
 ## SignUp
 The 'Sign up' activity allows the user to register himself in Job Vibe. This will allow the user to search and apply for Jobs. 
 During the sign up process, the user must first enter a valid email address followed by a password of his/her choice(minimum 8 charaters needed).
- After this process is completed, the user will be asked to fill some more blanks regarding his/her personal and education information.
+After this process is completed, the user will be asked to fill some more blanks regarding his/her personal and education information.
+
  ![Sample Portfolio](https://github.com/Rocktim53/JOB-portal/blob/master/screenshots/screenshot/Signup.png)
 
  # Addition Information
