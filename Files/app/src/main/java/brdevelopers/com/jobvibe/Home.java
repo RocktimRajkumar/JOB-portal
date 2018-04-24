@@ -344,7 +344,7 @@ public class Home extends AppCompatActivity
             String sub="The best Job Portal app in India.";
             share.putExtra(Intent.EXTRA_TEXT,body);
             share.putExtra(Intent.EXTRA_SUBJECT,sub);
-            share.putExtra(Intent.EXTRA_TEXT," https://drive.google.com/file/d/1wzdulZGgp7K55NIkMYb5EkqhYyQJYaKO/view");
+            share.putExtra(Intent.EXTRA_TEXT,"https://drive.google.com/file/d/1bpu0_9l52LilIhlLOE48_xTYQEdHBYvC/view?usp=sharing");
             startActivity(Intent.createChooser(share,"Share Using"));
 
         }
