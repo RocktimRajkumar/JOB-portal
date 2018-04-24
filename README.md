@@ -32,8 +32,19 @@ After this process is completed, the user will be asked to fill some more blanks
 
  ![Sample Portfolio](https://github.com/Rocktim53/JOB-portal/blob/master/screenshots/screenshot/Signup.png)
 
- # Addition Information
+ ## Addition Information
  ![Sample Portfolio](https://github.com/Rocktim53/JOB-portal/blob/master/screenshots/screenshot/Addition_Information.png)
 
+## Home
+ This is first layout the user interacts with after his/her registration is completed. Here he/she will find two tabs headed as 'Matched' and 'Recommended'.
+ While in 'Matched' the user will see jobs according to his qualification whereas in 'Recommended' he/she will see all the available jobs. The user can also
+ filter the jobs according to his/her Skill, Location and preferred Company. He/she can also search job according to desired field of work,say for example
+ Mobile App Development.
+
+ ![Sample Portfolio](https://github.com/Rocktim53/JOB-portal/blob/master/screenshots/screenshot/MatchedRecommended.png)
 
 
+## Activity
+ It keeps track of user's activity within the app which includes the job he/she viewed, saved or applied.
+
+ ![Sample Portfolio](https://github.com/Rocktim53/JOB-portal/blob/master/screenshots/screenshot/Activity.png)
