@@ -87,7 +87,7 @@ public class Sign_up extends AppCompatActivity implements TextWatcher,View.OnCli
     public void afterTextChanged(Editable s) {
 
         String email = et_email.getText().toString().trim();
-        String pattern = "^[a-zA-Z0-9]{1,20}@[a-zA-Z]{1,10}.(com|org)$";
+        String pattern = "^[a-zA-Z0-9._]{1,20}@[a-zA-Z]{1,10}.(com|org)$";
         Matcher matcherObj = Pattern.compile(pattern).matcher(email);
 
         if(et_email.getText().length()>0 && !matcherObj.matches()) {

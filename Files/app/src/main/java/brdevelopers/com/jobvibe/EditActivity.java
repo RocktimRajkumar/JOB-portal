@@ -27,7 +27,7 @@ import java.io.InputStream;
 
 public class EditActivity extends AppCompatActivity implements View.OnClickListener{
 
-    TextView tv_personal,tv_education;
+    TextView tv_personal,tv_education,tv_name,tv_email;
     ImageView profileimg;
     private final int REQUEST_CODE_GALLERY=999;
     ImageView iv_back;
@@ -45,6 +45,11 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         tv_education=findViewById(R.id.TV_editEducation);
         iv_back=findViewById(R.id.IV_back_arrow);
         profileimg=findViewById(R.id.imageView);
+        tv_name=findViewById(R.id.TV_name);
+        tv_email=findViewById(R.id.TV_email);
+
+        tv_name.setText(name);
+        tv_email.setText(emailh);
 
 
         profileimg.setOnClickListener(new View.OnClickListener() {
