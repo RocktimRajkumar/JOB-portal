@@ -394,21 +394,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:orientation="horizontal"
-        android:background="@color/colorPrimary">
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/LL_save"
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:elevation="5dp"
-            android:background="@color/white">
+            android:background="@drawable/apply_button_back">
 
             <ImageView
                 android:id="@+id/IV_save"
@@ -432,10 +432,8 @@
         <LinearLayout
             android:id="@+id/LL_apply"
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
             android:elevation="5dp"
             android:background="@color/colorAccent"
             android:gravity="center">
