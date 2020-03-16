@@ -1,4 +1,5 @@
 
+
 # JOB-portal
 **IP address of the API's has been changed pls follow the readme till end. Forked it and change it respectively.**
 ## Job Vibe 
@@ -54,30 +55,30 @@ After this process is completed, the user will be asked to fill some more blanks
 
 ## API
 **Job Seeker  API**
-| | Path  | Description  | |
-|--|--|--|--|
-| |[http://103.230.103.93/jobportalapp/job.asmx?op=ApplyJob](http://103.230.103.93/jobportalapp/job.asmx?op=ApplyJob)  | Apply Job | |
-||[http://103.230.103.93/jobportalapp/job.asmx?op=CandidateLogin](http://103.230.103.93/jobportalapp/job.asmx?op=CandidateLogin)|Candidate Login||
-||[http://103.230.103.93/jobportalapp/job.asmx?op=EditCandidateEducationalDetails](http://103.230.103.93/jobportalapp/job.asmx?op=EditCandidateEducationalDetails)|Edit Candidate Education Details||
-||[http://103.230.103.93/jobportalapp/job.asmx?op=EditCandidatePersonalDetails](http://103.230.103.93/jobportalapp/job.asmx?op=EditCandidatePersonalDetails)|Edit Candidate Personal Details||
-||[http://103.230.103.93/jobportalapp/job.asmx?op=GetBranch](http://103.230.103.93/jobportalapp/job.asmx?op=GetBranch)|Get Branch||
-||[http://103.230.103.93/jobportalapp/job.asmx?op=GetCandidateDetails](http://103.230.103.93/jobportalapp/job.asmx?op=GetCandidateDetails)|Get Candidate Details||
-||[http://103.230.103.93/jobportalapp/job.asmx?op=GetCourse](http://103.230.103.93/jobportalapp/job.asmx?op=GetCourse)|Get Course||
-||[http://103.230.103.93/jobportalapp/job.asmx?op=GetJobDetails](http://103.230.103.93/jobportalapp/job.asmx?op=GetJobDetails)|Get Job Details||
-||[http://103.230.103.93/jobportalapp/job.asmx?op=GetLocation](http://103.230.103.93/jobportalapp/job.asmx?op=GetLocation)|Get Location||
-||[http://103.230.103.93/jobportalapp/job.asmx?op=GetResponse](http://103.230.103.93/jobportalapp/job.asmx?op=GetResponse)|Get Response||
-||[http://103.230.103.93/jobportalapp/job.asmx?op=GetSkill](http://103.230.103.93/jobportalapp/job.asmx?op=GetSkill)|Get Skill||
-||[http://103.230.103.93/jobportalapp/job.asmx?op=JobSearch](http://103.230.103.93/jobportalapp/job.asmx?op=JobSearch)|Search Job||
-||[http://103.230.103.93/jobportalapp/job.asmx?op=SaveCandidate](http://103.230.103.93/jobportalapp/job.asmx?op=SaveCandidate)|Save Candidate||
-|||||
+| Path  | Description  |
+|--|--|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=ApplyJob](http://103.230.103.93/jobportalapp/job.asmx?op=ApplyJob)  | Apply Job |
+|[http://103.230.103.93/jobportalapp/job.asmx?op=CandidateLogin](http://103.230.103.93/jobportalapp/job.asmx?op=CandidateLogin)|Candidate Login|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=EditCandidateEducationalDetails](http://103.230.103.93/jobportalapp/job.asmx?op=EditCandidateEducationalDetails)|Edit Candidate Education Details|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=EditCandidatePersonalDetails](http://103.230.103.93/jobportalapp/job.asmx?op=EditCandidatePersonalDetails)|Edit Candidate Personal Details|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=GetBranch](http://103.230.103.93/jobportalapp/job.asmx?op=GetBranch)|Get Branch|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=GetCandidateDetails](http://103.230.103.93/jobportalapp/job.asmx?op=GetCandidateDetails)|Get Candidate Details|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=GetCourse](http://103.230.103.93/jobportalapp/job.asmx?op=GetCourse)|Get Course|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=GetJobDetails](http://103.230.103.93/jobportalapp/job.asmx?op=GetJobDetails)|Get Job Details|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=GetLocation](http://103.230.103.93/jobportalapp/job.asmx?op=GetLocation)|Get Location|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=GetResponse](http://103.230.103.93/jobportalapp/job.asmx?op=GetResponse)|Get Response|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=GetSkill](http://103.230.103.93/jobportalapp/job.asmx?op=GetSkill)|Get Skill|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=JobSearch](http://103.230.103.93/jobportalapp/job.asmx?op=JobSearch)|Search Job|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=SaveCandidate](http://103.230.103.93/jobportalapp/job.asmx?op=SaveCandidate)|Save Candidate|
+|||
 
 **Recruiter API**
-| | Path | Description | |
-|--|--|--|--|
-|  | [http://103.230.103.93/jobportalapp/job.asmx?op=CompanyLogin](http://103.230.103.93/jobportalapp/job.asmx?op=CompanyLogin) | Company Login | |
-||[http://103.230.103.93/jobportalapp/job.asmx?op=EditCompanyProfile](http://103.230.103.93/jobportalapp/job.asmx?op=EditCompanyProfile)|Edit Company Profile||
-||[http://103.230.103.93/jobportalapp/job.asmx?op=GetInterviewSchduleDate](http://103.230.103.93/jobportalapp/job.asmx?op=GetInterviewSchduleDate)|Get Interview Schedule Date||
-||[http://103.230.103.93/jobportalapp/job.asmx?op=InterviewDateSchdule](http://103.230.103.93/jobportalapp/job.asmx?op=InterviewDateSchdule)| Interview Date Schedule||
-||[http://103.230.103.93/jobportalapp/job.asmx?op=SaveCompany](http://103.230.103.93/jobportalapp/job.asmx?op=SaveCompany)|Save Company||
-| | | | |
+| Path | Description |
+|--|--|
+| [http://103.230.103.93/jobportalapp/job.asmx?op=CompanyLogin](http://103.230.103.93/jobportalapp/job.asmx?op=CompanyLogin) | Company Login |
+|[http://103.230.103.93/jobportalapp/job.asmx?op=EditCompanyProfile](http://103.230.103.93/jobportalapp/job.asmx?op=EditCompanyProfile)|Edit Company Profile|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=GetInterviewSchduleDate](http://103.230.103.93/jobportalapp/job.asmx?op=GetInterviewSchduleDate)|Get Interview Schedule Date|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=InterviewDateSchdule](http://103.230.103.93/jobportalapp/job.asmx?op=InterviewDateSchdule)| Interview Date Schedule|
+|[http://103.230.103.93/jobportalapp/job.asmx?op=SaveCompany](http://103.230.103.93/jobportalapp/job.asmx?op=SaveCompany)|Save Company|
+| | |
 
